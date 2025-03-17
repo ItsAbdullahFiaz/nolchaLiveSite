@@ -1,0 +1,158 @@
+<div class="video-gallery">
+    <!-- Video 1 (Shifted Up) -->
+    <div class="video-item video-offset-up">
+      <div class="video-frame">
+        <iframe
+          src="https://player.vimeo.com/video/1058015735?h=0ab5706879&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&background=1"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Video 2 (Shifted Down) -->
+    <div class="video-item video-offset-down">
+      <div class="video-frame">
+        <iframe
+          src="https://player.vimeo.com/video/1058015831?h=ac0aa62c52&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&background=1"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Video 3 (Shifted Up) -->
+    <div class="video-item video-offset-up">
+      <div class="video-frame">
+        <iframe
+          src="https://player.vimeo.com/video/1058015872?h=a1392171d5&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&background=1"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Video 4 (Shifted Down) -->
+    <div class="video-item video-offset-down">
+      <div class="video-frame">
+        <iframe
+          src="https://player.vimeo.com/video/1058015956?h=0651486129&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&background=1"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+</div>
+
+<style>
+/* Video Gallery Layout (Now Fits Squarespace Sections) */
+.video-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Aligns properly in Squarespace */
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: none;
+  margin: auto;
+  padding: 40px 0; /* Adjusted for section compatibility */
+}
+
+/* Video Card Container */
+.video-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 300px;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #1a1a1a, #222);
+  box-shadow: 
+    0px 1px 45px rgba(227, 222, 255, 0.05) inset, 
+    0px 4px 20px rgba(154, 146, 210, 0.05) inset, 
+    0px 110px 110px -60px rgba(202, 172, 255, 0.05) inset, 
+    0px -90px 75px -75px rgba(96, 68, 144, 0.05) inset, 
+    0px 8px 12px -4px rgba(255, 255, 255, 0.07) inset, 
+    0px 45px 55px -3px rgba(255, 255, 255, 0.02) inset, 
+    0px 1px 14px -8px rgba(0, 0, 0, 0.10), 
+    0px 28px 38px -7px rgba(0, 0, 0, 0.40);
+  overflow: hidden;
+  padding: 12px; /* Reduced padding to balance borders */
+}
+
+/* Alternating Offsets for Layout */
+.video-offset-up {
+  margin-top: -20px;
+}
+.video-offset-down {
+  margin-top: 140px;
+}
+
+/* Video Frame */
+.video-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* Fully Responsive Videos */
+.video-frame iframe {
+  width: 100%;
+  height: 110%;
+  object-fit: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .video-gallery {
+    gap: 12px;
+  }
+  .video-item {
+    max-width: 350px;
+  }
+  .video-offset-up {
+    margin-top: -10px;
+  }
+  .video-offset-down {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-gallery {
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+    padding: 0;
+  }
+  .video-item {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    background: #1a1a1a;
+    box-shadow:
+      0px 6px 12px rgba(255, 255, 255, 0.07),
+      inset 0px 1px 5px rgba(255, 255, 255, 0.08),
+      inset 0px -1px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+  }
+  .video-offset-up,
+  .video-offset-down {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-item {
+    max-width: 300px;
+    border-radius: 12px;
+  }
+}
+</style>
