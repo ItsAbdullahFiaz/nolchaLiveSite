@@ -1,0 +1,305 @@
+<div class="tg-parallax-scroll">
+    <div class="tg-parallax-wrapper">
+      <div class="tg-card" data-card="1">
+        <div class="tg-content-container tg-reverse-layout">
+            <div class="tg-text-section">
+              <p>
+                “When I think of fashion, I think of expression: really showing what
+                you have on the inside on the outside. Working with the students,
+                and model mentors with disabilities to make this happen was a joyful
+                experience.
+              </p>
+    
+              <p class="tg-highlight">
+                I am so thrilled to have been part of this project – and to see the
+                extraordinary work and how well it was received.” - Anna Sui, Show
+                Mentor & Fashion Designer
+              </p>
+            </div>
+            <div class="tg-media-section">
+                <video
+                id="video"
+                width="100%"
+                height="100%"
+                muted
+                loop
+                playsinline
+                              style="border-radius: 15px; width: 100%; height: 100%; object-fit: cover;"
+              ></video>
+              <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+              <script>
+                if (Hls.isSupported()) {
+                  var video = document.getElementById('video');
+                  var hls = new Hls();
+                  hls.loadSource('https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/22933cb8-9f70-43f4-8cb7-d0fd25975a77/playlist.m3u8');
+                  hls.attachMedia(video);
+                  hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    video.play();
+                  });
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                  video.src = 'https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/22933cb8-9f70-43f4-8cb7-d0fd25975a77/playlist.m3u8';
+                  video.addEventListener('loadedmetadata', function () {
+                    video.play();
+                  });
+                }
+              </script>
+              </div>
+        </div>
+      </div>
+      <div class="tg-card" data-card="2">
+          <div class="tg-content-container">
+              <div class="tg-text-section">
+                <p>
+                  Models included Madison Ferris, who starred as Laura Wingfield in
+                  Sam Gold’s production of “The Glass Menagerie;” Andrea Dalzell, a
+                  former Miss Wheelchair New York, and Jessy Yates, the first
+                  physically disabled person to be admitted to Yale’s Graduate School
+                  of Drama.
+                </p>
+      
+                <p class="tg-highlight">
+                  “It’s tough to admit, but it’s often hard for people to see past
+                  disability,” said Yates. “There are so many misconceptions and
+                  misperceptions. What better way to change this than by creating
+                  fashion that helps us to see it all differently?”
+                </p>
+              </div>
+              <div class="tg-media-section">
+                <img
+                  src="https://images.squarespace-cdn.com/content/6789f9b670aa41255d8bfede/9f931410-ddea-4d89-b974-c25e4c061718/ladyimg.png?content-type=image%2Fpng"
+                  alt="Event Image"
+                />
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    /* General Section Styles */
+    .tg-parallax-section {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px 20px; /* Reduced padding for mobile */
+      overflow: hidden;
+      background: none;
+      opacity: 0;
+      transform: translateY(100px);
+    }
+  
+    /* Content Layout */
+    .tg-content-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      gap: 30px;
+      padding: 40px 20px;
+      min-height: 380px;
+      border-radius: 15px;
+      background: #1a1a1a;
+      box-shadow: 0px 0.8px 32px 0px rgba(227, 222, 255, 0.05) inset,
+        0px 3.19px 14.37px 0px rgba(154, 146, 210, 0.05) inset,
+        0px 78.26px 78.26px -38.33px rgba(202, 172, 255, 0.05) inset,
+        0px -65.48px 54.3px -51.11px rgba(96, 68, 144, 0.05) inset,
+        0px 5.59px 8.78px -3.25px rgba(255, 255, 255, 0.07) inset,
+        0px 32px 40px -2px rgba(255, 255, 255, 0.02) inset,
+        0px 0.5px 10px -6px rgba(0, 0, 0, 0.1),
+        0px 20px 26px -5px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+    }
+  
+    /* Reverse layout for second section */
+    .tg-reverse-layout {
+      flex-direction: row-reverse;
+    }
+  
+    /* Text Styling */
+    .tg-text-section {
+      flex: 1;
+      color: white;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: left;
+    }
+  
+    /* Highlighted Text */
+    .tg-highlight {
+      color: #b4f11e;
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 1.7;
+    }
+  
+    /* Media Section */
+    .tg-media-section {
+      flex: 1;
+      overflow: hidden;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 450px;
+    }
+  
+    /* Image and Video Styling */
+    .tg-media-section img,
+    .tg-video-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+    }
+  
+    /* Parallax Effect */
+    @media (min-width: 1024px) {
+      .tg-parallax-section {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  
+    /* Updated Responsive Fixes */
+    @media (max-width: 425px) {
+      .tg-content-container,
+      .tg-reverse-layout {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 15px;
+        gap: 20px;
+        min-height: 550px;
+      }
+      .tg-media-section {
+        width: 100%;
+        height: 250px;
+        order: -1; /* Only apply order on mobile */
+      }
+      .tg-text-section {
+        font-size: 14px;
+        width: 100%;
+        margin-bottom: 10px; /* Adjusted margin to reduce space */
+      }
+      .tg-highlight {
+        font-size: 16px;
+        margin-bottom: 10px; /* Adjusted margin to reduce space */
+      }
+      h1 {
+        font-size: 24px;
+        margin: 10px 0; /* Adjusted margin to reduce space */
+      }
+      h3 {
+        font-size: 18px;
+        margin: 5px 0; /* Adjusted margin to reduce space */
+      }
+      .tg-card {
+        padding: 10px;
+        margin-bottom: 0; /* Remove bottom margin to eliminate blank space */
+      }
+    }
+  
+    /* Desktop layout fixes */
+    @media (min-width: 426px) {
+      .tg-content-container {
+        flex-direction: row;
+      }
+      .tg-reverse-layout {
+        flex-direction: row-reverse; /* Maintain reverse layout for desktop */
+      }
+      .tg-media-section {
+        order: unset; /* Reset the order property for desktop */
+      }
+    }
+  
+    @media (max-width: 1024px) {
+      .tg-content-container {
+        padding: 30px 15px;
+      }
+      .tg-media-section {
+        height: 350px;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .tg-parallax-scroll {
+        height: 200vh; /* Increased from 150vh to ensure enough scroll space */
+      }
+      .tg-parallax-wrapper {
+        top: 0;
+        height: 100vh;
+        overflow: visible; /* Changed from auto to visible to prevent cutoff */
+      }
+      .tg-content-container {
+        padding: 20px 10px;
+        gap: 20px;
+      }
+      .tg-media-section {
+        height: 300px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .tg-content-container {
+        min-height: auto; /* Changed from fixed 550px to auto */
+        padding: 20px 15px; /* Slightly increased padding */
+      }
+      .tg-media-section {
+        height: 250px;
+      }
+      .tg-card {
+        padding: 10px;
+        position: absolute;
+        height: fit-content; /* Added to ensure card takes necessary height */
+      }
+    }
+  
+    .tg-parallax-scroll {
+      position: relative;
+      height: 200vh; /* Controls total scroll distance */
+    }
+  
+    .tg-parallax-wrapper {
+      position: sticky;
+      top: 8%;
+      height: 100vh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+  
+    .tg-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: auto;
+      will-change: transform, opacity;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      border-radius: 15px;
+      overflow: visible;
+    }
+  
+    .tg-card[data-card="1"] {
+      z-index: 1;
+    }
+  
+    .tg-card[data-card="2"] {
+      z-index: 2;
+    }
+  
+    @media (min-width: 426px) {
+      .tg-card[data-card="1"] {
+        /* Additional styles for the first card can be added here if needed */
+      }
+    }
+  </style>
+  
