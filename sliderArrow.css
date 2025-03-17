@@ -1,0 +1,11 @@
+.gallery-fullscreen-slideshow-control-btn .caret-right-icon--small, .gallery-fullscreen-slideshow-control-btn .caret-left-icon--small {
+    width: 30px;
+    height: 60px;
+}
+
+@media (max-width: 500px) {
+.gallery-fullscreen-slideshow-control-btn .caret-right-icon--small, .gallery-fullscreen-slideshow-control-btn .caret-left-icon--small {
+    width: 20px;
+    height: 44px;
+}
+}
