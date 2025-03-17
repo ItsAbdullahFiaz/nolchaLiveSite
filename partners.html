@@ -34,7 +34,7 @@
         </div>
       </div>
   
-      <!-- Partner 3 -->
+      <!-- Partner 4 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -44,7 +44,7 @@
         </div>
       </div>
   
-      <!-- Partner 4 -->
+      <!-- Partner 5 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -54,7 +54,7 @@
         </div>
       </div>
   
-      <!-- Partner 5 -->
+      <!-- Partner 6 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -77,7 +77,7 @@
       
   
   
-       <!-- Partner 8 -->
+       <!-- Partner 7 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="dark-image"
@@ -140,7 +140,7 @@
         </div>
       </div> -->
   
-      <!-- Partner 13 -->
+      <!-- Partner 12 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="dark-image"
@@ -150,7 +150,7 @@
         </div>
       </div>
   
-      <!-- Partner 14 -->
+      <!-- Partner 13 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="dark-image"
@@ -160,7 +160,7 @@
         </div>
       </div>
   
-      <!-- Partner 15 -->
+      <!-- Partner 14 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -170,7 +170,7 @@
         </div>
       </div>
   
-      <!-- Partner 16 -->
+      <!-- Partner 15 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -180,7 +180,7 @@
         </div>
       </div>
   
-      <!-- Partner 17 -->
+      <!-- Partner 16 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -200,7 +200,7 @@
         </div>
       </div> -->
   
-      <!-- Partner 19 -->
+      <!-- Partner 17 -->
       <div class="partner-item">
         <div class="image-container">
           <img class="light-image"
@@ -233,7 +233,7 @@
   
     .partners-grid {
       display: grid;
-      grid-template-columns: repeat(7, 145px);
+      grid-template-columns: repeat(6, 145px);
       grid-template-rows: repeat(3, auto);
       gap: 6px 4px;
       justify-content: center;
@@ -248,7 +248,7 @@
       overflow: hidden;
     }
   
-    .partner-item:nth-child(n + 7):nth-child(-n + 14):hover .image-container {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12):hover .image-container {
       background-color: #bdff00;
     }
   
@@ -298,13 +298,13 @@
       transition: opacity 0.5s ease;
     }
   
-    .partner-item:nth-child(n + 8):nth-child(-n + 14) .image-container .light-image {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12) .image-container .light-image {
       width: 0;
       height: 0;
       opacity: 0;
     }
   
-    .partner-item:nth-child(n + 8):nth-child(-n + 14) .image-container .dark-image {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12) .image-container .dark-image {
   
       width: 80%;
       height: auto;
@@ -314,14 +314,14 @@
   
   
     .partner-item .image-container:hover .light-image,
-    .partner-item:nth-child(n + 8):nth-child(-n + 14) .image-container:hover .dark-image {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12) .image-container:hover .dark-image {
       width: 0;
       height: 0;
       opacity: 0;
     }
   
     .partner-item .image-container:hover .dark-image,
-    .partner-item:nth-child(n + 8):nth-child(-n + 14) .image-container:hover .light-image {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12) .image-container:hover .light-image {
       width: 80%;
       height: auto;
       opacity: 1;
@@ -329,11 +329,11 @@
   
   
     /* Second row items (7-14) */
-    .partner-item:nth-child(n + 8):nth-child(-n + 14) .image-container {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12) .image-container {
       background-color: #bdff00;
     }
   
-    .partner-item:nth-child(n + 8):nth-child(-n + 14):hover .image-container {
+    .partner-item:nth-child(n + 7):nth-child(-n + 12):hover .image-container {
       background-color: hsla(0, 3%, 15%, 1);
     }
   
@@ -342,12 +342,12 @@
     .partner-item:nth-child(2),
     .partner-item:nth-child(4),
     .partner-item:nth-child(6),
-    .partner-item:nth-child(9),
-    .partner-item:nth-child(11),
-    .partner-item:nth-child(13),
+    .partner-item:nth-child(8),
+    .partner-item:nth-child(10),
+    .partner-item:nth-child(12),
+    .partner-item:nth-child(14),
     .partner-item:nth-child(16),
-    .partner-item:nth-child(18),
-    .partner-item:nth-child(20) {
+    .partner-item:nth-child(18) {
       transform: translateY(40px);
     }
   
@@ -375,8 +375,8 @@
   
       /* Adjust brick pattern for 3 columns */
       .partner-item:nth-child(even),
-      .partner-item:nth-child(9),
-      .partner-item:nth-child(13) {
+      .partner-item:nth-child(8),
+      .partner-item:nth-child(12) {
         transform: none;
       }
   
@@ -393,8 +393,8 @@
   
       /* Adjust brick pattern for 2 columns */
       .partner-item:nth-child(3n-1),
-      .partner-item:nth-child(9),
-      .partner-item:nth-child(13) {
+      .partner-item:nth-child(8),
+      .partner-item:nth-child(12) {
         transform: none;
       }
   
