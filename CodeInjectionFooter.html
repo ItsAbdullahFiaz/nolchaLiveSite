@@ -1,0 +1,720 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://assets.squarewebsites.org/lazy-summaries/lazy-summaries.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+</script>
+
+<script>
+//Twitter Posts Gaps
+  
+  const twitMobileGap = 5; // <560px
+  const twitTabletGap = 20; // from 560px to 1440px
+  const twitDesctopGap = 40; // >1440px
+</script>
+
+<script>
+  !function(){window.self===window.top||window.top.document.getElementById("lazy-summaries-admin")||function(e,t,s,i,a){if(s.querySelector("#"+t))i&&i(this);else{var n=document.createElement("script");n.src=e+"?cache="+((new Date).getTime()+"").substr(0,8),n.id=t,n.onload=function(){a&&this.remove(),i&&i(this)},s.appendChild(n)}}("https://assets.squarewebsites.org/lazy-summaries/lazy-summaries-admin.js","lazy-summaries-admin",window.top.document.getElementsByTagName("head")[0])}();
+</script>
+
+
+<script>
+  //section name
+  let isSection = document.querySelectorAll('.section-name');
+  if (typeof(isSection) != 'undefined' && isSection != null){
+    isSection.forEach(function(thisBlock){
+      let sectionName = thisBlock.getAttribute('data-name');
+      thisBlock.closest('section').classList.add(sectionName+'-section');
+      thisBlock.closest('.sqs-block-code').style.display = 'none';
+    });
+  }
+</script>
+
+<!-- SCROLLING SUMMARY SECTION -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  let summaryScrollingSection = document.querySelector('.scrolling-summary-blocks-section');
+
+  setTimeout(() => {
+    if (typeof(summaryScrollingSection) !== 'undefined' && summaryScrollingSection !== null) {
+      let summariesBlocks = summaryScrollingSection.querySelectorAll('.summary-v2-block');
+      summariesBlocks.forEach((summaryBlock) => {
+        let summaryContent = summaryBlock.querySelector('.summary-item-list');
+        let copiedSummaryContent = summaryContent.innerHTML;
+
+        let copiedSummaryContentBlock = document.createElement('div');
+        copiedSummaryContentBlock.className = "summary-item-list-copied";
+        copiedSummaryContentBlock.innerHTML = copiedSummaryContent;
+
+        summaryContent.after(copiedSummaryContentBlock);
+
+        const summaryItems = summaryBlock.querySelectorAll('.summary-item');
+        summaryItems.forEach(item => {
+          const summaryExcerpt = item.querySelector('.summary-excerpt');
+          const summaryImageWrapper = item.querySelector('.img-wrapper');
+
+          if (typeof(summaryExcerpt) !== 'undefined' && summaryExcerpt !== null) {
+            const videoLinkSecond = summaryExcerpt.querySelector('a');
+
+            if (videoLinkSecond && videoLinkSecond.innerText.trim().toUpperCase() === 'VIDEO') {
+              const videoUrl = videoLinkSecond.getAttribute('href');
+              const imgElement = summaryImageWrapper.querySelector('img');
+
+              videoLinkSecond.style.display = 'none';
+
+              const videoPlayer = createVideoPlayer(videoUrl, imgElement);
+              summaryImageWrapper.appendChild(videoPlayer);
+            } else {
+              let imagesWithoutVideo = summaryImageWrapper.querySelector('img');
+              let imagesDataSrc = imagesWithoutVideo.dataset.src;
+              imagesWithoutVideo.src = imagesDataSrc;
+            }
+          }
+        });
+      });
+
+      // Grab & Drag functionality
+      const containers = document.querySelectorAll('.summary-item-list-container');
+      containers.forEach(container => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        container.addEventListener('mousedown', (e) => {
+          isDown = true;
+          startX = e.pageX;
+          scrollLeft = container.scrollLeft;
+          container.style.cursor = 'grabbing';
+        });
+
+        container.addEventListener('mouseleave', () => {
+          isDown = false;
+          container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mouseup', () => {
+          isDown = false;
+          container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX;
+          const walk = -(x - startX) * 2; // changed sign for direction change
+          container.querySelectorAll('.summary-item-list, .summary-item-list-copied').forEach(item => {
+            item.style.transition = 'none';
+            item.style.transform = `translateX(${scrollLeft - walk}px)`; // changed sign for direction change
+          });
+        });
+
+        container.addEventListener('mouseup', () => {
+          isDown = false;
+          container.style.cursor = 'grab';
+          container.querySelectorAll('.summary-item-list, .summary-item-list-copied').forEach(item => {
+            item.style.transition = 'transform 0.5s ease-in-out';
+          });
+        });
+      });
+    }
+  }, 2000);
+});
+
+</script>
+<!-- SCROLLING SUMMARY SECTION -->
+
+
+<!-- Keito Image Changer Ghost -->
+<script src="https://www.ghostplugins.dev/assets/keito/keito-7-1.js"></script>
+<!-- Keito Image Changer Ghost -->
+
+<!-- Super Grid 2.0 Ghost -->
+<script src="https://www.ghostplugins.dev/assets/helpers/scroll-to/scroll-to.js" type="text/javascript"></script>
+
+<script>
+  var videoGalleryGlobalParam = {
+    textAlignment: 'center' // left, center, or right available
+  }
+</script>
+
+<script src="https://www.ghostplugins.dev/assets/video-gallery-grid/video-gallery-grid-7-1.js" type="text/javascript"></script>
+<!-- Super Grid 2.0 Ghost -->
+
+<!-- Phase Image Changer Ghost -->
+<script src="https://www.ghostplugins.dev/assets/phase/phase-7-1.js"></script>
+<!-- Phase Image Changer Ghost -->
+
+<!-- Aiko Testimonial Slider Ghost -->
+<script src="https://www.ghostplugins.dev/assets/helpers/swiper/swiper.js"></script>
+
+<script>
+  var globalGhostaikoParams = {
+    autoplay: false, // true or false
+    autoplayDelay: 8000 // slider timer
+  }
+</script>
+
+<script src="https://www.ghostplugins.dev/assets/aiko/aiko-7-1.js"></script>
+<!-- Aiko Testimonial Slider Ghost -->
+
+<!-- Boldly Testimonial Slider Ghost -->
+<script src="https://www.ghostplugins.dev/assets/helpers/swiper/swiper.js"></script>
+
+<script>
+  var globalGhostboldlyParams = {
+    autoplay: true,
+    autoplayDelay: 4000
+  }
+</script>
+
+<script src="https://www.ghostplugins.dev/assets/boldly/boldly-7-1.js"></script>
+<!-- Boldly Testimonial Slider Ghost -->
+
+<!-- Kayto Summary Block Ghost -->
+<script>
+  var globalGhostkaytoParams = {
+    itemsPerRow: 3 // available options: 1,2,3,4,5. Recommended: 3
+  }
+</script>
+
+<script src="https://www.ghostplugins.dev/assets/kayto/kayto-7-1.js"></script>
+<!-- Kayto Summary Block Ghost -->
+
+
+<!-- BLOG SIDE PLUGIN -->
+<script>
+  var ghostBlogStyleAltLogo = '';
+  // change the alt logo URL inside ['']. You can control size of the alt logo in custom CSS
+  // how to host img within Squarespace -- https://www.katescott.co/blog/how-to-upload-files-to-squarespace
+</script>
+
+
+<script>
+if (document.body.classList.contains('view-item') && !document.body.classList.contains('collection-66f523f15b5816791622da6a')){
+  var isBlogItem = document.querySelector(".blog-item-wrapper");
+
+  if (void 0 !== isBlogItem && null != isBlogItem) {
+    ghostBlogStyleAltLogo && (document.querySelector(".header-title-logo").classList.add("alt-logo"), (document.querySelector(".header-title-logo a").style.backgroundImage = "url(" + ghostBlogStyleAltLogo + ")")),
+      document.querySelector("body").classList.add("fifty-fifty-blog-item"),
+      document.querySelector("header .header-display-desktop").insertAdjacentHTML("beforeend", '<a class="more-articles-menu-button">More Articles</a>');
+    var d = document.head.querySelector("[property='og:image']").content,
+        b = isBlogItem.querySelector(".blog-item-title"),
+        e = b.innerText || b.textContent,
+        f = isBlogItem.querySelector(".blog-item-meta-wrapper").innerHTML,
+        g = document.querySelector(".item-pagination").innerHTML,
+        c = window.location.href,
+        h = c.substring(0, c.indexOf("?")),
+        i =
+        '<div class="blog-item-hero-banner"><div class="banner-image"><img src="' +
+        d +
+        '"></div><div class="blog-item-main-content"><div class="blog-item-title"><h1 class="blog-item-title-content">' +
+        e +
+        '</h1></div><div class="blog-item-meta-wrapper">' +
+        f +
+        '</div><div class="blog-item-pagination-wrapper">' +
+        g +
+        "</div></div> </div>";
+    isBlogItem.insertAdjacentHTML("afterbegin", i);
+    var a = new XMLHttpRequest();
+    a.open("GET", "" + h + "?format=json-pretty", !0),
+      (a.onload = function (b) {
+      if (this.status >= 200 && this.status < 400) {
+        var a = JSON.parse(this.response);
+        document.querySelector(".blog-item-hero-banner img").setAttribute("src", a.item.assetUrl);
+      }
+    }),
+      (a.onerror = function () {}),
+      document.querySelector(".blog-item-hero-banner").classList.add("loaded");
+  }
+}
+</script>
+<!-- BLOG SIDE PLUGIN -->
+
+<!--Swiper with pop-up-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+<link href="/s/plugin-lightbox-2.css" rel="stylesheet">
+<script src="/s/plugin-lightbox-2.js"></script>
+<script>pluginLightbox();</script>
+
+<script>
+let swiperPopUpsection = document.querySelector('.swiper-with-pop-up-section');
+
+if (typeof(swiperPopUpsection) !== 'undefined' && swiperPopUpsection !== null) {
+  
+    let summaryWrapper = swiperPopUpsection.querySelector('.summary-item-list-container');
+    summaryWrapper.classList.add("swiper");
+
+    let summaryList = swiperPopUpsection.querySelector('.summary-item-list');
+    summaryList.classList.add("swiper-wrapper");
+
+    let summaryItems = swiperPopUpsection.querySelectorAll('.summary-item');
+    summaryItems.forEach((summaryItem)=>{
+      summaryItem.classList.add("swiper-slide");
+    })
+    
+    let swiper = swiperPopUpsection.querySelector('.swiper');
+
+    let mySwiper = new Swiper(swiper, {
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+      grabCursor: false,
+      slidesOffsetBefore: 10,
+      slidesOffsetAfter: 10,
+      freeMode: true,
+       mousewheel: true,
+      breakpoints: {
+        560: {
+          slidesPerView: 2.2,
+          spaceBetween: 20,
+          slidesOffsetBefore: 20,
+          slidesOffsetAfter: 20,
+        },
+        980: {
+          slidesPerView: 3.2,
+          spaceBetween: 20,
+           slidesOffsetBefore: 20,
+          slidesOffsetAfter: 20,
+        },
+        1440: {
+          slidesPerView: 4.2,
+          spaceBetween: 20,
+           slidesOffsetBefore: 20,
+          slidesOffsetAfter: 20,
+        }
+      },
+       navigation: {
+         nextEl: '.swiper-popup-right-arrow',
+         prevEl: '.swiper-popup-left-arrow',
+       },
+    });
+
+    if (mySwiper.initialized) {
+      console.log('Swiper initialized  succussfully');
+    } else {
+      console.log('Error during initialization');
+    }
+
+}
+
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Select the "Experiences" link by its unique class or ID
+    var servicesLink = document.querySelector('a[href="/experiences-1"]');
+    
+    // Check if the link exists
+    if (servicesLink) {
+      // Add click event listener
+      servicesLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // Redirect to /services instead
+        window.location.href = '/experiences';
+      });
+    }
+  });
+</script>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+//Twitters Slider
+    const twittersSwiper = document.querySelector('.swiper-twitters')
+  if(twittersSwiper){
+    const swiperTwit = new Swiper('.swiper-twitters', {
+    loop: false,
+    spaceBetween: twitMobileGap,
+    slidesPerView: 1,
+    grabCursor: false,
+      slidesOffsetBefore: 0,
+      slidesOffsetAfter: 0,
+    
+      breakpoints: {
+        560: {
+          slidesPerView: 'auto',
+          spaceBetween: twitTabletGap,
+          slidesOffsetBefore: 10,
+          slidesOffsetAfter: 10,
+        },
+        1440: {
+          slidesPerView: 'auto',
+          spaceBetween: twitDesctopGap,
+          slidesOffsetBefore: 10,
+          slidesOffsetAfter: 10,
+        }
+      },
+    
+    navigation: {
+      nextEl: '.swiper-twitters-right-arrow',
+      prevEl: '.swiper-twitters-left-arrow',
+    },
+  });
+
+  window.addEventListener('load', () => {
+    if (typeof twttr !== "undefined") {
+      twttr.widgets.load();
+    }
+  });
+  }
+</script>
+
+
+
+
+
+<script>
+  const verticalGallery = document.querySelector(".ins-vertical-gallery");
+  const columns = document.querySelectorAll(".ins-gallery-column");
+  let isExpanded = false;
+
+  // Initial collapsed state - reset all columns to their original positions
+  gsap.set(columns, {
+    height: "422px",
+    overflow: "hidden",
+    y: 0,
+  });
+
+  // Don't set any initial y position for center column in collapsed state
+  gsap.set(".ins-column-center", {
+    z: 50,
+    position: "relative",
+  });
+
+  verticalGallery.addEventListener("mouseenter", (e) => {
+    if (isExpanded || !e.isTrusted) return;
+    isExpanded = true;
+
+    // Create a timeline for smoother sequence of animations
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.inOut" },
+    });
+
+    // First straighten the columns
+    tl.to(
+      [".ins-column-left", ".ins-column-right"],
+      {
+        rotation: 0,
+        x: 0,
+        y: 0,
+        z: 0,
+        position: "relative",
+        left: "auto",
+        duration: 1,
+      },
+      0
+    )
+      .to(
+        ".ins-column-center",
+        {
+          z: 0,
+          duration: 1,
+        },
+        0
+      )
+
+      // Then expand the height and reveal images
+      .to(
+        columns,
+        {
+          height: "200vh",
+          duration: 1.2,
+          onStart: () => {
+            columns.forEach((column) => column.classList.add("expanded"));
+
+            // Set center column to starting position before scroll animation
+            gsap.set(".ins-column-center", {
+              y: "-50%",
+            });
+
+            // Fade in hidden images with stagger
+            gsap.to(".custom-image-wrapper:not(:first-child)", {
+              opacity: 1,
+              duration: 1.2,
+              stagger: 0.1,
+              ease: "power2.inOut",
+            });
+
+            // Fade in text overlays
+            gsap.to(".image-overlay", {
+              opacity: 1,
+              visibility: "visible",
+              duration: 1.2,
+              stagger: 0.1,
+              ease: "power2.inOut",
+            });
+          },
+        },
+        "-=0.5"
+      )
+
+      // Start the infinite scroll animations
+      .to(
+        ".ins-column-left",
+        {
+          y: "-50%",
+          duration: 15,
+          repeat: -1,
+          ease: "none",
+          onStart: () => {
+            gsap.to(".ins-column-center", {
+              y: "0%",
+              duration: 15,
+              repeat: -1,
+              ease: "none",
+            });
+
+            gsap.to(".ins-column-right", {
+              y: "-50%",
+              duration: 15,
+              repeat: -1,
+              ease: "none",
+            });
+          },
+        },
+        "+=0.2"
+      );
+
+    // Reset the gallery layout
+    gsap.to(".ins-vertical-gallery", {
+      display: "flex",
+      gap: "20px",
+      duration: 1,
+      ease: "power2.inOut",
+    });
+  });
+
+  // Scroll event listener
+  window.addEventListener("scroll", () => {
+    if (!isExpanded) {
+      gsap.set(columns, { y: 0 });
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const cards = document.querySelectorAll(".tg-card");
+    const wrapper = document.querySelector(".tg-parallax-wrapper");
+
+    // Update container insertion to use wrapper
+    const container = document.createElement("div");
+    container.style.height = `${cards.length * 100}vh`;
+    container.style.position = "relative";
+    wrapper.appendChild(container);
+
+    cards.forEach((card, index) => {
+      // Initial state
+      gsap.set(card, {
+        opacity: index === 0 ? 1 : 0,
+        y: index === 0 ? "0%" : "100%",
+        scale: 1,
+        zIndex: index + 1,
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: `top top`,
+          end: `bottom bottom`,
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          smoothScroll: true,
+          pinSpacing: true,
+        },
+      });
+
+      // Rest of the animation code remains the same
+      if (index === 0) {
+        tl.to(card, {
+          opacity: 1,
+          scale: 1,
+          duration: 3,
+          ease: "none",
+        })
+          .to(
+            card,
+            {
+              scale: 0.98,
+              opacity: 0.7,
+              duration: 1.5,
+              ease: "power1.inOut",
+            },
+            "halfOverlap"
+          )
+          .to(card, {
+            scale: 0.95,
+            opacity: 0.3,
+            duration: 1.5,
+            ease: "power1.inOut",
+          })
+          .to(card, {
+            scale: 0.92,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power1.inOut",
+          });
+      }
+
+      if (index === 1) {
+        tl.fromTo(
+          card,
+          {
+            y: "100%",
+            opacity: 0,
+          },
+          {
+            y: "75%",
+            opacity: 0.3,
+            duration: 1.5,
+            ease: "power1.inOut",
+          },
+          "1"
+        )
+          .to(
+            card,
+            {
+              y: "50%",
+              opacity: 0.7,
+              duration: 1.5,
+              ease: "power1.inOut",
+            },
+            "halfOverlap-=0.1"
+          )
+          .to(card, {
+            y: "25%",
+            opacity: 0.9,
+            duration: 1.5,
+            ease: "power1.inOut",
+          })
+          .to(card, {
+            y: "0%",
+            opacity: 1,
+            duration: 1.5,
+            ease: "power1.inOut",
+          });
+      }
+    });
+  });
+</script>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      gsap.registerPlugin(ScrollTrigger);
+  
+      // Top gradient starts visible and fades out over longer distance
+      gsap.fromTo(".top-gradient", 
+        { opacity: 1 }, // Start fully visible
+        {
+          scrollTrigger: {
+            trigger: ".custom-columns-container",
+            start: "top top",
+            end: "+=2000", // Increased from 300 to 600 for longer fade out
+            scrub: true,
+            markers: false,
+          },
+          opacity: 0,
+          ease: "power2.out"
+        }
+      );
+  
+      // Keep bottom gradient animation as is
+      gsap.fromTo(".bottom-gradient", 
+        { opacity: 0 }, // Starting state
+        {
+          scrollTrigger: {
+            trigger: ".custom-columns-container",
+            start: "bottom bottom",
+            end: "bottom center",
+            scrub: true,
+            markers: false,
+            toggleActions: "play none none reverse"
+          },
+          opacity: 1,
+          ease: "power2.in"
+        }
+      );
+  
+      // Ensure bottom gradient starts hidden
+      gsap.set(".bottom-gradient", {
+        opacity: 0
+      });
+  
+      // Animate left column upward
+      gsap.to(".column-left", {
+        scrollTrigger: {
+          trigger: ".custom-columns-container",
+          start: "top center",
+          end: "bottom center",
+          scrub: 1,
+          markers: false,
+        },
+        y: "-80vh", // Doubled from -40vh for faster movement
+        ease: "none",
+      });
+  
+      // Animate center column downward
+      gsap.to(".column-center", {
+        scrollTrigger: {
+          trigger: ".custom-columns-container",
+          start: "top center",
+          end: "bottom center",
+          scrub: 1, // Reduced from 2 for faster response
+          markers: false,
+        },
+        y: "40vh", // Increased from 20vh for more movement
+        ease: "none",
+      });
+  
+      // Animate right column upward
+      gsap.to(".column-right", {
+        scrollTrigger: {
+          trigger: ".custom-columns-container",
+          start: "top center",
+          end: "bottom center",
+          scrub: 1,
+          markers: false,
+        },
+        y: "-80vh", // Doubled from -40vh for faster movement
+        ease: "none",
+      });
+    });
+  </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Responsive animation adjustments
+        const isMobile = window.innerWidth <= 768;
+
+        gsap.fromTo(
+            ".custom-special-heading",
+            {
+                opacity: 0,
+                y: isMobile ? "-30vh" : "-50vh", // Adjust based on screen size
+                scale: 0.5,
+            },
+            {
+                scrollTrigger: {
+                    trigger: ".custom-heading-container",
+                    start: "top center",
+                    end: "bottom center",
+                    toggleActions: "play reverse play reverse",
+                    markers: false,
+                    scrub: 2,
+                },
+                opacity: 1,
+                y: isMobile ? "5vh" : "10vh",
+                scale: 1,
+                duration: 1,
+                ease: "power1.out",
+            }
+        );
+    });
+</script>
