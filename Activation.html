@@ -17,7 +17,7 @@
 
     /* Heading Styling */
     .custom-special-heading {
-        font-size: clamp(8vw, 12vw, 14vw);
+        font-size: clamp(7vw, 12vw, 14vw);
         font-family: "Tomorrow", serif !important;
         font-weight: 800;
         line-height: 1;
@@ -29,8 +29,8 @@
         white-space: nowrap;
         -webkit-mask-image: linear-gradient(to bottom, black 25%, transparent 70%);
         mask-image: linear-gradient(to bottom, black 25%, transparent 70%);
-        max-width: 90vw; /* Prevent cutting on small screens */
-        word-break: break-word; /* Ensures text breaks correctly */
+        max-width: 100vw;
+        display: inline-block;
     }
 
     /* Tablet & Mobile Adjustments */
@@ -68,10 +68,8 @@
             top: 4vh;
         }
         .custom-special-heading {
-            font-size: clamp(10vw, 14vw, 16vw);
+            font-size: clamp(9vw, 12vw, 13vw);
             -webkit-text-stroke: 0.5px #bdff00;
-            white-space: normal;
-            text-align: center;
         }
     }
 </style>
