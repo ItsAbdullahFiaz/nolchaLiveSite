@@ -1,0 +1,106 @@
+<div class="custom-heading-container">
+    <h1 class="custom-special-heading">ACTIVATION</h1>
+  </div>
+  
+  <style>
+    /* Wrapper Styling */
+    .custom-heading-container {
+      overflow: hidden;
+      height: 30vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 10vh;
+    }
+  
+    /* Heading Styling */
+    .custom-special-heading {
+      font-size: 13vw;
+      font-family: "Tomorrow", serif !important;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-align: center;
+      color: transparent;
+      -webkit-text-stroke: 1px #bdff00;
+      position: relative;
+      white-space: nowrap;
+      -webkit-mask-image: linear-gradient(to bottom, black 25%, transparent 70%);
+      mask-image: linear-gradient(to bottom, black 25%, transparent 70%);
+    }
+  
+    /* Tablet & Mobile Adjustments */
+    @media (max-width: 1024px) {
+      .custom-heading-container {
+        height: 25vh;
+        top: 8vh;
+      }
+      .custom-special-heading {
+        font-size: 10vw; /* Reduced font size for tablets */
+        -webkit-text-stroke: 0.8px #bdff00; /* Thinner stroke */
+      }
+    }
+  
+    /* Mobile View */
+    @media (max-width: 768px) {
+      .custom-heading-container {
+        height: 20vh;
+        top: 6vh;
+      }
+      .custom-special-heading {
+        font-size: 9vw; /* Smaller font for mobile */
+        -webkit-text-stroke: 0.6px #bdff00; /* Even thinner stroke */
+        -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 80%);
+        mask-image: linear-gradient(to bottom, black 40%, transparent 80%);
+      }
+    }
+  
+    /* Small Screens */
+    @media (max-width: 480px) {
+      .custom-heading-container {
+        height: 18vh;
+        top: 4vh;
+      }
+      .custom-special-heading {
+        font-size: 14vw; /* More compact for small screens */
+        -webkit-text-stroke: 0.5px #bdff00;
+      }
+    }
+  </style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+  
+      // Create the scroll-triggered animation
+      gsap.fromTo(
+        ".custom-special-heading",
+        {
+          opacity: 0,
+          y: "-50vh",
+          scale: 0.5,
+        },
+        {
+          scrollTrigger: {
+            trigger: ".custom-heading-container",
+            start: "top center",
+            end: "bottom center",
+            toggleActions: "play reverse play reverse",
+            markers: false,
+            scrub: 2,
+          },
+          opacity: 1,
+          y: "10vh",
+          scale: 1,
+          duration: 1,
+          ease: "power1.out",
+        }
+      );
+    });
+  </script>
