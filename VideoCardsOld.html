@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Gallery</title>
+
     <style>
         /* Video Gallery Layout */
         .video-gallery {
@@ -15,7 +16,6 @@
             width: 100%;
             margin: auto;
             padding: 40px 0;
-            background-color: black;
         }
 
         /* Video Card Container */
@@ -39,7 +39,6 @@
                 0px 28px 38px -7px rgba(0, 0, 0, 0.40);
             overflow: hidden;
             padding: 12px;
-            box-sizing: border-box;
         }
 
         /* Alternating Offsets for Layout */
@@ -57,21 +56,14 @@
             height: 100%;
             border-radius: inherit;
             overflow: hidden;
-            position: relative;
         }
 
         /* Fully Responsive Videos */
         .video-frame video {
-            width: calc(100% - 0px);
-            height: calc(100% - 0px);
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             border-radius: 15px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
         }
 
         /* Responsive Design */
@@ -94,41 +86,44 @@
         }
 
         @media (max-width: 768px) {
-            .video-gallery {
-                flex-direction: column;
-                align-items: center;
-                gap: 44px;
-                padding: 0;
-            }
+    .video-gallery {
+        flex-direction: column;
+        align-items: center;
+        gap: 44px;
+        padding: 0;
+    }
 
-            .video-item {
-                width: 90%;
-                max-width: 350px;
-                aspect-ratio: 9 / 16;
-                padding: 12px;
-                box-sizing: border-box;
-                overflow: hidden;
-                background: linear-gradient(145deg, #1a1a1a, #222);
-            }
+    .video-item {
+        width: 90%;
+        max-width: 350px;
+        aspect-ratio: 9 / 16;
+        padding: 12px; /* Border effect */
+        box-sizing: border-box;
+        overflow: hidden;
+        background: linear-gradient(145deg, #1a1a1a, #222); /* Ensure background is visible */
+    }
 
-            .video-offset-up, .video-offset-down {
-                margin-top: 0;
-            }
+    .video-offset-up, .video-offset-down {
+        margin-top: 0;
+    }
 
-            .video-frame {
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                position: relative;
-            }
+    .video-frame {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative; /* For absolute positioning of video if needed */
+    }
 
-            .video-frame video {
-                width: calc(100% - 0px);
-                height: calc(100% - 0px);
-                object-fit: cover;
-                border-radius: 15px;
-            }
-        }
+    .video-frame video {
+        width: 100%;
+        height: calc(100% - 24px); /* Explicitly reserve 12px top + 12px bottom */
+        object-fit: cover;
+        border-radius: 15px;
+        position: absolute;
+        top: 12px; /* Offset from top to show padding */
+        left: 0;
+    }
+}
     </style>
 </head>
 <body>
