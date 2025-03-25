@@ -5,21 +5,22 @@
 <style>
 /* Wrapper Styling */
 .custom-heading-container {
-    height: 30vh;
+    height: 35vh; /* Increased height to prevent bottom cutting */
     display: flex;
     align-items: center;
     justify-content: center;
     position: sticky;
     top: 10vh;
     width: 100%;
-    padding-bottom: 2vh; /* Prevents bottom cut-off */
+    padding-bottom: 5vh; /* Increased padding to prevent bottom cut-off */
     margin-top: 5vh; /* Prevents overlapping with the banner */
-    clip-path: inset(0 0 -5vh 0); /* Ensures no unwanted overflow */
+    clip-path: inset(0 0 -8vh 0); /* Wider inset to prevent bottom clipping */
+    overflow: hidden; /* Maintain overflow control */
 }
 
 /* Heading Styling */
 .custom-special-heading {
-    font-size: clamp(7vw, 12vw, 14vw);
+    font-size: clamp(7vw, 12vw, 14vw); /* Restore original large font size */
     font-family: "Tomorrow", serif !important;
     font-weight: 800;
     line-height: 1.1;
@@ -29,22 +30,23 @@
     -webkit-text-stroke: 1px #bdff00;
     position: relative;
     white-space: nowrap;
-    max-width: 100vw;
+    max-width: 100%;
+    width: 100%;
     display: inline-block;
 }
 
     /* Tablet & Mobile Adjustments */
     @media (max-width: 1024px) {
         .custom-heading-container {
-        height: 28vh; /* Increased height */
-        top: 8vh;
-        padding-bottom: 4vh; /* Extra space at bottom */
-        clip-path: inset(0 0 -6vh 0); /* Allows full text visibility */
-    }
-    .custom-special-heading {
-        font-size: clamp(7vw, 10vw, 12vw);
-        -webkit-text-stroke: 0.8px #bdff00;
-    }
+            height: 32vh; /* Increased height for medium devices */
+            top: 8vh;
+            padding-bottom: 6vh; /* Increased bottom spacing */
+            clip-path: inset(0 0 -10vh 0); /* Wider bottom inset */
+        }
+        .custom-special-heading {
+            font-size: clamp(7vw, 10vw, 12vw);
+            -webkit-text-stroke: 0.8px #bdff00;
+        }
     }
 
     /* Mobile View */
@@ -74,6 +76,60 @@
         font-size: clamp(9vw, 12vw, 13vw);
         -webkit-text-stroke: 0.5px #bdff00;
     }
+    }
+
+    /* Large Screen Adjustments */
+    @media (min-width: 1200px) {
+        .custom-special-heading {
+            font-size: clamp(7vw, 11vw, 13vw); /* Keep large font size */
+            transform: scale(0.9); /* Scale down slightly to prevent overflow */
+        }
+    }
+
+    /* Extra Large Screen Adjustments */
+    @media (min-width: 1600px) {
+        .custom-heading-container {
+            max-width: 90vw; /* Limit width on very large screens */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .custom-special-heading {
+            font-size: clamp(6vw, 8vw, 10vw); /* Adjust for 4K displays */
+            transform: scale(0.85); /* Scale down more for 4K displays */
+        }
+    }
+
+    /* 4K and Ultra-Wide Screen Adjustments */
+    @media (min-width: 2560px) {
+        .custom-heading-container {
+            max-width: 70vw; /* Further limit width on 4K screens */
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center; /* Ensure center alignment */
+            padding: 0; /* Remove horizontal padding */
+        }
+        .custom-special-heading {
+            font-size: 6vw; /* Smaller fixed size for 4K */
+            transform: scale(0.75); /* Additional scaling for ultra-wide displays */
+            letter-spacing: -0.05em; /* Tighter letter spacing to reduce width */
+            text-align: center; /* Reinforce center alignment */
+            width: 100%; /* Ensure full width of container */
+            left: 0; /* Reset any potential positioning */
+        }
+    }
+
+    /* Ultra-HD Screen Adjustments */
+    @media (min-width: 3840px) {
+        .custom-heading-container {
+            max-width: 60vw; /* Even more limited width for ultra-HD */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .custom-special-heading {
+            font-size: 5vw; /* Further reduced size for ultra-HD */
+            transform: scale(0.7); /* More scaling for ultra-HD displays */
+            text-align: center; /* Maintain center alignment */
+        }
     }
 </style>
 
