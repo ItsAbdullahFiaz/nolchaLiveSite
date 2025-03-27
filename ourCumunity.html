@@ -1,3 +1,104 @@
+<!-- Arrows HTML Structure -->
+<div class="swiper-twitters-arrows">
+    <div class="swiper-twitters-left-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+        <path
+          d="M21.559,12.062 L15.618,17.984 L21.5221,23.944 C22.105,24.533 22.1021,25.482 21.5131,26.065 C21.2211,26.355 20.8391,26.4999987 20.4571,26.4999987 C20.0711,26.4999987 19.6851,26.352 19.3921,26.056 L12.4351,19.034 C11.8531,18.446 11.8551,17.4999987 12.4411,16.916 L19.4411,9.938 C20.0261,9.353 20.9781,9.354 21.5621,9.941 C22.1471,10.528 22.1451,11.478 21.5591,12.062 L21.559,12.062 Z"
+        ></path>
+      </svg>
+    </div>
+  
+    <div class="swiper-twitters-right-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+        <path
+          d="M23.5587,16.916 C24.1447,17.4999987 24.1467,18.446 23.5647,19.034 L16.6077,26.056 C16.3147,26.352 15.9287,26.4999987 15.5427,26.4999987 C15.1607,26.4999987 14.7787,26.355 14.4867,26.065 C13.8977,25.482 13.8947,24.533 14.4777,23.944 L20.3818,17.984 L14.4408,12.062 C13.8548,11.478 13.8528,10.5279 14.4378,9.941 C15.0218,9.354 15.9738,9.353 16.5588,9.938 L23.5588,16.916 L23.5587,16.916 Z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  
+  <!-- Consolidated Arrow Styles -->
+  <style>
+    /* Arrow Container Styles */
+    .swiper-twitters-arrows {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.81rem;
+      margin-top: 10px;
+    }
+  
+    /* Arrow Button Base Styles */
+    .swiper-twitters-arrows .swiper-twitters-left-arrow,
+    .swiper-twitters-arrows .swiper-twitters-right-arrow {
+      display: flex;
+      width: 3rem;
+      height: 3rem;
+      padding: 0.89063rem;
+      justify-content: center;
+      align-items: center;
+      border: 1.5px solid #befd6f;
+      background: linear-gradient(69deg, #befd6f 0%, #0b0b0a 100%), #000;
+      fill: white;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+  
+    /* SVG Styles */
+    .swiper-twitters-left-arrow svg,
+    .swiper-twitters-right-arrow svg {
+      width: 100%;
+      height: 100%;
+      fill: #fff;
+      transition: fill 0.3s ease, transform 0.3s ease;
+    }
+  
+    /* Hover Effects */
+    .swiper-twitters-left-arrow:hover svg,
+    .swiper-twitters-right-arrow:hover svg {
+      fill: #bdff00;
+    }
+  
+    .swiper-twitters-left-arrow:hover,
+    .swiper-twitters-right-arrow:hover {
+      transform: scale(1.1);
+      opacity: 0.9;
+    }
+  
+    /* Disabled State */
+    .swiper-twitters-arrows .swiper-button-disabled {
+      pointer-events: none;
+      opacity: 0.4;
+    }
+  
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .swiper-twitters-arrows {
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .swiper-twitters-left-arrow,
+      .swiper-twitters-right-arrow {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .swiper-twitters-arrows {
+        gap: 4px;
+        margin-top: 6px;
+      }
+      .swiper-twitters-left-arrow,
+      .swiper-twitters-right-arrow {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  </style>
+  
+
 <div class="swiper swiper-twitters">
     <div class="swiper-wrapper">
       
@@ -24,49 +125,61 @@
           <p lang="en" dir="ltr">The <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> team killed it yesterday, I also have to thank <a href="https://twitter.com/realizingerin?ref_src=twsrc%5Etfw">@realizingerin</a>, @_lolo_spears_ and <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> for creating such a beautiful event❤️‍🔥 <a href="https://twitter.com/fomojis?ref_src=twsrc%5Etfw">@fomojis</a> x <a href="https://twitter.com/AikoDeshoBTC?ref_src=twsrc%5Etfw">@AikoDeshoBTC</a> event and <a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a> after-party had so many familiar and new faces!<br><br>I also had the opportunity… <a href="https://t.co/kxwPJujlqD">pic.twitter.com/kxwPJujlqD</a></p>&mdash; Zero (@0xZerone) <a href="https://twitter.com/0xZerone/status/1816527110804324383?ref_src=twsrc%5Etfw">July 25, 2024</a>
           </blockquote> 
         </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">The best conference stage I have seen, well done <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> <a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a>! <a href="https://t.co/AVmUfvcvIq">pic.twitter.com/AVmUfvcvIq</a></p>&mdash; Jan | BIP-420🐱 (@nonfungible_jan) <a href="https://twitter.com/nonfungible_jan/status/1816328346164154863?ref_src=twsrc%5Etfw">July 25, 2024</a>
-          </blockquote>
-        </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">It was so amazing seeing you all (in brief intervals) while running back and forth in my change of clothing, and I got to peep some of <a href="https://twitter.com/djchuckie?ref_src=twsrc%5Etfw">@djchuckie</a> beats and meet him later too after <a href="https://twitter.com/TO?ref_src=twsrc%5Etfw">@TO</a> was helping me with my DunkTank - <a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a> for life 🧡</p>&mdash; Jennifer Cheng Lo JenniferCheng.Eth.Sol.BTC.Moca (@JenniferChengLo) <a href="https://twitter.com/JenniferChengLo/status/1818038289078829390?ref_src=twsrc%5Etfw">July 29, 2024</a>
-          </blockquote> 
-        </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">INSCRIBING NASHVILLE WAS A MOVIE 🎥😍<br><br>We&#39;re so grateful to our event partners <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> and <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> and to all of the speakers, sponsors, and attendees for joining us. <a href="https://t.co/7TdQI5EP57">pic.twitter.com/7TdQI5EP57</a></p>&mdash; Gamma.io (@trygamma) <a href="https://twitter.com/trygamma/status/1818367401802842490?ref_src=twsrc%5Etfw">July 30, 2024</a>
-          </blockquote>
-        </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">big shoutout to <a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a> and <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> for organizing an incredible event in Nashville<br><br>It was a great time, and I appreciate all the effort that went into making it a success<br><br>thank you <a href="https://twitter.com/TO?ref_src=twsrc%5Etfw">@TO</a> and <a href="https://twitter.com/EricNelson?ref_src=twsrc%5Etfw">@EricNelson</a> <br> <a href="https://t.co/AsP5mAjxnh">pic.twitter.com/AsP5mAjxnh</a></p>&mdash; Bongo 🥁 (@btcbongo) <a href="https://twitter.com/btcbongo/status/1819461719116468558?ref_src=twsrc%5Etfw">August 2, 2024</a>
-          </blockquote> 
-        </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">And of course shoutout to the legends at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> and all of the sponsors! <a href="https://t.co/fc44sJEDMa">pic.twitter.com/fc44sJEDMa</a></p>&mdash; boozy.btc (@boozybtc) <a href="https://twitter.com/boozybtc/status/1818383100549951528?ref_src=twsrc%5Etfw">July 30, 2024</a>
-          </blockquote>
-        </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">It was so amazing seeing you all (in brief intervals) while running back and forth in my change of clothing, and I got to peep some of <a href="https://twitter.com/djchuckie?ref_src=twsrc%5Etfw">@djchuckie</a> beats and meet him later too after <a href="https://twitter.com/TO?ref_src=twsrc%5Etfw">@TO</a> was helping me with my DunkTank - <a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a> for life 🧡</p>&mdash; Jennifer Cheng Lo JenniferCheng.Eth.Sol.BTC.Moca (@JenniferChengLo) <a href="https://twitter.com/JenniferChengLo/status/1818038289078829390?ref_src=twsrc%5Etfw">July 29, 2024</a>
-          </blockquote> 
-        </div>
-  
-        <div class="swiper-slide">
-          <blockquote class="twitter-tweet">
-          <p lang="en" dir="ltr">We are excited to announce <a href="https://twitter.com/TheBitcoinConf?ref_src=twsrc%5Etfw">@TheBitcoinConf</a> as a proud partner of Inscribing Nashville 2024!<br><br>Get 10% off when you purchase bundled GA tickets, and 20% off bundled VIP/Industry tickets at the link below 👇 <a href="https://t.co/m5kOXh2T9h">pic.twitter.com/m5kOXh2T9h</a></p>&mdash; Inscribing Atlantis (@InscribAtlantis) <a href="https://twitter.com/InscribAtlantis/status/1806115268323844606?ref_src=twsrc%5Etfw">June 27, 2024</a>
-          </blockquote> 
-        </div>
-  
         
     </div>
   </div>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+if (window.twttr && window.twttr.widgets) {
+    twttr.widgets.load();
+}
+</script>
+<script>
+const twitterSwiper = new Swiper('.swiper-twitters', {
+    observer: true,
+    observeParents: true,
+    slidesPerView: 'auto',
+    spaceBetween: 40,
+    navigation: {
+        nextEl: '.swiper-twitters-right-arrow',
+        prevEl: '.swiper-twitters-left-arrow'
+    },
+    slideToClickedSlide: true,
+    centeredSlides: false,
+    slidesPerGroup: 1,
+    speed: 600,
+    effect: 'slide',
+    watchSlidesProgress: true,
+    watchOverflow: true
+});
+</script>
+<style>
+.swiper-twitters {
+    height: auto !important;
+    min-height: 600px;
+    padding-left: 0 !important;
+    padding-right: 100px !important;
+}
+
+.swiper-twitters .swiper-wrapper {
+    align-items: center;
+    transition-timing-function: ease-out;
+    margin-left: 0;
+}
+
+.swiper-twitters .swiper-slide {
+    max-width: 355px;
+    height: auto !important;
+    transition: transform 0.3s ease;
+    margin-left: 0;
+    opacity: 1;
+}
+
+.twitter-tweet {
+    margin: 0 auto !important;
+}
+
+.swiper.swiper-twitters {
+    overflow: visible;
+}
+</style>
