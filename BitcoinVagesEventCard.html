@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consensus Event</title>
+    <style>
+        .consensus-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .consensus-main-box {
+            padding: 30px;
+            background: #1A1A1A;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 
+                0px 0.8px 32px 0px rgba(227, 222, 255, 0.05) inset,
+                0px 3.19px 14.37px 0px rgba(154, 146, 210, 0.05) inset,
+                0px 78.26px 78.26px -38.33px rgba(202, 172, 255, 0.05) inset,
+                0px -65.48px 54.3px -51.11px rgba(96, 68, 144, 0.05) inset,
+                0px 5.59px 8.78px -3.25px rgba(255, 255, 255, 0.07) inset,
+                0px 32px 40px -2px rgba(255, 255, 255, 0.02) inset,
+                0px 0.5px 10px -6px rgba(0, 0, 0, 0.10),
+                0px 20px 26px -5px rgba(0, 0, 0, 0.40);
+            backdrop-filter: blur(4px);
+            margin: 5px;
+        }
+
+        .consensus-main-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .consensus-content-grid {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 0;
+        }
+
+        .consensus-main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: flex-end;
+        }
+
+        .consensus-text-content {
+            margin-top: 36px;
+            padding-right: 20px;
+            align-self: flex-start;
+        }
+
+        .consensus-event-header {
+            margin-bottom: 30px;
+        }
+
+         #block-82e3917649da214c53a7 .consensus-logo {
+            max-width: 390px !important;
+            margin-bottom: 30px;
+            position: absolute;
+            top: -22px;
+            left: 30px;
+            z-index: 1;
+        }
+
+        .consensus-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .consensus-event-date {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .consensus-event-date span {
+            color: #9ef01a;
+        }
+
+        .consensus-location {
+            color: #9ef01a;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .consensus-event-details {
+            margin-bottom: 16px;
+        }
+
+        .consensus-event-details .label {
+            color: #9ef01a;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .consensus-event-details p {
+            display: inline;
+        }
+
+        .consensus-guests-info {
+            margin-bottom: 60px;
+        }
+
+        .consensus-guests-info .label {
+            color: #9ef01a;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .consensus-guests-info p {
+            display: inline;
+        }
+
+        .consensus-gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            height: 250px;
+        }
+
+        .consensus-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .consensus-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .consensus-main-image {
+            height: 500px;
+        }
+
+        .consensus-bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .tg-media-section video {
+            border-radius: 0 !important;
+        }
+
+        .consensus-bottom-row .consensus-gallery-item {
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        .consensus-bottom-row .consensus-gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .consensus-main-image img {
+            object-fit: cover;
+        }
+        a.sqs-block-button-element--large.sqs-button-element--secondary.sqs-block-button-element {
+    background-color: #9ef01a;
+    color: black !important;
+}
+
+        @media (max-width: 768px) {
+            .consensus-main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .consensus-text-content {
+                padding-right: 0;
+            }
+
+            .consensus-main-box .consensus-logo {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 280px;
+            }
+
+            .consensus-main-box .consensus-logo {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 280px;
+            }
+
+            .consensus-main-image {
+                height: 400px;
+            }
+
+            .consensus-bottom-row {
+                grid-template-columns: 1fr;
+            }
+
+            .consensus-gallery-item {
+                height: 250px;
+            }
+
+            .consensus-bottom-row .consensus-gallery-item {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="consensus-container">
+        <div class="consensus-main-box">
+            <div class="consensus-logo">
+                <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/0fcc2952-b9f0-4a4f-ad6a-4bbc759b63e1/Group+2085665627.png?format=2500w" alt="NFT.NYC 2025 Logo">
+            </div>
+
+            <div class="consensus-content-grid">
+                <div class="consensus-main-content">
+                    <div class="consensus-text-content">
+                        <div class="consensus-event-details">
+                            <p><span class="label">DATES : </span>MAY 27 LAS VEGAS</p>
+                        </div>
+                        <div class="consensus-event-details">
+                            <p><span class="label">VENUE: </span>Movie studio spanning 40,000 square feet featuring one of the largest curved LED walls in the world. Movies filmed here include The Mandeleron and Top Gun.</p>
+                        </div>
+                        <div class="consensus-event-details">
+                            <p><span class="label">WHAT TO EXPECT: </span>Uniting BTC pioneers, artists. and leaders for a compelling conference, vibrant networking, and an unforgettable after party.</p>
+                        </div>
+                    </div>
+
+                    <div class="consensus-gallery-item consensus-main-image">
+                        <div class="tg-media-section" style="height: 100%; width: 100%;">
+                            <video
+                                id="video"
+                                autoplay
+                                muted
+                                loop
+                                playsinline
+                                                                poster="https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/6104d440-73ef-4b4e-a607-b98f05eb81fe/thumbnail"
+                                style="border-radius: 15px; width: 100%; height: 100%; object-fit: cover;"
+                            ></video>
+                            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+                            <script>
+                                if (Hls.isSupported()) {
+                                    var video = document.getElementById('video');
+                                    var hls = new Hls();
+                                    hls.loadSource('https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/6104d440-73ef-4b4e-a607-b98f05eb81fe/playlist.m3u8');
+                                    hls.attachMedia(video);
+                                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                                        video.play();
+                                    });
+                                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                                    video.src = 'https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/6104d440-73ef-4b4e-a607-b98f05eb81fe/playlist.m3u8';
+                                    video.addEventListener('loadedmetadata', function () {
+                                        video.play();
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="consensus-bottom-row">
+                    <div class="consensus-gallery-item">
+                        <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1742340502046-QZ7A7SWAK4SQ9UOJELER/116_Nolcha_Shows_x_Inscribing_Nashville_2024_BTC_.jpg?format=1500w" alt="LED Wall Display">
+                    </div>
+                    <div class="consensus-gallery-item">
+                        <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1742340540706-R755TC90V7KFZV8YJGCT/58_Nolcha_Shows_x_Inscribing_Nashville_2024_BTC_+%281%29.jpg?format=1500w" alt="NFT.NYC Event Space">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
