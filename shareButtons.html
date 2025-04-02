@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Button with Dropdown</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .share-container {
+            position: relative;
+            display: inline-block;
+        }
+        .share-button {
+            background-color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #555;
+        }
+        .dropdown {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: transparent;
+            min-width: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .dropdown.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            text-decoration: none;
+            background-color: white;
+            border-radius: 50%;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 18px;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .dropdown.active a {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .dropdown a:nth-child(1) { transition-delay: 0.1s; }
+        .dropdown a:nth-child(2) { transition-delay: 0.2s; }
+        .dropdown a:nth-child(3) { transition-delay: 0.3s; }
+        .dropdown a:nth-child(4) { transition-delay: 0.4s; }
+        .dropdown a:nth-child(5) { transition-delay: 0.5s; }
+        .facebook { color: #1877f2; }
+        .twitter { color: #1da1f2; }
+        .linkedin { color: #0077b5; }
+        .reddit { color: #ff4500; }
+        .email { color: #555; }
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="share-container">
+        <button class="share-button" onclick="toggleDropdown()">
+            <i class="fas fa-share-alt"></i>
+        </button>
+        <div class="dropdown" id="shareDropdown">
+            <a href="#" onclick="share('facebook')" class="facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" onclick="share('twitter')" class="twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" onclick="share('linkedin')" class="linkedin">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" onclick="share('reddit')" class="reddit">
+                <i class="fab fa-reddit-alien"></i>
+            </a>
+            <a href="#" onclick="share('email')" class="email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("shareDropdown");
+            dropdown.classList.toggle("active");
+        }
+
+        function share(platform) {
+            const url = encodeURIComponent(window.location.href);
+            let shareUrl = "";
+            
+            switch(platform) {
+                case "facebook":
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case "twitter":
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}`;
+                    break;
+                case "linkedin":
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+                case "whatsapp":
+                    shareUrl = `https://api.whatsapp.com/send?text=${url}`;
+                    break;
+                case "reddit":
+                    shareUrl = `https://www.reddit.com/submit?url=${url}`;
+                    break;
+                case "email":
+                    shareUrl = `mailto:?body=${url}`;
+                    break;
+            }
+            
+            window.open(shareUrl, "_blank");
+        }
+    </script>
+</body>
+</html>
