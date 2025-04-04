@@ -1,142 +1,99 @@
-<div class="swiper-popup-arrows">
-    <div class="swiper-popup-left-arrow">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
-        <path
-          d="M21.559,12.062 L15.618,17.984 L21.5221,23.944 C22.105,24.533 22.1021,25.482 21.5131,26.065 C21.2211,26.355 20.8391,26.4999987 20.4571,26.4999987 C20.0711,26.4999987 19.6851,26.352 19.3921,26.056 L12.4351,19.034 C11.8531,18.446 11.8551,17.4999987 12.4411,16.916 L19.4411,9.938 C20.0261,9.353 20.9781,9.354 21.5621,9.941 C22.1471,10.528 22.1451,11.478 21.5591,12.062 L21.559,12.062 Z"
-        ></path>
-      </svg>
-    </div>
-  
-    <div class="swiper-popup-right-arrow">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
-        <path
-          d="M23.5587,16.916 C24.1447,17.4999987 24.1467,18.446 23.5647,19.034 L16.6077,26.056 C16.3147,26.352 15.9287,26.4999987 15.5427,26.4999987 C15.1607,26.4999987 14.7787,26.355 14.4867,26.065 C13.8977,25.482 13.8947,24.533 14.4777,23.944 L20.3818,17.984 L14.4408,12.062 C13.8548,11.478 13.8528,10.5279 14.4378,9.941 C15.0218,9.354 15.9738,9.353 16.5588,9.938 L23.5588,16.916 L23.5587,16.916 Z"
-        ></path>
-      </svg>
-    </div>
+<!-- Arrows HTML Structure -->
+<div class="swiper-twitters-arrows">
+  <div class="swiper-twitters-left-arrow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+      <path
+        d="M21.559,12.062 L15.618,17.984 L21.5221,23.944 C22.105,24.533 22.1021,25.482 21.5131,26.065 C21.2211,26.355 20.8391,26.4999987 20.4571,26.4999987 C20.0711,26.4999987 19.6851,26.352 19.3921,26.056 L12.4351,19.034 C11.8531,18.446 11.8551,17.4999987 12.4411,16.916 L19.4411,9.938 C20.0261,9.353 20.9781,9.354 21.5621,9.941 C22.1471,10.528 22.1451,11.478 21.5591,12.062 L21.559,12.062 Z"
+      ></path>
+    </svg>
   </div>
-  
-  <style>
-    /* General Styling for Arrow Section */
-    .swiper-popup-arrows {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      margin-top: 10px;
+
+  <div class="swiper-twitters-right-arrow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+      <path
+        d="M23.5587,16.916 C24.1447,17.4999987 24.1467,18.446 23.5647,19.034 L16.6077,26.056 C16.3147,26.352 15.9287,26.4999987 15.5427,26.4999987 C15.1607,26.4999987 14.7787,26.355 14.4867,26.065 C13.8977,25.482 13.8947,24.533 14.4777,23.944 L20.3818,17.984 L14.4408,12.062 C13.8548,11.478 13.8528,10.5279 14.4378,9.941 C15.0218,9.354 15.9738,9.353 16.5588,9.938 L23.5588,16.916 L23.5587,16.916 Z"
+      ></path>
+    </svg>
+  </div>
+</div>
+
+<!-- Consolidated Arrow Styles -->
+<style>
+  /* Arrow Container Styles */
+  .swiper-twitters-arrows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.81rem;
+    margin-top: 10px;
+  }
+
+  /* Arrow Button Base Styles */
+  .swiper-twitters-arrows .swiper-twitters-left-arrow,
+  .swiper-twitters-arrows .swiper-twitters-right-arrow {
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.89063rem;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid #befd6f;
+    background: linear-gradient(69deg, #befd6f 0%, #0b0b0a 100%), #000;
+    fill: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* SVG Styles */
+  .swiper-twitters-left-arrow svg,
+  .swiper-twitters-right-arrow svg {
+    width: 100%;
+    height: 100%;
+    fill: #fff;
+    transition: fill 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Hover Effects */
+  .swiper-twitters-left-arrow:hover svg,
+  .swiper-twitters-right-arrow:hover svg {
+    fill: #bdff00;
+  }
+
+  .swiper-twitters-left-arrow:hover,
+  .swiper-twitters-right-arrow:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  /* Disabled State */
+  .swiper-twitters-arrows .swiper-button-disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .swiper-twitters-arrows {
+      gap: 6px;
+      margin-top: 8px;
     }
-  
-    /* Arrow Button Styling */
-    .swiper-popup-left-arrow,
-    .swiper-popup-right-arrow {
-      width: 32px; /* Increased to match SVG size */
-      height: 32px; /* Increased to match SVG size */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.3s ease, opacity 0.3s ease;
+    .swiper-twitters-left-arrow,
+    .swiper-twitters-right-arrow {
+      width: 24px;
+      height: 24px;
     }
-  
-    /* SVG Arrow Styling */
-    .swiper-popup-left-arrow svg,
-    .swiper-popup-right-arrow svg {
-      width: 100%; /* Changed to use percentage */
-      height: 100%; /* Changed to use percentage */
-      fill: #fff;
-      transition: fill 0.3s ease, transform 0.3s ease;
+  }
+
+  @media (max-width: 480px) {
+    .swiper-twitters-arrows {
+      gap: 4px;
+      margin-top: 6px;
     }
-  
-    /* Hover Effects */
-    .swiper-popup-left-arrow:hover svg,
-    .swiper-popup-right-arrow:hover svg {
-      fill: #bdff00; /* Highlight effect */
+    .swiper-twitters-left-arrow,
+    .swiper-twitters-right-arrow {
+      width: 20px;
+      height: 20px;
     }
-  
-    .swiper-popup-left-arrow:hover,
-    .swiper-popup-right-arrow:hover {
-      transform: scale(1.1);
-    }
-  
-    /* Tablet & Mobile View */
-    @media (max-width: 768px) {
-      .swiper-popup-arrows {
-        gap: 6px;
-        margin-top: 8px;
-      }
-      .swiper-popup-left-arrow,
-      .swiper-popup-right-arrow {
-        width: 24px; /* Adjusted for better proportions */
-        height: 24px;
-      }
-    }
-  
-    /* Small Mobile Screens */
-    @media (max-width: 480px) {
-      .swiper-popup-arrows {
-        gap: 4px;
-        margin-top: 6px;
-      }
-      .swiper-popup-left-arrow,
-      .swiper-popup-right-arrow {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  
-        //Twitters Slider
-      .swiper-twitters{
-        .swiper-slide{
-          max-width:355px;
-        }
-        
-        .swiper-wrapper {
-        gap: 40px;
-       }
-      }
-      
-       .swiper-popup-arrows{
-          display:flex;
-          gap:20px;
-          justify-content:center;
-          align-items:center;
-          
-          .swiper-popup-left-arrow, .swiper-popup-right-arrow{
-            height:36px;
-            width:36px;
-            border-radius:50%;
-            background:white;
-            cursor:pointer;
-            
-            &:hover{
-              opacity:0.9;
-            }
-          }
-          
-          .swiper-button-disabled{
-            pointer-events:none;
-            opacity:0.4;
-          }
-        }
-  
-           /* Twiter Swiper */
-      .swiper-popup-arrows {
-        display: flex;
-          justify-content: center;
-        align-items: center;
-        gap: 0.81rem;
-      }
-      .swiper-popup-arrows .swiper-popup-left-arrow, .swiper-popup-arrows .swiper-popup-right-arrow {
-        display: flex;
-        width: 3rem;
-        height: 3rem;
-        padding: 0.89063rem;
-        justify-content: center;
-        align-items: center;
-        border: 1.5px solid #befd6f;
-        background: linear-gradient(69deg, #befd6f 0%, #0b0b0a 100%), #000 !important;
-        fill: white;
-        border-radius: 50%;
-      }
-  </style>
-  
+  }
+</style>
