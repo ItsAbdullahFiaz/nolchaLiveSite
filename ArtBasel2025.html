@@ -1,315 +1,535 @@
-<div class="swiper swiper-twitters">
-    <div class="swiper-wrapper">
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="zxx" dir="ltr"><a href="https://t.co/5KiJRlutRg">pic.twitter.com/5KiJRlutRg</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1865204523372814668?ref_src=twsrc%5Etfw">December 7, 2024</a></blockquote>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consensus Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .consensus-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .consensus-main-box {
+            padding: 30px;
+            background: #1A1A1A;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 
+                0px 0.8px 32px 0px rgba(227, 222, 255, 0.05) inset,
+                0px 3.19px 14.37px 0px rgba(154, 146, 210, 0.05) inset,
+                0px 78.26px 78.26px -38.33px rgba(202, 172, 255, 0.05) inset,
+                0px -65.48px 54.3px -51.11px rgba(96, 68, 144, 0.05) inset,
+                0px 5.59px 8.78px -3.25px rgba(255, 255, 255, 0.07) inset,
+                0px 32px 40px -2px rgba(255, 255, 255, 0.02) inset,
+                0px 0.5px 10px -6px rgba(0, 0, 0, 0.10),
+                0px 20px 26px -5px rgba(0, 0, 0, 0.40);
+            backdrop-filter: blur(4px);
+            margin: 5px;
+        }
+
+        .consensus-main-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .consensus-content-grid {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 0;
+        }
+
+        .consensus-main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: flex-end;
+        }
+
+        .consensus-text-content {
+    margin-top: 36px;
+    padding-right: 20px;
+    align-self: flex-start;
+        }
+
+        .consensus-event-header {
+            margin-bottom: 30px;
+        }
+
+        .consensus-logo {
+            max-width: 280px;
+            margin-bottom: 30px;
+            position: absolute;
+            top: -22px;
+            left: 30px;
+            z-index: 1;
+        }
+
+        .consensus-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .consensus-event-date {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .consensus-event-date span {
+            color: #9ef01a;
+        }
+
+        .consensus-location {
+            color: #9ef01a;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .consensus-event-details {
+            margin-bottom: 16px;
+        }
+
+        .consensus-event-details .label {
+            color: #9ef01a;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .consensus-event-details p {
+            display: inline;
+        }
+
+        .consensus-guests-info {
+            margin-bottom: 60px;
+        }
+
+        .consensus-guests-info .label {
+            color: #9ef01a;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .consensus-guests-info p {
+            display: inline;
+        }
+
+        .consensus-gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            height: 250px;
+        }
+
+        .consensus-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .consensus-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .consensus-main-image {
+            height: 500px;
+        }
+
+        .consensus-bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .tg-media-section video {
+            border-radius: 0 !important;
+        }
+
+        .consensus-bottom-row .consensus-gallery-item {
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        .consensus-bottom-row .consensus-gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .consensus-main-image img {
+            object-fit: cover;
+        }
+        a.sqs-block-button-element--large.sqs-button-element--secondary.sqs-block-button-element {
+    background-color: #9ef01a;
+    color: black !important;
+}
+
+        @media (max-width: 768px) {
+            .consensus-main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .consensus-text-content {
+                padding-right: 0;
+            }
+
+            .consensus-main-box .consensus-logo {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 280px;
+            }
+
+            .consensus-main-image {
+                height: 400px;
+            }
+
+            .consensus-bottom-row {
+                grid-template-columns: 1fr;
+            }
+
+            .consensus-gallery-item {
+                height: 250px;
+            }
+
+            .consensus-bottom-row .consensus-gallery-item {
+                height: auto;
+            }
+        }
+
+                
+
+        /* Add these new styles */
+        .share-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+        }
+        
+        .share-button {
+            background-color: #333 !important;
+            border: none !important;
+            width: 40px !important;
+            height: 40px !important;
+            border-radius: 50% !important;
+            cursor: pointer !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            transition: all 0.3s ease !important;
+            padding: 0 !important;
+        }
+        
+        .share-button.active {
+            color: #9ef01a !important;
+        }
+        
+        .dropdown {
+            position: absolute !important;
+            top: 50px !important;
+            right: 0 !important;
+            background-color: transparent !important;
+            min-width: 40px !important;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease !important;
+        }
+        
+        .dropdown.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .share-link {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 40px !important;
+            height: 40px !important;
+            text-decoration: none !important;
+            background-color: #333 !important;
+            border-radius: 50% !important;
+            margin: 10px 0 !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+            color: white !important;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: all 0.3s ease !important;
+            padding: 8px !important;
+        }
+        
+        .share-link:hover {
+            color: #9ef01a !important;
+            background-color: #444 !important;
+        }
+        
+        .dropdown.active .share-link {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .dropdown .share-link:nth-child(1) { transition-delay: 0.1s; }
+        .dropdown .share-link:nth-child(2) { transition-delay: 0.2s; }
+        .dropdown .share-link:nth-child(3) { transition-delay: 0.3s; }
+        .dropdown .share-link:nth-child(4) { transition-delay: 0.4s; }
+        .dropdown .share-link:nth-child(5) { transition-delay: 0.5s; }
+        
+        @media (max-width: 768px) {
+            .share-container {
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Update the icon styles */
+        .share-icon, .social-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+        /* Update share link hover for copy link button */
+        .share-link:hover svg {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+
+        /* Add these new styles */
+        #copyLinkButton .link-icon,
+        #copyLinkButton .tick-icon {
+            transition: all 0.3s ease;
+        }
+
+        #copyLinkButton .tick-icon {
+            position: absolute;
+        }
+        .unique-card-button {
+            margin-bottom: 32px;
+        }
+        .unique-card-button a {
+            display: inline-block;
+            background-color: #9ef01a;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+            margin: 16px auto 0; /* Added top margin for spacing */
+            cursor: pointer;
+        }
+
+        .unique-card-button a:hover {
+            background-color: #80c918;
+        }
+    </style>
+</head>
+<body>
+    <div class="consensus-container">
+        <div class="consensus-main-box">
+            <div class="share-container">
+                <button class="share-button" onclick="toggleDropdown()">
+                    <svg viewBox="0 0 24 24" class="share-icon">
+                        <path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92zM18 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM6 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 7.02c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"></path>
+                    </svg>
+                </button>
+                <div class="dropdown" id="shareDropdown">
+                    <a href="#" onclick="share('twitter')" class="share-link">
+                        <svg viewBox="0 0 24 24" class="social-icon">
+                            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="share('instagram')" class="share-link">
+                        <svg viewBox="0 0 24 24" class="social-icon">
+                            <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="share('telegram')" class="share-link">
+                        <svg viewBox="0 0 24 24" class="social-icon">
+                            <path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="share('discord')" class="share-link">
+                        <svg viewBox="0 0 24 24" class="social-icon">
+                            <path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.118.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="share('facebook')" class="share-link">
+                        <svg viewBox="0 0 24 24" class="social-icon">
+                            <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="share('linkedin')" class="share-link">
+                        <svg viewBox="0 0 24 24" class="social-icon">
+                            <path fill="currentColor" d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" onclick="copyLink(event)" class="share-link" id="copyLinkButton">
+                        <svg viewBox="0 0 24 24" class="social-icon link-icon">
+                            <path fill="currentColor" d="M13.0605 8.11073L14.4747 9.52494C16.0155 11.0657 16.0155 13.5783 14.4747 15.1191L10.8895 18.7043C9.34873 20.2451 6.83614 20.2451 5.29534 18.7043C3.75455 17.1635 3.75455 14.6509 5.29534 13.1101L6.70956 11.6959L5.29534 10.2817L3.88113 11.6959C1.55192 14.0251 1.55192 17.7893 3.88113 20.1185C6.21034 22.4477 9.97453 22.4477 12.3037 20.1185L15.8889 16.5333C18.2181 14.2041 18.2181 10.4399 15.8889 8.11073L14.4747 6.69651L13.0605 8.11073ZM10.9395 15.8891L9.52525 14.4749C7.98446 12.9341 7.98446 10.4215 9.52525 8.88073L13.1105 5.29553C14.6512 3.75474 17.1638 3.75474 18.7046 5.29553C20.2454 6.83633 20.2454 9.34892 18.7046 10.8897L17.2904 12.3039L18.7046 13.7181L20.1188 12.3039C22.448 9.97468 22.448 6.21049 20.1188 3.88128C17.7896 1.55207 14.0254 1.55207 11.6962 3.88128L8.11099 7.46648C5.78178 9.79569 5.78178 13.5599 8.11099 15.8891L9.52521 17.3033L10.9395 15.8891Z"/>
+                        </svg>
+                        <svg viewBox="0 0 24 24" class="social-icon tick-icon" style="display: none;">
+                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="consensus-logo">
+                <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/b8c9506a-3c30-4428-8d7e-e13e4edaecb4/Group+2085665630+%281%29.png?format=2500w" alt="NFT.NYC 2025 Logo">
+            </div>
+
+            <div class="consensus-content-grid">
+                <div class="consensus-main-content">
+                    <div class="consensus-text-content">
+                        <div class="consensus-event-details">
+                            <p><span class="label">DATES : </span>December 4, 2025 - Miami </p>
+                        </div>
+                        <div class="consensus-event-details">
+                            <p><span class="label">VENUE: </span>A Miami Beach icon, the Grand Theatre, crafted in 1934 by famed architect Thomas Lamb, reimagined with state-of-the-art lighting, top-tier sound, and eight-legged LED Spider Walls for an electrifying night.</p>
+                        </div>
+                        <div class="consensus-event-details">
+                            <p><span class="label">WHAT TO EXPECT: </span>An exclusive evening featuring curated art exhibitions, a Bitcoin awards reception, & captivating live performances. </p>
+                        </div>
+                        <div class="consensus-event-details">
+                            <p>Feature your brand at the premier Art Basel event fusing art, tech, and fashion, reaching thousands in attendance and millions online. </p>
+                        </div>
+                        <div class="consensus-event-details">
+                            <p>Check out the <a href="https://cointelegraph.com/press-releases/how-nolcha-shows-became-the-best-destination-for-web3-leaders-during-art-basel" target="_blank" style="color: #9ef01a; text-decoration: underline;">Cointelegraph recap</a>.</p>
+                        </div>
+                        <div class="unique-card-button">
+                            <a href="mailto:pr@nolcha.com" target="_blank">REQUEST PROSPECTUS</a>
+                        </div>
+                    </div>
+
+                    <div class="consensus-gallery-item consensus-main-image">
+                        <div class="tg-media-section" style="height: 100%; width: 100%;">
+                            <video
+                                id="video"
+                                autoplay
+                                muted
+                                loop
+                                playsinline
+                                poster="https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/4ab08d01-1d5f-4f0c-a90a-4d7b26b83ee0/thumbnail"
+                                style="border-radius: 15px; width: 100%; height: 100%; object-fit: cover;"
+                            ></video>
+                            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+                            <script>
+                                if (Hls.isSupported()) {
+                                    var video = document.getElementById('video');
+                                    var hls = new Hls();
+                                    hls.loadSource('https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/4ab08d01-1d5f-4f0c-a90a-4d7b26b83ee0/playlist.m3u8');
+                                    hls.attachMedia(video);
+                                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                                        video.play();
+                                    });
+                                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                                    video.src = 'https://video.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/4ab08d01-1d5f-4f0c-a90a-4d7b26b83ee0/playlist.m3u8';
+                                    video.addEventListener('loadedmetadata', function () {
+                                        video.play();
+                                    });
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="consensus-bottom-row">
+                    <div class="consensus-gallery-item">
+                        <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1741987663423-MF3PCCVGONMJXOZBONOI/Main+2+1_A7S08367.jpg?format=1000w" alt="LED Wall Display">
+                    </div>
+                    <div class="consensus-gallery-item">
+                        <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/16852d70-bfa8-4408-96d1-a22d6eb1b63b/main+3++A7S05294+%281%29.jpg?format=2500w" alt="NFT.NYC Event Space">
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Surrounded by legends at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> 🟧🌴<br><br>Huge thanks to <a href="https://twitter.com/nicksainato?ref_src=twsrc%5Etfw">@nicksainato</a> and the entire <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> team for putting on an incredible day of expert panels featuring the top builders in the Bitcoin Ordinals ecosystem.<br><br>Bitcoin is for everyone and these builders are… <a href="https://t.co/kOpu8wm8X3">pic.twitter.com/kOpu8wm8X3</a></p>&mdash; goodthings (@Goodthings) <a href="https://twitter.com/Goodthings/status/1733203124708429910?ref_src=twsrc%5Etfw">December 8, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> Web3 Edition x Art Basel 🤝 Connecting the industry's best brands, artists and innovators for a night to remember ✨ with ❤️ <a href="https://twitter.com/MakersPlace?ref_src=twsrc%5Etfw">@makersplace</a> @TheLandVault <a href="https://twitter.com/Galxe?ref_src=twsrc%5Etfw">@Galxe</a> <a href="https://twitter.com/endstate?ref_src=twsrc%5Etfw">@endstate</a> @app_cortex <a href="https://twitter.com/Cointelegraph?ref_src=twsrc%5Etfw">@Cointelegraph</a> <a href="https://twitter.com/WeAreRazorfish?ref_src=twsrc%5Etfw">@WeAreRazorfish</a> <a href="https://twitter.com/living_opera?ref_src=twsrc%5Etfw">@living_opera</a> <a href="https://twitter.com/l8_life?ref_src=twsrc%5Etfw">@l8_life</a> <a href="https://twitter.com/PasanenJenni?ref_src=twsrc%5Etfw">@PasanenJenni</a> <a href="https://twitter.com/killergfnft?ref_src=twsrc%5Etfw">@killergfnft</a> <a href="https://t.co/fP5GfPOHj7">pic.twitter.com/fP5GfPOHj7</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1602090207595368448?ref_src=twsrc%5Etfw">December 11, 2022</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">NEW ALEXANDRIA: Artistic Intentions, Immutability, and Immortality with <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a>, <a href="https://twitter.com/ZK_shark?ref_src=twsrc%5Etfw">@zk_shark</a>, <a href="https://twitter.com/ScrillaVentura?ref_src=twsrc%5Etfw">@ScrillaVentura</a>, <a href="https://twitter.com/raphjaph?ref_src=twsrc%5Etfw">@raphjaph</a>, moderated by <a href="https://twitter.com/realizingerin?ref_src=twsrc%5Etfw">@realizingerin</a> from Inscribing Miami 2024 <a href="https://t.co/05dBdq3NN9">pic.twitter.com/05dBdq3NN9</a></p>&mdash; Inscribing Atlantis (@InscribAtlantis) <a href="https://twitter.com/InscribAtlantis/status/1882522667691258023?ref_src=twsrc%5Etfw">January 23, 2025</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">A huge thank you to <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>, <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a>, and <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> for a fantastic day where the leading builders within the Ordinals ecosystem came together.<br><br>The OCM family had an incredible experience, forging valuable connections with the brilliant minds actively building out… <a href="https://t.co/lUlMVaSgEm">pic.twitter.com/lUlMVaSgEm</a></p>&mdash; OnChainMonkey® (@OnChainMonkey) <a href="https://twitter.com/OnChainMonkey/status/1733568111176007928?ref_src=twsrc%5Etfw">December 9, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">📢 NEW SPEAKER ANNOUNCEMENT 📢<br>Casey Rodarmor will be speaking at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> Ordinals Edition on Dec 7 at Miami Art Basel!<a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a> is the Creator of the Ordinals Protocol 👨🏻‍💻 <a href="https://t.co/pZhHUnQqwu">pic.twitter.com/pZhHUnQqwu</a></p>&mdash; Inscribing Atlantis (@InscribAtlantis) <a href="https://twitter.com/InscribAtlantis/status/1724820805354492212?ref_src=twsrc%5Etfw">November 15, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🤲 Introducing: Links Season 1 - First of its kind on Etherlink!<br><br>Inspired by <a href="https://twitter.com/Michelin3xplore?ref_src=twsrc%5Etfw">@Michelin3xplore</a> and <a href="https://twitter.com/Sakazukinft?ref_src=twsrc%5Etfw">@sakazukinft</a>, to celebrate our partnership for Art Basel Miami Week 2024<br><br>A Free Mint Collection, with an upcoming prize draw &amp; showcase at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>!<br><br>All pieces available now… <a href="https://t.co/lPf3e6f5Om">https://t.co/lPf3e6f5Om</a> <a href="https://t.co/PA4HJJoWWK">pic.twitter.com/PA4HJJoWWK</a></p>&mdash; World of Women (@worldofwomenxyz) <a href="https://twitter.com/worldofwomenxyz/status/1862178088068542785?ref_src=twsrc%5Etfw">November 28, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Wow😭 showing my art during Art Basel in Miami was EPIC! What an amazing night this was 💖🙏 So grateful for this wonderful experience and can&#39;t wait for next year! Thank you <a href="https://twitter.com/ggbotnyc?ref_src=twsrc%5Etfw">@ggbotnyc</a> <a href="https://twitter.com/MakersPlace?ref_src=twsrc%5Etfw">@makersplace</a> <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://t.co/TND4SWtneD">pic.twitter.com/TND4SWtneD</a></p>&mdash; Talia Zoref (@TaliaZoref) <a href="https://twitter.com/TaliaZoref/status/1603128219485757440?ref_src=twsrc%5Etfw">December 14, 2022</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Join us for the largest blockchain art event of Miami Art Week! Dec 5 at M2 -- a landmark 40k sq ft multi-level immersive paradise. W/ <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> <a href="https://twitter.com/ordevents?ref_src=twsrc%5Etfw">@ordevents</a> conference + BTC Art Awards <br>💫Legendary Artists<br>🏆 <a href="https://twitter.com/djchuckie?ref_src=twsrc%5Etfw">@djchuckie</a><br>⚡️ Laser Show<br>🌴 Exotic Acts <a href="https://t.co/9BrGwQXVUK">pic.twitter.com/9BrGwQXVUK</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1861842154684903516?ref_src=twsrc%5Etfw">November 27, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">GM ~ 50 LED screens surrounding the audience, will tell the an epic story at sea this December in Miami. Immersive and Unsinkable ~ <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> 🥀🔥 <a href="https://t.co/Ad52sgA0SY">https://t.co/Ad52sgA0SY</a> <a href="https://t.co/qn67nwSKB8">pic.twitter.com/qn67nwSKB8</a></p>&mdash; Laurence Fuller (@LaurenceFuller) <a href="https://twitter.com/LaurenceFuller/status/1860028965244797073?ref_src=twsrc%5Etfw">November 22, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Excited to have showcased my animation Orange Pill to Nolcha at Art Basel last month! It was my first time designing with venue screens in mind—something I've wanted to explore for a while.<br><br>Huge thanks to <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> for the opportunity! I've included a few clips from the… <a href="https://t.co/GZpPL25QU3">pic.twitter.com/GZpPL25QU3</a></p>&mdash; BLE77 (@BLE77_ED) <a href="https://twitter.com/BLE77_ED/status/1880350444419182891?ref_src=twsrc%5Etfw">January 17, 2025</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Art Basel with <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>✨<br>Miami, December 2023<br><br>Ending the year on a high note🎵<a href="https://twitter.com/search?q=%24STARS&amp;src=ctag&amp;ref_src=twsrc%5Etfw">$STARS</a> <a href="https://t.co/aYhzKdmMV4">pic.twitter.com/aYhzKdmMV4</a></p>&mdash; Stargaze ✨🔭 (@StargazeZone) <a href="https://twitter.com/StargazeZone/status/1742648632317485489?ref_src=twsrc%5Etfw">January 3, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/EyesoFashionNFT?ref_src=twsrc%5Etfw">@EyesoFashionNFT</a> ladies color coordinating like 🤌🏾 at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <br><br>With - @_eem5_ <a href="https://twitter.com/KimboNFT?ref_src=twsrc%5Etfw">@KimboNFT</a> <a href="https://twitter.com/TaliaZoref?ref_src=twsrc%5Etfw">@TaliaZoref</a> <a href="https://t.co/Lslgd53cJc">pic.twitter.com/Lslgd53cJc</a></p>&mdash; Michelle Lora (@itsmichellelora) <a href="https://twitter.com/itsmichellelora/status/1598381874576969728?ref_src=twsrc%5Etfw">December 1, 2022</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Thank you so much <a href="https://twitter.com/MakersPlace?ref_src=twsrc%5Etfw">@makersplace</a> &amp; <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> honoured to be part <a href="https://twitter.com/hashtag/MiamiArtWeek?src=hash&amp;ref_src=twsrc%5Etfw">#MiamiArtWeek</a> ❤️🙆‍♀️❤️ Thank you <a href="https://twitter.com/NoCreative_eth?ref_src=twsrc%5Etfw">@NoCreative_eth</a> for the picture, hopefully get to come next year Miami! ☺️❤️ <a href="https://t.co/ajjjcRoSHH">pic.twitter.com/ajjjcRoSHH</a></p>&mdash; Jenni Pasanen (@PasanenJenni) <a href="https://twitter.com/PasanenJenni/status/1598832537379295232?ref_src=twsrc%5Etfw">December 3, 2022</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Thank you! great seeing you <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://t.co/PT4z3IOPao">https://t.co/PT4z3IOPao</a></p>&mdash; Ragzy X (@ragzyart) <a href="https://twitter.com/ragzyart/status/1598179219162697728?ref_src=twsrc%5Etfw">December 1, 2022</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">"Don't degen too close to the sun." <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a> at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://t.co/gPXXDc6x2G">pic.twitter.com/gPXXDc6x2G</a></p>&mdash; rudi yero (@rudiyero) <a href="https://twitter.com/rudiyero/status/1732881450335117325?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">△▽ GMA △▽<br><br>If you're an Aeon holder and going to Art Basel, come to the Discord we've got something for you. <a href="https://t.co/cqMkZnHwNQ">pic.twitter.com/cqMkZnHwNQ</a></p>&mdash; Aeons (@AeonsBTC) <a href="https://twitter.com/AeonsBTC/status/1859928248223977580?ref_src=twsrc%5Etfw">November 22, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/MakersPlace?ref_src=twsrc%5Etfw">@makersplace</a> and <a href="https://twitter.com/TransientLabs?ref_src=twsrc%5Etfw">@transientlabs</a> will be showcasing an amazing array of physical artworks throughout Miami Art Week and during the event.<br><br>Learn more here.<a href="https://t.co/qqEmdjVxay">https://t.co/qqEmdjVxay</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1730286967751835656?ref_src=twsrc%5Etfw">November 30, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="it" dir="ltr">Endstate x <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> - Art Basel Miami 2022 <a href="https://t.co/hShghmkyNo">pic.twitter.com/hShghmkyNo</a></p>&mdash; ENDSTATE (@endstate) <a href="https://twitter.com/endstate/status/1600859275534143489?ref_src=twsrc%5Etfw">December 8, 2022</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🚨 Excited for Miami Art Basel? We've got something special at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>! 🎨<br><br>✨ Join us Tues, Nov 26, at 16:00 UTC to hear about our program &amp; meet the incredible artists <a href="https://twitter.com/ronentanchum?ref_src=twsrc%5Etfw">@ronentanchum</a> &amp; <a href="https://twitter.com/ValeryGrancher?ref_src=twsrc%5Etfw">@ValeryGrancher</a>.<br><br>📅 Add it to your calendars! 🌟 <a href="https://t.co/zWLxsf2K1M">https://t.co/zWLxsf2K1M</a> <a href="https://t.co/pJKAR5SSSj">pic.twitter.com/pJKAR5SSSj</a></p>&mdash; LiveArt (@LiveArtX) <a href="https://twitter.com/LiveArtX/status/1859693145115722201?ref_src=twsrc%5Etfw">November 21, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">📣 NEW SPEAKER ANNOUNCEMENT 📣<br>Vincent D'Onofrio will be speaking at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> Ordinals Edition on Dec 7 at Miami Art Basel!<br>Vincent is a renowned actor, producer, and director creating digital art poetry through <a href="https://twitter.com/GraphiteMethod?ref_src=twsrc%5Etfw">@GraphiteMethod</a> <a href="https://t.co/zVp81zTIKP">pic.twitter.com/zVp81zTIKP</a></p>&mdash; Inscribing Atlantis (@InscribAtlantis) <a href="https://twitter.com/InscribAtlantis/status/1730722694306603125?ref_src=twsrc%5Etfw">December 1, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Programming is in full swing at Inscribing Miami with this stacked panel! 🏖️<br><br>New Alexandria with <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a> <a href="https://twitter.com/ScrillaVentura?ref_src=twsrc%5Etfw">@ScrillaVentura</a> <a href="https://twitter.com/raphjaph?ref_src=twsrc%5Etfw">@raphjaph</a>, surprise guest <a href="https://twitter.com/ZK_shark?ref_src=twsrc%5Etfw">@ZK_shark</a>, and moderator <a href="https://twitter.com/realizingerin?ref_src=twsrc%5Etfw">@realizingerin</a> <a href="https://t.co/2au3Z8ORcl">pic.twitter.com/2au3Z8ORcl</a></p>&mdash; Gamma.io (@trygamma) <a href="https://twitter.com/trygamma/status/1864752078834250177?ref_src=twsrc%5Etfw">December 5, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Listening live at <a href="https://twitter.com/hashtag/ArtBasel?src=hash&amp;ref_src=twsrc%5Etfw">#ArtBasel</a> <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> <a href="https://t.co/pebp2VaOzH">pic.twitter.com/pebp2VaOzH</a></p>&mdash; Wako (@OrdinalDrunk) <a href="https://twitter.com/OrdinalDrunk/status/1864751866220875959?ref_src=twsrc%5Etfw">December 5, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">We&#39;re honored to present the finalists for the first-ever Bitcoin Art Awards w/ <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a>.<br><br>The Bitcoin Art Awards will take place Thursday, December 5th at 6pm at <a href="https://twitter.com/ordevents?ref_src=twsrc%5Etfw">@ordevents</a> Miami Beach.<br><br>Thanks again to our generous sponsors <a href="https://twitter.com/AeonsBTC?ref_src=twsrc%5Etfw">@AeonsBTC</a> and <a href="https://twitter.com/OnChainMonkey?ref_src=twsrc%5Etfw">@OnChainMonkey</a>! 🧵 <a href="https://t.co/SFWvUtUohg">pic.twitter.com/SFWvUtUohg</a></p>&mdash; Gamma.io (@trygamma) <a href="https://twitter.com/trygamma/status/1863967147828957639?ref_src=twsrc%5Etfw">December 3, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Next Thursday night going to be the largest ever ordinals + blockchain party we&#39;ve ever done w/ <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a><br><br>Miami Beach, full city block venue, over 100 artists on display, live activations, aerial dancing act, laser light show, plenty of surprises 👀<br><br>DM me for RSVP link <a href="https://t.co/lOew5TjzB0">pic.twitter.com/lOew5TjzB0</a></p>&mdash; Nick (@nicksainato) <a href="https://twitter.com/nicksainato/status/1862541349691502977?ref_src=twsrc%5Etfw">November 29, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Jarritos added some flavor to the <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> event at Art Basel! <br><br>What events do you want to see Jarritos at in 2025? 👀 <a href="https://t.co/8Er8IqOgJJ">pic.twitter.com/8Er8IqOgJJ</a></p>&mdash; Jarritos (@Jarritos) <a href="https://twitter.com/Jarritos/status/1876371358504153400?ref_src=twsrc%5Etfw">January 6, 2025</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">After making his DJing debut at the world-renowned Art Basel Miami, Heat guard Josh Richardson took his talents to the SLS Hotel on South Beach for a huge closing party (curated by <a href="https://twitter.com/CloseUp360?ref_src=twsrc%5Etfw">@CloseUp360</a> &amp; <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>).<br><br>Full feature inside <a href="https://twitter.com/J_Rich1?ref_src=twsrc%5Etfw">@J_Rich1</a>&#39;s DJ evolution: <a href="https://t.co/1Zv9SB9ew3">https://t.co/1Zv9SB9ew3</a> <a href="https://t.co/mzkRXDsZZg">pic.twitter.com/mzkRXDsZZg</a></p>&mdash; CloseUp360 (@CloseUp360) <a href="https://twitter.com/CloseUp360/status/1816628911536525537?ref_src=twsrc%5Etfw">July 26, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">We're LIVE 🔴 with the @ordinalsshow from Art Basel <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> // Ordinals Edition! <br><br>Tune in to catch <a href="https://twitter.com/TO?ref_src=twsrc%5Etfw">@TO</a> <a href="https://twitter.com/piovincenzo_?ref_src=twsrc%5Etfw">@piovincenzo_</a> <a href="https://twitter.com/billyrestey?ref_src=twsrc%5Etfw">@billyrestey</a> and our very own <a href="https://twitter.com/nonfungible_jan?ref_src=twsrc%5Etfw">@nonfungible_jan</a> <a href="https://t.co/HJRB62IB94">https://t.co/HJRB62IB94</a> <a href="https://t.co/yzvEjESkf1">pic.twitter.com/yzvEjESkf1</a></p>&mdash; Xverse - Bitcoin Wallet for everyone (@XverseApp) <a href="https://twitter.com/XverseApp/status/1732830903938793526?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The first time we discussed NO FEAR, NO GREED, NO ENVY at the <a href="https://twitter.com/hashtag/Bitcoin?src=hash&amp;ref_src=twsrc%5Etfw">#Bitcoin</a> conference x <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> &amp; <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> during last Art Basel Miami<br><br>Today we discuss its release <a href="https://twitter.com/Sothebysverse?ref_src=twsrc%5Etfw">@Sothebysverse</a> at <a href="https://twitter.com/nftnow?ref_src=twsrc%5Etfw">@nftnow</a> w/ <a href="https://twitter.com/humanonfire?ref_src=twsrc%5Etfw">@humanonfire</a> &amp; <a href="https://twitter.com/TO?ref_src=twsrc%5Etfw">@TO</a> &amp; <a href="https://twitter.com/mattmedved?ref_src=twsrc%5Etfw">@mattmedved</a> <br><br>3.30pm PST (1hr) ~ <a href="https://t.co/54yNubZ8EZ">https://t.co/54yNubZ8EZ</a> <a href="https://t.co/DKsfoefmx1">pic.twitter.com/DKsfoefmx1</a></p>&mdash; Graphite Method (@GraphiteMethod) <a href="https://twitter.com/GraphiteMethod/status/1793755046959849507?ref_src=twsrc%5Etfw">May 23, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">XForge making waves at Inscribing Miami during Art Basel with <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> <a href="https://twitter.com/ordevents?ref_src=twsrc%5Etfw">@ordevents</a> <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> 🔥 <a href="https://t.co/KznbmBPUPZ">pic.twitter.com/KznbmBPUPZ</a></p>&mdash; XForge Phone (@XForgeOfficial) <a href="https://twitter.com/XForgeOfficial/status/1864756114321215494?ref_src=twsrc%5Etfw">December 5, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I want to take a second to thank <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>. He organized my event and charged me absolutely nothing. He didn't ask for pay because he believed in the cause. I will work with him on every event going forward, and you should too</p>&mdash; Leap (@leap_xyz) <a href="https://twitter.com/leap_xyz/status/1865577730835616223?ref_src=twsrc%5Etfw">December 8, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Honored for <a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a> to receive the Bitcoin Collection of the Year Award at the first Bitcoin Art Awards by <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <br><br>We&#39;re one of the smaller collections on Bitcoin, but we won because our community shows up. My deepest thanks and gratitude… <a href="https://t.co/cnOrO6U6W1">pic.twitter.com/cnOrO6U6W1</a></p>&mdash; trevor.btc (@TO) <a href="https://twitter.com/TO/status/1865128713727131761?ref_src=twsrc%5Etfw">December 6, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Announcing the first ever Bitcoin Art Awards 🏆<br><br>December 5th, Art Basel week, at Inscribing Miami<br><br>🗳️ Join the vote now 👇<br><br>Presented by Gamma and partners <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> &amp; <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <br><br>Thank you to our award sponsors <a href="https://twitter.com/AeonsBTC?ref_src=twsrc%5Etfw">@AeonsBTC</a> and <a href="https://twitter.com/OnChainMonkey?ref_src=twsrc%5Etfw">@OnChainMonkey</a> for their generous support! <a href="https://t.co/AbEs7M3vE8">pic.twitter.com/AbEs7M3vE8</a></p>&mdash; Gamma.io (@trygamma) <a href="https://twitter.com/trygamma/status/1856418315612369019?ref_src=twsrc%5Etfw">November 12, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">We're excited to announce the winners of the first-ever Bitcoin Art Awards!<br><br>Bitcoin Artists of the Year<a href="https://twitter.com/0xfar?ref_src=twsrc%5Etfw">@0xfar</a> <br><br>Bitcoin Collection of the Year<a href="https://twitter.com/Pizza_Ninjas?ref_src=twsrc%5Etfw">@Pizza_Ninjas</a> <br><br>Bitcoin Innovation Award<a href="https://twitter.com/otograf_jp?ref_src=twsrc%5Etfw">@otograf_jp</a> <br><br>Genesis Release of the Year<a href="https://twitter.com/ryankoopmans?ref_src=twsrc%5Etfw">@ryankoopmans</a> <br><br>Thank you again to all the nominees,… <a href="https://t.co/BvN7dK1AfX">pic.twitter.com/BvN7dK1AfX</a></p>&mdash; Gamma.io (@trygamma) <a href="https://twitter.com/trygamma/status/1864823118159589532?ref_src=twsrc%5Etfw">December 6, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Can someone take us back to Miami?! <br><br>It is going to be hard to top our first Art Basel and the vibes that were created thanks to <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>. <a href="https://t.co/yZ1i1zA9SP">pic.twitter.com/yZ1i1zA9SP</a></p>&mdash; Remx (@remx_xyz) <a href="https://twitter.com/remx_xyz/status/1869184071034892622?ref_src=twsrc%5Etfw">December 18, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">New Renaissance x <a href="https://twitter.com/parallel_fbx?ref_src=twsrc%5Etfw">@parallel_fbx</a> <br>Curated by <a href="https://twitter.com/Danieleverse?ref_src=twsrc%5Etfw">@Danieleverse</a> <a href="https://twitter.com/red_eye_world?ref_src=twsrc%5Etfw">@red_eye_world</a> <br><br>Showcased at the <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> Art Basel After Party with <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> &amp; <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> <a href="https://t.co/jRjuxzK3cX">pic.twitter.com/jRjuxzK3cX</a></p>&mdash; TerryCherry (@TerryIsakova) <a href="https://twitter.com/TerryIsakova/status/1865136741935444350?ref_src=twsrc%5Etfw">December 6, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">huge gratitude to Arthur of <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> who knocks it out of the park again and again, and who continues to champion <a href="https://twitter.com/worldofwomennft?ref_src=twsrc%5Etfw">@worldofwomennft</a> at every opportunity. when Arthur says "come with me," you go and don&#39;t ask questions. <a href="https://twitter.com/hashtag/innolchawetrust?src=hash&amp;ref_src=twsrc%5Etfw">#innolchawetrust</a></p>&mdash; Chelsea Chung (@TheDegenesse) <a href="https://twitter.com/TheDegenesse/status/1866373283303641266?ref_src=twsrc%5Etfw">December 10, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">There will be signs <a href="https://t.co/5x6nQv8EW5">pic.twitter.com/5x6nQv8EW5</a></p>&mdash; Troy 🧙🏽‍♂️☎️ (@TroyCaylak) <a href="https://twitter.com/TroyCaylak/status/1865527804101861536?ref_src=twsrc%5Etfw">December 7, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The Fortune at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> just exhibited immersively on 50 LED screens in Miami ~ it was a meditation on the whales, the details of creating for this large space, the poetry, the sound, the images &amp; then to watch them all come together in symbiosis was a great joy 🥀🔥 <a href="https://t.co/OWjE5zwz8Z">pic.twitter.com/OWjE5zwz8Z</a></p>&mdash; Laurence Fuller (@LaurenceFuller) <a href="https://twitter.com/LaurenceFuller/status/1866617645178687499?ref_src=twsrc%5Etfw">December 10, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> Ordinals Edition Highlights <br><br>Grateful AF to have been surrounded by so many Bitcoin builders 💯 <a href="https://t.co/IAO8NZnrOc">pic.twitter.com/IAO8NZnrOc</a></p>&mdash; Wako (@OrdinalDrunk) <a href="https://twitter.com/OrdinalDrunk/status/1733224757359763833?ref_src=twsrc%5Etfw">December 8, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">We&#39;re bullish on Ordinals!<br><br>At the <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>: Ordinals Edition in Miami, our VP of Product <a href="https://twitter.com/renapshah?ref_src=twsrc%5Etfw">@RenaPShah</a> talks about what makes Ordinals so special compared to NFTs 🧡 <a href="https://t.co/D0B2wJ7mfP">pic.twitter.com/D0B2wJ7mfP</a></p>&mdash; Trust Machines (@trustmachinesco) <a href="https://twitter.com/trustmachinesco/status/1753437043894665264?ref_src=twsrc%5Etfw">February 2, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Continued All-Star Line up 🤩 <br>- <a href="https://twitter.com/0wl_btc?ref_src=twsrc%5Etfw">@0wl_btc</a> // <a href="https://twitter.com/InscribedPepe?ref_src=twsrc%5Etfw">@InscribedPepe</a> /<a href="https://twitter.com/KingBootoshi?ref_src=twsrc%5Etfw">@KingBootoshi</a> // <br>- <a href="https://twitter.com/BitGod21?ref_src=twsrc%5Etfw">@BitGod21</a> // <a href="https://twitter.com/YukanL?ref_src=twsrc%5Etfw">@YukanL</a> // <a href="https://twitter.com/sarah_satoshi?ref_src=twsrc%5Etfw">@sarah_satoshi</a> //<br>- <a href="https://twitter.com/castig?ref_src=twsrc%5Etfw">@castig</a> // <a href="https://twitter.com/lashercorson?ref_src=twsrc%5Etfw">@lashercorson</a> // <a href="https://twitter.com/bl0ckchainsavvy?ref_src=twsrc%5Etfw">@bl0ckchainsavvy</a> //<br>- @nuropunk_ // <a href="https://twitter.com/amandaterry?ref_src=twsrc%5Etfw">@amandaterry</a> // <a href="https://twitter.com/megan_crypto?ref_src=twsrc%5Etfw">@megan_crypto</a><br>- <a href="https://twitter.com/taggaOyl?ref_src=twsrc%5Etfw">@taggaOyl</a> // <a href="https://twitter.com/hugopouch?ref_src=twsrc%5Etfw">@hugopouch</a> // <a href="https://twitter.com/_carolevy?ref_src=twsrc%5Etfw">@_carolevy</a> //<br>-… <a href="https://t.co/7enXXG2uaQ">pic.twitter.com/7enXXG2uaQ</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1745511630522233224?ref_src=twsrc%5Etfw">January 11, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Thrilled to announce that our event with <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> and <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> has been featured in <a href="https://twitter.com/Forbes?ref_src=twsrc%5Etfw">@Forbes</a>! 😇<br><br>Read all about Bitcoin Ordinals&#39; debut during Miami Art Basel — plus lots of alpha about the event! 🔗👇 <a href="https://t.co/anDllJBnkh">pic.twitter.com/anDllJBnkh</a></p>&mdash; Gamma.io (@trygamma) <a href="https://twitter.com/trygamma/status/1730638416155386187?ref_src=twsrc%5Etfw">December 1, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Surrounded by legends at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> 🟧🌴⚡️<br><br>Pleasure to finally meet the goat behind <a href="https://twitter.com/XverseApp?ref_src=twsrc%5Etfw">@xverseApp</a>. <br><br>Stoked to partner with you and your amazing team, <a href="https://twitter.com/YukanL?ref_src=twsrc%5Etfw">@YukanL</a> 🐐🫡 <a href="https://t.co/8Q1PIxIaGG">pic.twitter.com/8Q1PIxIaGG</a></p>&mdash; goodthings (@Goodthings) <a href="https://twitter.com/Goodthings/status/1732927921046651354?ref_src=twsrc%5Etfw">December 8, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Shout out to all the Bitcoin Builders in the house!!! 🟧🌴<br><br>Awesome Q&amp;A with <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a> moderated by <a href="https://twitter.com/realizingerin?ref_src=twsrc%5Etfw">@realizingerin</a> who curated the speakers today! 🙌<br><br>Vibes are super high at <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> x <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>!⚡️🚀✨ <a href="https://t.co/COICLEuOQM">pic.twitter.com/COICLEuOQM</a></p>&mdash; Amanda Terry (@amandaterry) <a href="https://twitter.com/amandaterry/status/1732887711214666134?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">ON STAGE SOON AT <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> Ordinals event!!!!<br><br>🫶 <a href="https://t.co/adnR3NLBTC">pic.twitter.com/adnR3NLBTC</a></p>&mdash; Violetta Zironi 🚀 (@ZironiVioletta) <a href="https://twitter.com/ZironiVioletta/status/1732907977374339132?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Seeing and experiencing all of this and meeting so many great people was everything to me! <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> <a href="https://twitter.com/0xBunzy?ref_src=twsrc%5Etfw">@0xBunzy</a> <a href="https://twitter.com/ZironiVioletta?ref_src=twsrc%5Etfw">@ZironiVioletta</a> <a href="https://twitter.com/nicksainato?ref_src=twsrc%5Etfw">@nicksainato</a> <a href="https://twitter.com/eliherf1?ref_src=twsrc%5Etfw">@eliherf1</a> <a href="https://twitter.com/sarah_satoshi?ref_src=twsrc%5Etfw">@sarah_satoshi</a> thank you! <a href="https://t.co/NKhmbBlbkW">pic.twitter.com/NKhmbBlbkW</a></p>&mdash; JB Studio | DRiP 💧 (@jbstudioart) <a href="https://twitter.com/jbstudioart/status/1734635312834355668?ref_src=twsrc%5Etfw">December 12, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Had the pleasure of talking in an panel yesterday with these absolute legends. So blessed to be in this space🧡🚀<br><br>S/O <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> for hosting an amazing conference &amp; after party. Can't wait for the next one🫡 <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> <a href="https://t.co/BwwvoKOkYw">pic.twitter.com/BwwvoKOkYw</a></p>&mdash; Peter (@petehodl) <a href="https://twitter.com/petehodl/status/1733205997638873346?ref_src=twsrc%5Etfw">December 8, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Seeing the Ordinals community together IRL was 🔥🔥during Art Basel 🤩<br><br>Nolcha Shows: Ordinals Edition 2023 Programming by <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> and Presented by <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a><br><br>Let's run it back again next year !? 🤩<br><br>Enjoy select photos below. Video recap coming soon ✨ <a href="https://t.co/c4qiXWXGh1">pic.twitter.com/c4qiXWXGh1</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1738299696634904673?ref_src=twsrc%5Etfw">December 22, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="it" dir="ltr">based panel in miami <a href="https://t.co/qdnWBOiTqP">pic.twitter.com/qdnWBOiTqP</a></p>&mdash; Robin (@robin_liquidium) <a href="https://twitter.com/robin_liquidium/status/1732876897833423278?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/FFFACE_ME?ref_src=twsrc%5Etfw">@FFFACE_me</a> x <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>: Web3 Edition <a href="https://twitter.com/ArtBasel?ref_src=twsrc%5Etfw">@ArtBasel</a> 2023<br><br>Big AR Mirrors with printing functionality, Small AR Mirrors and Semi-digital Clothing perfectly blended into art exhibition and socializing, seamlessly generating engagements and laughs. <a href="https://twitter.com/hashtag/artbasel2023?src=hash&amp;ref_src=twsrc%5Etfw">#artbasel2023</a> <a href="https://twitter.com/hashtag/web3?src=hash&amp;ref_src=twsrc%5Etfw">#web3</a> <a href="https://t.co/JFPcmLv9cr">pic.twitter.com/JFPcmLv9cr</a></p>&mdash; FFFACE.ME (@FFFACE_ME) <a href="https://twitter.com/FFFACE_ME/status/1737073454732472757?ref_src=twsrc%5Etfw">December 19, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">DJ J-Rich makes his DJing debut during Art Basel Miami 🔥<br><br>Go inside Josh Richardson's performance at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>, curated by CloseUp360. Feature with <a href="https://twitter.com/J_Rich1?ref_src=twsrc%5Etfw">@J_Rich1</a> coming soon! <a href="https://twitter.com/hashtag/CU360?src=hash&amp;ref_src=twsrc%5Etfw">#CU360</a> <a href="https://t.co/Bv1ufI0Pts">pic.twitter.com/Bv1ufI0Pts</a></p>&mdash; CloseUp360 (@CloseUp360) <a href="https://twitter.com/CloseUp360/status/1735800597943648662?ref_src=twsrc%5Etfw">December 15, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Art, Community, Bitcoin.<br><br>A heartfelt thank you to <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>, <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a>, <a href="https://twitter.com/InscribAtlantis?ref_src=twsrc%5Etfw">@InscribAtlantis</a> for an incredible evening during Miami&#39;s Art Basel last week.<br><br>The OCM Family forged meaningful real-life connections, surrounded by an array of captivating art displays and performances.… <a href="https://t.co/w9YBmLseQr">pic.twitter.com/w9YBmLseQr</a></p>&mdash; OnChainMonkey® (@OnChainMonkey) <a href="https://twitter.com/OnChainMonkey/status/1734957147299963004?ref_src=twsrc%5Etfw">December 13, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here we go Miami! Kicking of <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> with a retrospective of this crazy colored 🟧 2023 with <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a> <a href="https://twitter.com/raphjaph?ref_src=twsrc%5Etfw">@raphjaph</a> <a href="https://twitter.com/realizingerin?ref_src=twsrc%5Etfw">@realizingerin</a> 🍿 <a href="https://t.co/tLfZe1Uyou">pic.twitter.com/tLfZe1Uyou</a></p>&mdash; Ben.₿LIFE 🟧 $BLIFE (@Ben_Charbit) <a href="https://twitter.com/Ben_Charbit/status/1732814377772896531?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">What do <a href="https://twitter.com/hashtag/Ordinals?src=hash&amp;ref_src=twsrc%5Etfw">#Ordinals</a> mean to you? <br><br>Amazing <a href="https://twitter.com/hashtag/interactivepainting?src=hash&amp;ref_src=twsrc%5Etfw">#interactivepainting</a> in partnership with <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> during the first Ordinals conference during <a href="https://twitter.com/hashtag/artbaselmiami?src=hash&amp;ref_src=twsrc%5Etfw">#artbaselmiami</a> where I learned about the <a href="https://twitter.com/hashtag/bitcoin?src=hash&amp;ref_src=twsrc%5Etfw">#bitcoin</a> <a href="https://twitter.com/hashtag/art?src=hash&amp;ref_src=twsrc%5Etfw">#art</a> offering<br><br>What do you think? <a href="https://t.co/ZZAbtyaxGV">pic.twitter.com/ZZAbtyaxGV</a></p>&mdash; Marco Santini (@MarcoSantiniArt) <a href="https://twitter.com/MarcoSantiniArt/status/1734769116114751895?ref_src=twsrc%5Etfw">December 13, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Great insights for testing new strategies and responding to users in Designing for Adoption: Ordinals UI/UX panel at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>: Ordinals Edition <a href="https://t.co/sK5h0WULOG">pic.twitter.com/sK5h0WULOG</a></p>&mdash; Inscribing Atlantis (@InscribAtlantis) <a href="https://twitter.com/InscribAtlantis/status/1732818918471799148?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Currently: <a href="https://twitter.com/amandaterry?ref_src=twsrc%5Etfw">@amandaterry</a> and the story of <a href="https://twitter.com/OnChainMonkey?ref_src=twsrc%5Etfw">@OnChainMonkey</a> on the fireside chat stage moderated by <a href="https://twitter.com/megan_crypto?ref_src=twsrc%5Etfw">@megan_crypto</a> <br><br>Next up: Q&amp;A with <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a> 🔥🔥🔥 <a href="https://t.co/ZkIJnt8Vfi">pic.twitter.com/ZkIJnt8Vfi</a></p>&mdash; Inscribing Atlantis (@InscribAtlantis) <a href="https://twitter.com/InscribAtlantis/status/1732868033301930289?ref_src=twsrc%5Etfw">December 7, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ordinals take Art Basel! 🟧🌴<br><br>Our team enjoyed speaking <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>, shifting the perception for high end NFT collectors and creatives to see Bitcoin as the block space for fine art.<br><br>S/o <a href="https://twitter.com/trygamma?ref_src=twsrc%5Etfw">@trygamma</a> team for making it possible! <a href="https://t.co/MYjOcjOnZP">pic.twitter.com/MYjOcjOnZP</a></p>&mdash; Xverse - Bitcoin Wallet for everyone (@XverseApp) <a href="https://twitter.com/XverseApp/status/1733528242748031395?ref_src=twsrc%5Etfw">December 9, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Art Basel 2023 <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@nolchashows</a> Web3 Edition at SLS Hotel ✨<a href="https://twitter.com/nodemonkes?ref_src=twsrc%5Etfw">@nodemonkes</a> 🔥🐒🟧 and <a href="https://twitter.com/grettakruesi?ref_src=twsrc%5Etfw">@grettakruesi</a> 🎨🧡 👀 <a href="https://t.co/QBig7ZXEZ3">pic.twitter.com/QBig7ZXEZ3</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1733508008477327837?ref_src=twsrc%5Etfw">December 9, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today&#39;s show is powered by <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a>!<br><br>On December 7th, Nolcha Shows will be hosting the FIRST EVER Ordinals event at Art Basel!<br><br>The full day event will bring together builders, artists, investors, and more via a full day experience. <br><br>Use code "PIOPIOPIO" at…</p>&mdash; The Bitcoin Show (@TheBitcoinShow_) <a href="https://twitter.com/TheBitcoinShow_/status/1727038729997668715?ref_src=twsrc%5Etfw">November 21, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The conference will feature panels and fireside chats with the leading voices, builders, and artists within the <a href="https://twitter.com/hashtag/Bitcoin?src=hash&amp;ref_src=twsrc%5Etfw">#Bitcoin</a> Ordinals ecosystem, including Casey <a href="https://twitter.com/rodarmor?ref_src=twsrc%5Etfw">@rodarmor</a>, the visionary and architect behind the Ordinals protocol.<a href="https://t.co/MKJmEFRYvQ">https://t.co/MKJmEFRYvQ</a></p>&mdash; Nolcha Shows (@NolchaShows) <a href="https://twitter.com/NolchaShows/status/1730286958969069750?ref_src=twsrc%5Etfw">November 30, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bursting with pride right now <br><br>My wife <a href="https://twitter.com/MADXart?ref_src=twsrc%5Etfw">@MADXart</a> is going to be one of the headline artists at <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> during Art Basel Miami! <br><br>This is going to be the flagship digital art event of the week, HMU if you will be in town for Basel 👀 <a href="https://t.co/mSgr4TaKUb">pic.twitter.com/mSgr4TaKUb</a></p>&mdash; Glenn | Alchemy (@glennonchain) <a href="https://twitter.com/glennonchain/status/1859735135727518182?ref_src=twsrc%5Etfw">November 21, 2024</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">GM 🌴<br><br>still reliving one of my favorite art basel events as we begin curating <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> NFTNYC. lets chat to have your art or brand involved in the next 📩✨ <a href="https://t.co/CuQCvqh6n7">pic.twitter.com/CuQCvqh6n7</a></p>&mdash; MAXX 𓂀 (@Web3Maxx) <a href="https://twitter.com/Web3Maxx/status/1738217857203278095?ref_src=twsrc%5Etfw">December 22, 2023</a></blockquote>
-        </div>
-
-        <div class="swiper-slide">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;m still living this surreal dream ✨ had a blast showing my art <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> during Art Basel at SLS South Beach! Super thankful to be surrounded by such creative minds and souls 💖🦩💫 <a href="https://t.co/8rzg293VHl">pic.twitter.com/8rzg293VHl</a></p>&mdash; MADX (@MADXart) <a href="https://twitter.com/MADXart/status/1876076166140108859?ref_src=twsrc%5Etfw">January 6, 2025</a></blockquote>
-        </div>
-
     </div>
-</div>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script>
-    if (window.twttr && window.twttr.widgets) {
-        twttr.widgets.load();
-    }
-</script>
-<script>
-    const twitterSwiper = new Swiper('.swiper-twitters', {
-        observer: true,
-        observeParents: true,
-        slidesPerView: 'auto',
-        spaceBetween: 40,
-        navigation: {
-            nextEl: '.swiper-twitters-right-arrow',
-            prevEl: '.swiper-twitters-left-arrow'
-        },
-        slideToClickedSlide: true,
-        centeredSlides: false,
-        slidesPerGroup: 1,
-        speed: 600,
-        effect: 'slide',
-        watchSlidesProgress: true,
-        watchOverflow: true
-    });
-</script>
-<style>
-    .swiper-twitters {
-        height: auto !important;
-        min-height: 600px;
-        padding-left: 0 !important;
-        padding-right: 100px !important;
-    }
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("shareDropdown");
+            const shareButton = document.querySelector(".share-button");
+            dropdown.classList.toggle("active");
+            shareButton.classList.toggle("active");
+        }
 
-    .swiper-twitters .swiper-wrapper {
-        transition-timing-function: ease-out;
-        margin-left: 0;
-    }
+        function share(platform) {
+            const url = encodeURIComponent("https://www.nolcha.com/content-for-swiper-with-popup/art-basel-2025");
+            let shareUrl = "";
+            
+            switch(platform) {
+                case "twitter":
+                    shareUrl = `https://twitter.com/intent/tweet?url=${url}`;
+                    break;
+                case "instagram":
+                    // Instagram doesn't have a direct share URL, you might want to handle this differently
+                    shareUrl = `https://instagram.com`;
+                    break;
+                case "telegram":
+                    shareUrl = `https://t.me/share/url?url=${url}`;
+                    break;
+                case "discord":
+                    // Discord doesn't have a direct share URL, you might want to handle this differently
+                    shareUrl = `https://discord.com`;
+                    break;
+                case "facebook":
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                    break;
+                case "linkedin":
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, "_blank");
+            }
+        }
 
-    .swiper-twitters .swiper-slide {
-        max-width: 355px;
-        height: auto !important;
-        transition: transform 0.3s ease;
-        margin-left: 0;
-        opacity: 1;
-    }
-
-    .twitter-tweet {
-        margin: 0 auto !important;
-    }
-
-    .swiper.swiper-twitters {
-        overflow: visible;
-    }
-</style>
+        function copyLink(event) {
+            event.preventDefault();
+            const url = "https://www.nolcha.com/content-for-swiper-with-popup/art-basel-2025";
+            const copyButton = document.getElementById('copyLinkButton');
+            const linkIcon = copyButton.querySelector('.link-icon');
+            const tickIcon = copyButton.querySelector('.tick-icon');
+            
+            // Copy URL to clipboard
+            navigator.clipboard.writeText(url).then(() => {
+                // Hide link icon, show tick icon
+                linkIcon.style.display = 'none';
+                tickIcon.style.display = 'block';
+                copyButton.style.color = '#9ef01a';
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    linkIcon.style.display = 'block';
+                    tickIcon.style.display = 'none';
+                    copyButton.style.color = 'white';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
