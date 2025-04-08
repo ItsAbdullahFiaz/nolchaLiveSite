@@ -6,50 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speakers Carousel</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        .speakers-carousel-wrapper {
+            --primary-color: #2c3e50;
+            --hover-color: #34495e;
+            --background-color: #f5f5f5;
+            --card-width: 300px;
+            --card-height: 400px;
+
+            width: 100%;
+            margin: 2rem auto;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
+        .speakers-carousel-wrapper * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         .carousel-container {
             width: 100%;
-            max-width: 1200px;
-            margin: 2rem auto;
             position: relative;
             overflow: hidden;
+            margin: 2rem 0;
+            padding: 0;
         }
 
         .carousel {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s ease-out;
             gap: 2rem;
-            padding: 1rem;
+            padding: 0;
+            will-change: transform;
         }
 
         .card {
-            min-width: 300px;
-            height: 400px;
+            min-width: var(--card-width);
+            height: var(--card-height);
             perspective: 1000px;
             cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .card:first-child {
+            margin-left: 0;
+        }
+
+        .card:last-child {
+            margin-right: 0;
         }
 
         .card-inner {
-            position: relative;
+            position: absolute;
             width: 100%;
             height: 100%;
             transition: transform 0.8s;
             transform-style: preserve-3d;
+            will-change: transform;
         }
 
         .card:hover .card-inner {
@@ -64,6 +79,7 @@
             backface-visibility: hidden;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         .card-front {
@@ -81,7 +97,7 @@
         }
 
         .card-back {
-            background: #2c3e50;
+            background: var(--primary-color);
             color: white;
             transform: rotateY(180deg);
             padding: 2rem;
@@ -93,21 +109,25 @@
         .card-back h3 {
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            font-weight: 600;
         }
 
         .card-back p {
             line-height: 1.6;
+            font-size: 1rem;
         }
 
         .slider-container {
             width: 100%;
-            max-width: 1200px;
-            margin-top: 2rem;
             padding: 0 1rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
         }
 
         .slider {
-            width: 100%;
+            width: 60%;
+            max-width: 400px;
             height: 4px;
             background: #ddd;
             border-radius: 2px;
@@ -118,7 +138,7 @@
         .slider-progress {
             position: absolute;
             height: 100%;
-            background: #2c3e50;
+            background: var(--primary-color);
             border-radius: 2px;
             width: 0%;
             transition: width 0.3s ease;
@@ -128,197 +148,234 @@
             position: absolute;
             width: 16px;
             height: 16px;
-            background: #2c3e50;
+            background: var(--primary-color);
             border-radius: 50%;
             top: 50%;
             transform: translate(-8px, -50%);
             cursor: grab;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .slider-dot:hover {
-            background: #34495e;
+            background: var(--hover-color);
+            transform: translate(-8px, -50%) scale(1.1);
         }
 
         .slider-dot:active {
             cursor: grabbing;
+            transform: translate(-8px, -50%) scale(0.95);
         }
 
-        .navigation-buttons {
-            display: none;
+        @media (max-width: 768px) {
+            .speakers-carousel-wrapper {
+                --card-width: 250px;
+                --card-height: 350px;
+            }
+
+            .card-back h3 {
+                font-size: 1.25rem;
+            }
+
+            .card-back p {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="carousel-container">
-        <div class="carousel">
-            <!-- Speaker Card 1 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/4.jpg" alt="Speaker 1">
+    <div class="speakers-carousel-wrapper">
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Speaker Card 1 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/4.jpg" alt="Speaker 1" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>John Doe</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua.</p>
+                        </div>
                     </div>
-                    <div class="card-back">
-                        <h3>John Doe</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua.</p>
+                </div>
+
+                <!-- Speaker Card 2 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/5.jpg" alt="Speaker 2" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jane Smith</h3>
+                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                commodo consequat.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/42.jpg" alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Mike Johnson</h3>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/43.jpg" alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Mike Johnson</h3>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/44.jpg" alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Mike Johnson</h3>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/45.jpg" alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Mike Johnson</h3>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Speaker Card 2 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/5.jpg" alt="Speaker 2">
-                    </div>
-                    <div class="card-back">
-                        <h3>Jane Smith</h3>
-                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo consequat.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Speaker Card 3 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/6.jpg" alt="Speaker 3">
-                    </div>
-                    <div class="card-back">
-                        <h3>Mike Johnson</h3>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Speaker Card 4 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/42.jpg" alt="Speaker 3">
-                    </div>
-                    <div class="card-back">
-                        <h3>Mike Johnson</h3>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Speaker Card 5 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/43.jpg" alt="Speaker 3">
-                    </div>
-                    <div class="card-back">
-                        <h3>Mike Johnson</h3>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Speaker Card 6 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/44.jpg" alt="Speaker 3">
-                    </div>
-                    <div class="card-back">
-                        <h3>Mike Johnson</h3>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Speaker Card 7 -->
-            <div class="card">
-                <div class="card-inner">
-                    <div class="card-front">
-                        <img src="images/45.jpg" alt="Speaker 3">
-                    </div>
-                    <div class="card-back">
-                        <h3>Mike Johnson</h3>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more speaker cards as needed -->
         </div>
-    </div>
 
-    <div class="slider-container">
-        <div class="slider">
-            <div class="slider-progress"></div>
-            <div class="slider-dot"></div>
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slider-progress"></div>
+                <div class="slider-dot"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        const carousel = document.querySelector('.carousel');
-        const cards = document.querySelectorAll('.card');
-        const sliderProgress = document.querySelector('.slider-progress');
-        const sliderDot = document.querySelector('.slider-dot');
-        const slider = document.querySelector('.slider');
-        let currentIndex = 0;
-        const cardWidth = cards[0].offsetWidth + 32; // Including gap
-        let isDragging = false;
+        (function () {
+            // Wait for DOM to be fully loaded
+            document.addEventListener('DOMContentLoaded', function () {
+                const wrapper = document.querySelector('.speakers-carousel-wrapper');
+                const carousel = wrapper.querySelector('.carousel');
+                const cards = wrapper.querySelectorAll('.card');
+                const sliderProgress = wrapper.querySelector('.slider-progress');
+                const sliderDot = wrapper.querySelector('.slider-dot');
+                const slider = wrapper.querySelector('.slider');
+                let isDragging = false;
+                let startX = 0;
+                let scrollLeft = 0;
 
-        function updateCarousel(percentage) {
-            // Calculate the exact position for smooth movement
-            const exactPosition = percentage * (cards.length - 1) * cardWidth;
-            carousel.style.transform = `translateX(-${exactPosition}px)`;
-            
-            // Update progress bar and dot position
-            sliderProgress.style.width = `${percentage * 100}%`;
-            sliderDot.style.left = `${percentage * 100}%`;
-        }
+                // Calculate total width of all cards including gaps
+                const totalWidth = cards.length * (cards[0].offsetWidth + 32) - 32; // 32px is the gap
+                const containerWidth = carousel.offsetWidth;
 
-        function moveCarousel(percentage) {
-            // Clamp percentage between 0 and 1
-            percentage = Math.max(0, Math.min(1, percentage));
-            updateCarousel(percentage);
-        }
+                function updateCarousel(percentage) {
+                    // Calculate the maximum scroll distance
+                    const maxScroll = totalWidth - containerWidth;
+                    const scrollPosition = percentage * maxScroll;
+                    
+                    carousel.style.transform = `translateX(-${scrollPosition}px)`;
+                    sliderProgress.style.width = `${percentage * 100}%`;
+                    sliderDot.style.left = `${percentage * 100}%`;
+                }
 
-        // Handle slider dot drag
-        sliderDot.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            document.body.style.userSelect = 'none';
-        });
+                function moveCarousel(percentage) {
+                    percentage = Math.max(0, Math.min(1, percentage));
+                    updateCarousel(percentage);
+                }
 
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
+                // Touch events for mobile
+                carousel.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    startX = e.touches[0].pageX - carousel.offsetLeft;
+                    scrollLeft = carousel.scrollLeft;
+                });
 
-            const rect = slider.getBoundingClientRect();
-            const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-            const percentage = x / rect.width;
-            moveCarousel(percentage);
-        });
+                carousel.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const x = e.touches[0].pageX - carousel.offsetLeft;
+                    const walk = (x - startX);
+                    const percentage = walk / maxScroll;
+                    moveCarousel(percentage);
+                });
 
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+                carousel.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
 
-        // Handle slider click
-        slider.addEventListener('click', (e) => {
-            if (e.target === sliderDot) return;
-            const rect = slider.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const percentage = x / rect.width;
-            moveCarousel(percentage);
-        });
+                // Mouse events for desktop
+                sliderDot.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    document.body.style.userSelect = 'none';
+                });
 
-        // Initialize
-        updateCarousel(0);
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    const rect = slider.getBoundingClientRect();
+                    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+                    const percentage = x / rect.width;
+                    moveCarousel(percentage);
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    document.body.style.userSelect = '';
+                });
+
+                slider.addEventListener('click', (e) => {
+                    if (e.target === sliderDot) return;
+                    const rect = slider.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const percentage = x / rect.width;
+                    moveCarousel(percentage);
+                });
+
+                // Handle window resize
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        const currentPercentage = parseFloat(sliderDot.style.left) / 100 || 0;
+                        updateCarousel(currentPercentage);
+                    }, 250);
+                });
+
+                // Initialize
+                updateCarousel(0);
+            });
+        })();
     </script>
 </body>
 
