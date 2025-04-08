@@ -9,14 +9,15 @@
         .speakers-carousel-wrapper {
             --primary-color: #2c3e50;
             --hover-color: #34495e;
-            --background-color: #ffffff;
+            --background-color: #f5f5f5;
             --card-width: 300px;
             --card-height: 400px;
-
+            
             width: 100%;
             margin: 2rem auto;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         .speakers-carousel-wrapper * {
@@ -28,7 +29,7 @@
         .carousel-container {
             width: 100%;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             margin: 2rem 0;
             padding: 0;
         }
@@ -39,15 +40,20 @@
             gap: 2rem;
             padding: 0;
             will-change: transform;
+            width: fit-content;
+            transform-style: preserve-3d;
         }
 
         .card {
+            width: var(--card-width);
             min-width: var(--card-width);
             height: var(--card-height);
-            perspective: 1000px;
+            perspective: 2000px;
             cursor: pointer;
             flex-shrink: 0;
             position: relative;
+            transform-style: preserve-3d;
+            z-index: 1;
         }
 
         .card:first-child {
@@ -58,11 +64,15 @@
             margin-right: 0;
         }
 
+        .card:hover {
+            z-index: 5;
+        }
+
         .card-inner {
             position: absolute;
             width: 100%;
             height: 100%;
-            transition: transform 0.8s;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             will-change: transform;
         }
@@ -71,15 +81,15 @@
             transform: rotateY(180deg);
         }
 
-        .card-front,
-        .card-back {
+        .card-front, .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
+            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateZ(0);
         }
 
         .card-front {
@@ -87,6 +97,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transform: translateZ(0) rotateY(0deg);
         }
 
         .card-front img {
@@ -94,6 +105,7 @@
             height: 100%;
             object-fit: cover;
             border-radius: 15px;
+            transform: translateZ(0);
         }
 
         .card-back {
@@ -117,9 +129,16 @@
             font-size: 1rem;
         }
 
+        /* Container for slider to prevent page scroll */
+        .slider-outer-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 0 1rem;
+        }
+
         .slider-container {
             width: 100%;
-            padding: 0 1rem;
+            padding: 1rem 0;  /* Added padding to prevent dot from being cut */
             margin-top: 2rem;
             display: flex;
             justify-content: center;
@@ -133,6 +152,7 @@
             border-radius: 2px;
             position: relative;
             cursor: pointer;
+            margin: 8px 0;  /* Added margin to create space for the dot */
         }
 
         .slider-progress {
@@ -151,35 +171,58 @@
             background: var(--primary-color);
             border-radius: 50%;
             top: 50%;
-            transform: translate(-8px, -50%);
+            transform: translate(-50%, -50%);  /* Changed from -8px to -50% for better centering */
             cursor: grab;
             transition: background 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;  /* Ensure dot stays above the progress bar */
         }
 
         .slider-dot:hover {
             background: var(--hover-color);
-            transform: translate(-8px, -50%) scale(1.1);
+            transform: translate(-50%, -50%) scale(1.1);  /* Updated transform */
         }
 
         .slider-dot:active {
             cursor: grabbing;
-            transform: translate(-8px, -50%) scale(0.95);
+            transform: translate(-50%, -50%) scale(0.95);  /* Updated transform */
         }
 
         @media (max-width: 768px) {
             .speakers-carousel-wrapper {
-                --card-width: 250px;
+                --card-width: 280px;
                 --card-height: 350px;
             }
-
+            
             .card-back h3 {
                 font-size: 1.25rem;
             }
-
+            
             .card-back p {
                 font-size: 0.9rem;
             }
+            
+            .slider {
+                width: 80%; /* Wider slider on mobile */
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .speakers-carousel-wrapper {
+                --card-width: 300px;
+            }
+        }
+
+        /* Add mask to hide overflow during flip */
+        .carousel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -274,10 +317,12 @@
             </div>
         </div>
 
-        <div class="slider-container">
-            <div class="slider">
-                <div class="slider-progress"></div>
-                <div class="slider-dot"></div>
+        <div class="slider-outer-container">
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slider-progress"></div>
+                    <div class="slider-dot"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -296,46 +341,37 @@
                 let startX = 0;
                 let scrollLeft = 0;
 
-                // Calculate total width of all cards including gaps
-                const totalWidth = cards.length * (cards[0].offsetWidth + 32) - 32; // 32px is the gap
-                const containerWidth = carousel.offsetWidth;
+                // Calculate total scrollable width
+                const cardWidth = cards[0].offsetWidth;
+                const gap = 32; // 2rem gap
+                const visibleCards = 3;
+                const totalCards = cards.length;
+                const containerWidth = wrapper.offsetWidth;
+                const totalScrollWidth = (cardWidth + gap) * (totalCards - visibleCards);
 
                 function updateCarousel(percentage) {
-                    // Calculate the maximum scroll distance
-                    const maxScroll = totalWidth - containerWidth;
-                    const scrollPosition = percentage * maxScroll;
+                    // Ensure percentage is between 0 and 1
+                    percentage = Math.max(0, Math.min(1, percentage));
                     
+                    // Calculate scroll position
+                    const scrollPosition = percentage * totalScrollWidth;
+                    
+                    // Apply transform
                     carousel.style.transform = `translateX(-${scrollPosition}px)`;
+                    
+                    // Update slider UI
                     sliderProgress.style.width = `${percentage * 100}%`;
                     sliderDot.style.left = `${percentage * 100}%`;
                 }
 
-                function moveCarousel(percentage) {
-                    percentage = Math.max(0, Math.min(1, percentage));
+                function handleSliderInteraction(e) {
+                    const rect = slider.getBoundingClientRect();
+                    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+                    const percentage = x / rect.width;
                     updateCarousel(percentage);
                 }
 
-                // Touch events for mobile
-                carousel.addEventListener('touchstart', (e) => {
-                    isDragging = true;
-                    startX = e.touches[0].pageX - carousel.offsetLeft;
-                    scrollLeft = carousel.scrollLeft;
-                });
-
-                carousel.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
-                    e.preventDefault();
-                    const x = e.touches[0].pageX - carousel.offsetLeft;
-                    const walk = (x - startX);
-                    const percentage = walk / maxScroll;
-                    moveCarousel(percentage);
-                });
-
-                carousel.addEventListener('touchend', () => {
-                    isDragging = false;
-                });
-
-                // Mouse events for desktop
+                // Mouse events for slider dot
                 sliderDot.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     document.body.style.userSelect = 'none';
@@ -343,10 +379,7 @@
 
                 document.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
-                    const rect = slider.getBoundingClientRect();
-                    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-                    const percentage = x / rect.width;
-                    moveCarousel(percentage);
+                    handleSliderInteraction(e);
                 });
 
                 document.addEventListener('mouseup', () => {
@@ -354,12 +387,35 @@
                     document.body.style.userSelect = '';
                 });
 
+                // Click event for slider
                 slider.addEventListener('click', (e) => {
                     if (e.target === sliderDot) return;
-                    const rect = slider.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const percentage = x / rect.width;
-                    moveCarousel(percentage);
+                    handleSliderInteraction(e);
+                });
+
+                // Touch events for mobile
+                let touchStartX;
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    if (!touchStartX) return;
+                    
+                    const touchCurrentX = e.touches[0].clientX;
+                    const diff = touchStartX - touchCurrentX;
+                    const currentTransform = carousel.style.transform;
+                    const currentX = currentTransform ? parseInt(currentTransform.match(/-?\d+/)[0]) : 0;
+                    
+                    const newPosition = Math.max(0, Math.min(currentX + diff, totalScrollWidth));
+                    const percentage = newPosition / totalScrollWidth;
+                    
+                    updateCarousel(percentage);
+                    touchStartX = touchCurrentX;
+                });
+
+                carousel.addEventListener('touchend', () => {
+                    touchStartX = null;
                 });
 
                 // Handle window resize
@@ -367,6 +423,7 @@
                 window.addEventListener('resize', () => {
                     clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(() => {
+                        // Recalculate dimensions
                         const currentPercentage = parseFloat(sliderDot.style.left) / 100 || 0;
                         updateCarousel(currentPercentage);
                     }, 250);
