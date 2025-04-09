@@ -12,12 +12,13 @@
             --background-color: #f5f5f5;
             --card-width: 400px;
             --card-height: 500px;
-            
+
             width: 100%;
             margin: 2rem auto;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             box-sizing: border-box;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
         }
 
         .speakers-carousel-wrapper * {
@@ -81,14 +82,15 @@
             transform: rotateY(180deg);
         }
 
-        .card-front, .card-back {
+        .card-front,
+        .card-back {
             position: absolute;
             width: 100%;
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transform: translateZ(0);
         }
 
@@ -126,12 +128,14 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             line-height: 1.2;
+            color: #000000;
         }
 
         .card-back p {
             line-height: 1.4;
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .social-link {
@@ -140,6 +144,19 @@
             gap: 0.75rem;
             margin-top: auto;
             padding-top: 1.5rem;
+        }
+
+        .social-link a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .social-link a:hover {
+            opacity: 0.8;
         }
 
         .social-link img {
@@ -152,6 +169,7 @@
             margin: 0;
             font-size: 1.2rem;
             font-weight: 700;
+            color: #000000;
         }
 
         /* Container for slider to prevent page scroll */
@@ -163,7 +181,8 @@
 
         .slider-container {
             width: 100%;
-            padding: 1rem 0;  /* Added padding to prevent dot from being cut */
+            padding: 1rem 0;
+            /* Added padding to prevent dot from being cut */
             margin-top: 2rem;
             display: flex;
             justify-content: center;
@@ -177,7 +196,8 @@
             border-radius: 2px;
             position: relative;
             cursor: pointer;
-            margin: 8px 0;  /* Added margin to create space for the dot */
+            margin: 8px 0;
+            /* Added margin to create space for the dot */
         }
 
         .slider-progress {
@@ -196,21 +216,25 @@
             background: var(--primary-color);
             border-radius: 50%;
             top: 50%;
-            transform: translate(-50%, -50%);  /* Changed from -8px to -50% for better centering */
+            transform: translate(-50%, -50%);
+            /* Changed from -8px to -50% for better centering */
             cursor: grab;
             transition: background 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            z-index: 2;  /* Ensure dot stays above the progress bar */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            /* Ensure dot stays above the progress bar */
         }
 
         .slider-dot:hover {
             background: var(--hover-color);
-            transform: translate(-50%, -50%) scale(1.1);  /* Updated transform */
+            transform: translate(-50%, -50%) scale(1.1);
+            /* Updated transform */
         }
 
         .slider-dot:active {
             cursor: grabbing;
-            transform: translate(-50%, -50%) scale(0.95);  /* Updated transform */
+            transform: translate(-50%, -50%) scale(0.95);
+            /* Updated transform */
         }
 
         @media (max-width: 768px) {
@@ -218,16 +242,16 @@
                 --card-width: 280px;
                 --card-height: 350px;
             }
-            
+
             .card-back {
                 padding: 1.5rem;
             }
-            
+
             .card-back h3 {
                 font-size: 1.4rem;
                 margin-bottom: 1rem;
             }
-            
+
             .card-back p {
                 font-size: 0.9rem;
             }
@@ -265,15 +289,19 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/d89744e6-8b13-439a-92d5-42f4bf412e1a/trevor.jpg?format=1000w" alt="Speaker 1" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/d89744e6-8b13-439a-92d5-42f4bf412e1a/trevor.jpg?format=1000w"
+                                alt="Speaker 1" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>RYAN KOOPMANS</h3>
-                            <p>The event began with a dynamic conference focused on the latest innovations in AI x Blockchain.</p>
-                            <p>Followed by an unforgettable afterparty featuring world renowned DJs Meduza attracting over 2,000 guests from leading blockchain companies, projects, and protocols. It was a night of cutting-edge insights and vibrant celebration.</p>
+                            <h3>Trevor Owens</h3>
+                            <p>Trevor Owens is the managing partner of Bitcoin Frontier Fund and co-founder and CEO of
+                                Ninjalerts. He graduated from the Stern School of Business at New York University.</p>
                             <div class="social-link">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" alt="X (Twitter) Logo">
-                                <h3>RYAN KOOPMANS</h3>
+                                <a href="https://x.com/TO" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Trevor Owens</h3>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -283,12 +311,26 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/b7f12e2a-75d2-4fdb-a736-f05d3c14baaa/Vincent.jpg?format=1000w" alt="Speaker 2" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/b7f12e2a-75d2-4fdb-a736-f05d3c14baaa/Vincent.jpg?format=1000w"
+                                alt="Speaker 2" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>Jane Smith</h3>
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.</p>
+                            <h3>Vincent D’Onofrio</h3>
+                            <p>Vincent Philip D'Onofriois an American actor and filmmaker.</p>
+                            <p>His roles include Private Leonard "Gomer Pyle" Lawrence in Full Metal Jacket (1987),
+                                Robert E. Howard in The Whole Wide World (1996), Edgar the Bug in Men in Black (1997)
+                                and Men in Black: The Series (1997–2001), Carl Stargher in The Cell (2000), New York
+                                City Police Detective Robert Goren in Law & Order: Criminal Intent (2001–11), Victor
+                                "Vic" Hoskins in Jurassic World (2015), and Wilson Fisk / Kingpin in the Marvel
+                                Cinematic Universe television series Daredevil (2015–2018), Hawkeye (2021), Echo (2024),
+                                and Daredevil: Born Again (2025–present).</p>
+                            <div class="social-link">
+                                <a href="https://x.com/vincentdonofrio" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Vincent D’Onofrio</h3>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -297,57 +339,381 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/f37c8b5a-05bd-4dd5-ba67-a562494769f8/casey.jpg?format=1000w" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/f37c8b5a-05bd-4dd5-ba67-a562494769f8/casey.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>Mike Johnson</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur.</p>
+                            <h3>Casey Rodarmor</h3>
+                            <p>Casey Rodarmor is a prominent Bitcoin developer, creator of Ordinals and, most recently,
+                                Runes Protocol. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/rodarmor" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Casey Rodarmor</h3>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Speaker Card 3 -->
+                <!-- Speaker Card 4 -->
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1c2e76fc-9ad3-4342-b5ae-bba7a0789b2e/4.jpg?format=1000w" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1c2e76fc-9ad3-4342-b5ae-bba7a0789b2e/4.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>Mike Johnson</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur.</p>
+                            <h3>Kevin Foxe</h3>
+                            <p>Kevin J. Foxe is a director, producer, writer, and storyteller, most known for the
+                                successful independent film <a
+                                    href="https://en.wikipedia.org/wiki/The_Blair_Witch_Project"
+                                    style="color: #000000; text-decoration: underline" target="_blank"
+                                    rel="noopener noreferrer">The Blair Witch Project</a>. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/kevinfoxe?lang=en" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Kevin Foxe</h3>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Speaker Card 3 -->
+                <!-- Speaker Card 5 -->
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/7a4dd377-9bcd-4a87-8ab0-ebb96415edc9/5.jpg?format=1000w" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/7a4dd377-9bcd-4a87-8ab0-ebb96415edc9/5.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>Mike Johnson</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur.</p>
+                            <h3>Jan Smejkal</h3>
+                            <p>Born in a small town in Czech Republic, moved to China 7 years ago, Jan Smejkal is the
+                                Chief Strategy Officer at Xverse, where Jan is working on building the best
+                                infrastructure for Bitcoin web3 and Ordinals. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/nonfungible_jan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jan Smejkal</h3>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Speaker Card 3 -->
+                <!-- Speaker Card 6 -->
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>Mike Johnson</h3>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur.</p>
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Speaker Card 7 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 8 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 9 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 10 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 11 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 12 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 13 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 14 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 15 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 16 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -386,13 +752,13 @@
                 function updateCarousel(percentage) {
                     // Ensure percentage is between 0 and 1
                     percentage = Math.max(0, Math.min(1, percentage));
-                    
+
                     // Calculate scroll position
                     const scrollPosition = percentage * totalScrollWidth;
-                    
+
                     // Apply transform
                     carousel.style.transform = `translateX(-${scrollPosition}px)`;
-                    
+
                     // Update slider UI
                     sliderProgress.style.width = `${percentage * 100}%`;
                     sliderDot.style.left = `${percentage * 100}%`;
@@ -435,15 +801,15 @@
 
                 carousel.addEventListener('touchmove', (e) => {
                     if (!touchStartX) return;
-                    
+
                     const touchCurrentX = e.touches[0].clientX;
                     const diff = touchStartX - touchCurrentX;
                     const currentTransform = carousel.style.transform;
                     const currentX = currentTransform ? parseInt(currentTransform.match(/-?\d+/)[0]) : 0;
-                    
+
                     const newPosition = Math.max(0, Math.min(currentX + diff, totalScrollWidth));
                     const percentage = newPosition / totalScrollWidth;
-                    
+
                     updateCarousel(percentage);
                     touchStartX = touchCurrentX;
                 });
