@@ -10,8 +10,8 @@
             --primary-color: #2c3e50;
             --hover-color: #34495e;
             --background-color: #f5f5f5;
-            --card-width: 300px;
-            --card-height: 400px;
+            --card-width: 400px;
+            --card-height: 500px;
             
             width: 100%;
             margin: 2rem auto;
@@ -109,24 +109,49 @@
         }
 
         .card-back {
-            background: var(--primary-color);
-            color: white;
+            background: #7FFFD4;
+            color: black;
             transform: rotateY(180deg);
             padding: 2rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         .card-back h3 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .card-back p {
-            line-height: 1.6;
+            line-height: 1.4;
             font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: auto;
+            padding-top: 1.5rem;
+        }
+
+        .social-link img {
+            width: 24px;
+            height: 24px;
+            filter: invert(1);
+        }
+
+        .social-link h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         /* Container for slider to prevent page scroll */
@@ -194,16 +219,21 @@
                 --card-height: 350px;
             }
             
+            .card-back {
+                padding: 1.5rem;
+            }
+            
             .card-back h3 {
-                font-size: 1.25rem;
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
             }
             
             .card-back p {
                 font-size: 0.9rem;
             }
-            
-            .slider {
-                width: 80%; /* Wider slider on mobile */
+
+            .social-link h3 {
+                font-size: 1rem;
             }
         }
 
@@ -235,12 +265,16 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="images/4.jpg" alt="Speaker 1" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/d89744e6-8b13-439a-92d5-42f4bf412e1a/trevor.jpg?format=1000w" alt="Speaker 1" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>John Doe</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua.</p>
+                            <h3>RYAN KOOPMANS</h3>
+                            <p>The event began with a dynamic conference focused on the latest innovations in AI x Blockchain.</p>
+                            <p>Followed by an unforgettable afterparty featuring world renowned DJs Meduza attracting over 2,000 guests from leading blockchain companies, projects, and protocols. It was a night of cutting-edge insights and vibrant celebration.</p>
+                            <div class="social-link">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png" alt="X (Twitter) Logo">
+                                <h3>RYAN KOOPMANS</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -249,7 +283,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="images/5.jpg" alt="Speaker 2" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/b7f12e2a-75d2-4fdb-a736-f05d3c14baaa/Vincent.jpg?format=1000w" alt="Speaker 2" loading="lazy">
                         </div>
                         <div class="card-back">
                             <h3>Jane Smith</h3>
@@ -263,7 +297,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="images/42.jpg" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/f37c8b5a-05bd-4dd5-ba67-a562494769f8/casey.jpg?format=1000w" alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
                             <h3>Mike Johnson</h3>
@@ -277,7 +311,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="images/43.jpg" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1c2e76fc-9ad3-4342-b5ae-bba7a0789b2e/4.jpg?format=1000w" alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
                             <h3>Mike Johnson</h3>
@@ -291,7 +325,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="images/44.jpg" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/7a4dd377-9bcd-4a87-8ab0-ebb96415edc9/5.jpg?format=1000w" alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
                             <h3>Mike Johnson</h3>
@@ -305,7 +339,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <div class="card-front">
-                            <img src="images/45.jpg" alt="Speaker 3" loading="lazy">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w" alt="Speaker 3" loading="lazy">
                         </div>
                         <div class="card-back">
                             <h3>Mike Johnson</h3>
