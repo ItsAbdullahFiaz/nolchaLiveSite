@@ -19,6 +19,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             box-sizing: border-box;
             overflow-x: hidden;
+            position: relative;
         }
 
         .speakers-carousel-wrapper * {
@@ -30,7 +31,7 @@
         .carousel-container {
             width: 100%;
             position: relative;
-            overflow: visible;
+            overflow: hidden;
             margin: 2rem 0;
             padding: 0;
         }
@@ -39,10 +40,11 @@
             display: flex;
             transition: transform 0.3s ease-out;
             gap: 2rem;
-            padding: 0;
+            padding: 0 1rem;
             will-change: transform;
             width: fit-content;
             transform-style: preserve-3d;
+            margin-left: 0; /* Ensure first card starts at the beginning */
         }
 
         .carousel-container:hover .carousel,
@@ -310,7 +312,7 @@
                                 alt="Speaker 2" loading="lazy">
                         </div>
                         <div class="card-back">
-                            <h3>Vincent D’Onofrio</h3>
+                            <h3>Vincent D'Onofrio</h3>
                             <p>Vincent Philip D'Onofriois an American actor and filmmaker.</p>
                             <p>His roles include Private Leonard "Gomer Pyle" Lawrence in Full Metal Jacket (1987),
                                 Robert E. Howard in The Whole Wide World (1996), Edgar the Bug in Men in Black (1997)
@@ -323,7 +325,7 @@
                                 <a href="https://x.com/vincentdonofrio" target="_blank" rel="noopener noreferrer">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
                                         alt="X (Twitter) Logo">
-                                    <h3>Vincent D’Onofrio</h3>
+                                    <h3>Vincent D'Onofrio</h3>
                                 </a>
                             </div>
                         </div>
@@ -522,7 +524,7 @@
                         </div>
                         <div class="card-back">
                             <h3>Billy Restey</h3>
-                            <p>Billy is an abstract digital artist specializing in 3D, generative, and AI art. With a focus on expressing beauty in nature’s randomness, his works combine cutting-edge technologies to create stunning pieces.</p>
+                            <p>Billy is an abstract digital artist specializing in 3D, generative, and AI art. With a focus on expressing beauty in nature's randomness, his works combine cutting-edge technologies to create stunning pieces.</p>
                             <div class="social-link">
                                 <a href="https://x.com/billyrestey" target="_blank" rel="noopener noreferrer">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
@@ -668,45 +670,77 @@
                 let scrollLeft = 0;
                 let autoPlayInterval;
                 let currentPosition = 0;
+                let animationFrame;
 
                 // Calculate total scrollable width
                 const cardWidth = cards[0].offsetWidth;
                 const gap = 32; // 2rem gap
-                const visibleCards = 3;
+                
+                // Dynamically calculate visible cards based on viewport width
+                function calculateVisibleCards() {
+                    const containerWidth = wrapper.offsetWidth;
+                    // Calculate how many cards fit in the container with gap
+                    return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
+                }
+                
+                let visibleCards = calculateVisibleCards();
                 const totalCards = cards.length;
-                const containerWidth = wrapper.offsetWidth;
-                const totalScrollWidth = (cardWidth + gap) * (totalCards - visibleCards);
-
-                // Clone cards for infinite scroll
-                const firstCard = cards[0].cloneNode(true);
-                const lastCard = cards[cards.length - 1].cloneNode(true);
-                carousel.appendChild(firstCard);
-                carousel.insertBefore(lastCard, cards[0]);
+                
+                // Calculate total scroll width
+                function calculateTotalScrollWidth() {
+                    return Math.max(0, (cardWidth + gap) * (totalCards - visibleCards));
+                }
+                
+                let totalScrollWidth = calculateTotalScrollWidth();
 
                 function startAutoPlay() {
-                    autoPlayInterval = setInterval(() => {
-                        currentPosition += 2; // Reduced from 5 to 2 for slower movement
-                        if (currentPosition > totalScrollWidth) {
-                            currentPosition = 0;
+                    // Cancel any existing interval
+                    if (autoPlayInterval) {
+                        clearInterval(autoPlayInterval);
+                    }
+                    
+                    // Use requestAnimationFrame for smoother animation
+                    let lastTimestamp = 0;
+                    const animate = (timestamp) => {
+                        if (!lastTimestamp) lastTimestamp = timestamp;
+                        const elapsed = timestamp - lastTimestamp;
+                        
+                        // Only update if enough time has passed (30ms)
+                        if (elapsed > 30) {
+                            currentPosition += 1; // Even slower for smoother movement
+                            if (currentPosition > totalScrollWidth) {
+                                currentPosition = 0;
+                            }
+                            updateCarousel(currentPosition / totalScrollWidth);
+                            lastTimestamp = timestamp;
                         }
-                        updateCarousel(currentPosition / totalScrollWidth);
-                    }, 30); // Changed from 16ms to 30ms for smoother animation
+                        
+                        animationFrame = requestAnimationFrame(animate);
+                    };
+                    
+                    animationFrame = requestAnimationFrame(animate);
                 }
 
                 function stopAutoPlay() {
-                    clearInterval(autoPlayInterval);
+                    if (animationFrame) {
+                        cancelAnimationFrame(animationFrame);
+                        animationFrame = null;
+                    }
                 }
 
                 function updateCarousel(percentage) {
                     // Ensure percentage is between 0 and 1
                     percentage = Math.max(0, Math.min(1, percentage));
+                    
+                    // Skip update if totalScrollWidth is zero (all cards visible)
+                    if (totalScrollWidth <= 0) return;
 
                     // Calculate scroll position
                     const scrollPosition = percentage * totalScrollWidth;
                     currentPosition = scrollPosition; // Update currentPosition when manually moving
 
-                    // Apply transform
-                    carousel.style.transform = `translateX(-${scrollPosition}px)`;
+                    // Apply transform with translateZ(0) for hardware acceleration
+                    carousel.style.transform = `translateX(-${scrollPosition}px) translateZ(0)`;
 
                     // Update slider UI
                     sliderProgress.style.width = `${percentage * 100}%`;
@@ -789,14 +823,27 @@
                     clearTimeout(resizeTimeout);
                     resizeTimeout = setTimeout(() => {
                         // Recalculate dimensions
+                        visibleCards = calculateVisibleCards();
+                        totalScrollWidth = calculateTotalScrollWidth();
                         const currentPercentage = parseFloat(sliderDot.style.left) / 100 || 0;
                         updateCarousel(currentPercentage);
+                        updateSliderVisibility();
                     }, 250);
                 });
 
+                // Hide slider if all cards are visible
+                function updateSliderVisibility() {
+                    sliderContainer.style.display = totalScrollWidth > 0 ? 'block' : 'none';
+                }
+                
+                // Call initially
+                updateSliderVisibility();
+
                 // Initialize
-                updateCarousel(0);
-                startAutoPlay();
+                updateCarousel(0); // Start at the first card (0% position)
+                
+                // Only start autoplay after a small delay to ensure everything is properly initialized
+                setTimeout(startAutoPlay, 100);
             });
         })();
     </script>
