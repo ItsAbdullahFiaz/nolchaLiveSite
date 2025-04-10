@@ -146,11 +146,14 @@
             color: #000000;
         }
 
+        .card-back-three p,
+        .card-back-two p,
         .card-back p {
             line-height: 1.4;
             font-size: 1.1rem;
             margin-bottom: 1rem;
             font-weight: 600;
+            margin: 0 !important;
         }
 
         .social-link {
@@ -251,11 +254,23 @@
             }
 
             .card-back p {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .social-link h3 {
                 font-size: 1rem;
+            }
+            
+            /* Make slider full width on mobile */
+            .slider {
+                width: 90%;
+                max-width: none;
+                height: 12px; /* Larger height for easier touch */
+            }
+            
+            .slider-dot {
+                width: 24px; /* Larger touch target */
+                height: 24px;
             }
         }
 
@@ -655,80 +670,138 @@
     </div>
 
     <script>
-        (function () {
-            // Wait for DOM to be fully loaded
-            document.addEventListener('DOMContentLoaded', function () {
-                const wrapper = document.querySelector('.speakers-carousel-wrapper');
-                const carousel = wrapper.querySelector('.carousel');
-                const cards = wrapper.querySelectorAll('.card');
-                const sliderProgress = wrapper.querySelector('.slider-progress');
-                const sliderDot = wrapper.querySelector('.slider-dot');
-                const slider = wrapper.querySelector('.slider');
-                const sliderContainer = wrapper.querySelector('.slider-outer-container');
-                let isDragging = false;
-                let startX = 0;
-                let scrollLeft = 0;
-                let autoPlayInterval;
-                let currentPosition = 0;
-                let animationFrame;
+        // Define a global namespace for carousel functions to avoid conflicts
+        window.SpeakersCarousel = window.SpeakersCarousel || {};
+        
+        // Create a function to initialize carousels without conflicts
+        window.SpeakersCarousel.initCarousel = function(wrapperClass) {
+            const wrapper = document.querySelector(wrapperClass);
+            if (!wrapper) return; // Guard against missing elements
+            
+            // Extract the suffix directly from the wrapper class
+            let suffix = '';
+            if (wrapperClass === '.speakers-carousel-wrapper-two') {
+                suffix = '-two';
+            } else if (wrapperClass === '.speakers-carousel-wrapper-three') {
+                suffix = '-three';
+            }
+            
+            const carousel = wrapper.querySelector(`.carousel${suffix}`);
+            const cards = wrapper.querySelectorAll(`.card${suffix}`);
+            const sliderProgress = wrapper.querySelector(`.slider-progress${suffix}`);
+            const sliderDot = wrapper.querySelector(`.slider-dot${suffix}`);
+            const slider = wrapper.querySelector(`.slider${suffix}`);
+            const sliderContainer = wrapper.querySelector(`.slider-outer-container${suffix}`);
+            
+            // Skip initialization if required elements are not found
+            if (!carousel || !sliderProgress || !sliderDot || !slider || cards.length === 0) {
+                console.error('Required carousel elements not found for', wrapperClass, 'with suffix', suffix);
+                return;
+            }
+            
+            let isDragging = false;
+            let autoPlayInterval;
+            let currentPosition = 0;
+            let animationFrame;
+            
+            // Use a unique ID for this carousel to prevent event listener conflicts
+            const carouselId = wrapperClass.replace(/[^a-zA-Z0-9]/g, '_');
+            
+            // Store touch-related variables
+            let lastTouchX = 0;
+            let touchVelocity = 0;
+            let lastTouchTime = 0;
 
-                // Calculate total scrollable width
-                const cardWidth = cards[0].offsetWidth;
-                const gap = 32; // 2rem gap
+            // Calculate total scrollable width
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 32; // 2rem gap
+            
+            // Dynamically calculate visible cards based on viewport width
+            function calculateVisibleCards() {
+                const containerWidth = wrapper.offsetWidth;
+                // Calculate how many cards fit in the container with gap
+                return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
+            }
+            
+            let visibleCards = calculateVisibleCards();
+            const totalCards = cards.length;
+            
+            // Calculate total scroll width
+            function calculateTotalScrollWidth() {
+                return Math.max(0, (cardWidth + gap) * (totalCards - visibleCards));
+            }
+            
+            let totalScrollWidth = calculateTotalScrollWidth();
+            
+            // Create a function to clean up event listeners
+            function cleanup() {
+                stopAutoPlay();
                 
-                // Dynamically calculate visible cards based on viewport width
-                function calculateVisibleCards() {
-                    const containerWidth = wrapper.offsetWidth;
-                    // Calculate how many cards fit in the container with gap
-                    return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
-                }
+                // Remove all event listeners to prevent memory leaks
+                cards.forEach(card => {
+                    card.removeEventListener('mouseenter', stopAutoPlay);
+                    card.removeEventListener('mouseleave', startAutoPlay);
+                });
                 
-                let visibleCards = calculateVisibleCards();
-                const totalCards = cards.length;
+                sliderDot.removeEventListener('mousedown', handleMouseDown);
+                document.removeEventListener(`mousemove.${carouselId}`, handleMouseMove);
+                document.removeEventListener(`mouseup.${carouselId}`, handleMouseUp);
+                slider.removeEventListener('click', handleSliderClick);
                 
-                // Calculate total scroll width
-                function calculateTotalScrollWidth() {
-                    return Math.max(0, (cardWidth + gap) * (totalCards - visibleCards));
-                }
+                carousel.removeEventListener('touchstart', handleCarouselTouchStart);
+                carousel.removeEventListener('touchmove', handleCarouselTouchMove);
+                sliderDot.removeEventListener('touchstart', handleDotTouchStart);
+                slider.removeEventListener('touchstart', handleSliderTouchStart);
+                document.removeEventListener(`touchmove.${carouselId}`, handleTouchMove);
+                document.removeEventListener(`touchend.${carouselId}`, handleTouchEnd);
                 
-                let totalScrollWidth = calculateTotalScrollWidth();
+                window.removeEventListener(`resize.${carouselId}`, handleResize);
+            }
 
-                function startAutoPlay() {
-                    // Cancel any existing interval
-                    if (autoPlayInterval) {
-                        clearInterval(autoPlayInterval);
-                    }
+            function startAutoPlay() {
+                // Cancel any existing interval
+                stopAutoPlay();
+                
+                // Use requestAnimationFrame for smoother animation
+                let lastTimestamp = 0;
+                const animate = (timestamp) => {
+                    if (!lastTimestamp) lastTimestamp = timestamp;
+                    const elapsed = timestamp - lastTimestamp;
                     
-                    // Use requestAnimationFrame for smoother animation
-                    let lastTimestamp = 0;
-                    const animate = (timestamp) => {
-                        if (!lastTimestamp) lastTimestamp = timestamp;
-                        const elapsed = timestamp - lastTimestamp;
-                        
-                        // Only update if enough time has passed (30ms)
-                        if (elapsed > 30) {
-                            currentPosition += 1; // Even slower for smoother movement
-                            if (currentPosition > totalScrollWidth) {
-                                currentPosition = 0;
-                            }
-                            updateCarousel(currentPosition / totalScrollWidth);
-                            lastTimestamp = timestamp;
+                    // Only update if enough time has passed (30ms)
+                    if (elapsed > 30) {
+                        currentPosition += 1; // Increase speed slightly for better visibility
+                        if (currentPosition > totalScrollWidth) {
+                            currentPosition = 0;
                         }
-                        
-                        animationFrame = requestAnimationFrame(animate);
-                    };
-                    
-                    animationFrame = requestAnimationFrame(animate);
-                }
-
-                function stopAutoPlay() {
-                    if (animationFrame) {
-                        cancelAnimationFrame(animationFrame);
-                        animationFrame = null;
+                        updateCarousel(currentPosition / totalScrollWidth);
+                        lastTimestamp = timestamp;
                     }
-                }
+                    
+                    // Store the animation frame ID to cancel it later
+                    animationFrame = requestAnimationFrame(animate);
+                };
+                
+                // Start the animation immediately
+                animationFrame = requestAnimationFrame(animate);
+                
+                // Force an initial movement to show animation is working
+                currentPosition += 0.5;
+                updateCarousel(currentPosition / totalScrollWidth);
+            }
 
-                function updateCarousel(percentage) {
+            function stopAutoPlay() {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
+            }
+
+            function updateCarousel(percentage) {
+                try {
+                    // Guard clauses to prevent errors
+                    if (!carousel || !sliderProgress || !sliderDot) return;
+                    
                     // Ensure percentage is between 0 and 1
                     percentage = Math.max(0, Math.min(1, percentage));
                     
@@ -736,116 +809,265 @@
                     if (totalScrollWidth <= 0) return;
 
                     // Calculate scroll position
-                    const scrollPosition = percentage * totalScrollWidth;
+                    const scrollPosition = Math.round(percentage * totalScrollWidth);
                     currentPosition = scrollPosition; // Update currentPosition when manually moving
 
-                    // Apply transform with translateZ(0) for hardware acceleration
-                    carousel.style.transform = `translateX(-${scrollPosition}px) translateZ(0)`;
+                    // Apply transform with translate3d for better performance (hardware acceleration)
+                    carousel.style.transform = `translate3d(-${scrollPosition}px, 0, 0)`;
 
                     // Update slider UI
                     sliderProgress.style.width = `${percentage * 100}%`;
                     sliderDot.style.left = `${percentage * 100}%`;
+                } catch (error) {
+                    console.error('Error updating carousel:', error);
                 }
+            }
 
-                function handleSliderInteraction(e) {
-                    const rect = slider.getBoundingClientRect();
-                    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-                    const percentage = x / rect.width;
-                    
-                    stopAutoPlay();
-                    updateCarousel(percentage);
-                }
-
-                // Add event listeners to cards
-                cards.forEach(card => {
-                    card.addEventListener('mouseenter', stopAutoPlay);
-                    card.addEventListener('mouseleave', startAutoPlay);
-                });
-
-                // Mouse events for slider dot
-                sliderDot.addEventListener('mousedown', (e) => {
-                    isDragging = true;
-                    document.body.style.userSelect = 'none';
-                    stopAutoPlay();
-                });
-
-                document.addEventListener('mousemove', (e) => {
-                    if (!isDragging) return;
-                    handleSliderInteraction(e);
-                });
-
-                document.addEventListener('mouseup', () => {
-                    if (!isDragging) return;
-                    isDragging = false;
-                    document.body.style.userSelect = '';
-                    // Only start auto-play if we're not at the end
-                    if (currentPosition < totalScrollWidth) {
-                        startAutoPlay();
-                    }
-                });
-
-                // Click event for slider
-                slider.addEventListener('click', (e) => {
-                    if (e.target === sliderDot) return;
-                    handleSliderInteraction(e);
-                });
-
-                // Touch events for mobile
-                let touchStartX;
-                carousel.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                    stopAutoPlay();
-                });
-
-                carousel.addEventListener('touchmove', (e) => {
-                    if (!touchStartX) return;
-
-                    const touchCurrentX = e.touches[0].clientX;
-                    const diff = touchStartX - touchCurrentX;
-                    const currentTransform = carousel.style.transform;
-                    const currentX = currentTransform ? parseInt(currentTransform.match(/-?\d+/)[0]) : 0;
-
-                    const newPosition = Math.max(0, Math.min(currentX + diff, totalScrollWidth));
-                    const percentage = newPosition / totalScrollWidth;
-
-                    updateCarousel(percentage);
-                    touchStartX = touchCurrentX;
-                });
-
-                carousel.addEventListener('touchend', () => {
-                    touchStartX = null;
+            function handleSliderInteraction(e) {
+                const rect = slider.getBoundingClientRect();
+                const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+                const percentage = x / rect.width;
+                
+                stopAutoPlay();
+                updateCarousel(percentage);
+            }
+            
+            // Named event handlers for proper removal
+            function handleMouseDown(e) {
+                isDragging = true;
+                document.body.style.userSelect = 'none';
+                stopAutoPlay();
+                e.preventDefault(); // Prevent default to avoid issues on mobile
+            }
+            
+            function handleMouseMove(e) {
+                if (!isDragging) return;
+                handleSliderInteraction(e);
+            }
+            
+            function handleMouseUp() {
+                if (!isDragging) return;
+                isDragging = false;
+                document.body.style.userSelect = '';
+                // Only start auto-play if we're not at the end
+                if (currentPosition < totalScrollWidth) {
                     startAutoPlay();
+                }
+            }
+            
+            function handleSliderClick(e) {
+                if (e.target === sliderDot) return;
+                handleSliderInteraction(e);
+            }
+            
+            function handleCarouselTouchStart(e) {
+                e.preventDefault(); // Prevent default touch behavior on carousel
+                e.stopPropagation(); // Stop propagation
+            }
+            
+            function handleCarouselTouchMove(e) {
+                e.preventDefault(); // Prevent default touch behavior on carousel
+                e.stopPropagation(); // Stop propagation
+            }
+            
+            function handleDotTouchStart(e) {
+                isDragging = true;
+                document.body.style.userSelect = 'none';
+                stopAutoPlay();
+                lastTouchX = e.touches[0].clientX;
+                lastTouchTime = Date.now();
+                // Remove transition during touch dragging for smoother movement
+                carousel.style.transition = 'none';
+                e.preventDefault(); // Prevent default browser behavior
+            }
+            
+            function handleSliderTouchStart(e) {
+                const touch = e.touches[0];
+                const rect = slider.getBoundingClientRect();
+                const x = Math.max(0, Math.min(touch.clientX - rect.left, rect.width));
+                const percentage = x / rect.width;
+                
+                isDragging = true;
+                lastTouchX = touch.clientX;
+                lastTouchTime = Date.now();
+                // Remove transition during touch dragging
+                carousel.style.transition = 'none';
+                
+                stopAutoPlay();
+                updateCarousel(percentage);
+                e.preventDefault();
+            }
+            
+            function handleTouchMove(e) {
+                if (!isDragging) return;
+                
+                const touch = e.touches[0];
+                const rect = slider.getBoundingClientRect();
+                const x = Math.max(0, Math.min(touch.clientX - rect.left, rect.width));
+                const percentage = x / rect.width;
+                
+                // Calculate velocity for smoother feel
+                const now = Date.now();
+                const elapsed = now - lastTouchTime;
+                if (elapsed > 0) {
+                    touchVelocity = (touch.clientX - lastTouchX) / elapsed;
+                }
+                lastTouchX = touch.clientX;
+                lastTouchTime = now;
+                
+                // Use requestAnimationFrame for smoother updates
+                requestAnimationFrame(() => {
+                    updateCarousel(percentage);
                 });
-
-                // Handle window resize
-                let resizeTimeout;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => {
+                
+                e.preventDefault();
+            }
+            
+            function handleTouchEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                document.body.style.userSelect = '';
+                
+                // Restore transition for smooth stopping
+                carousel.style.transition = 'transform 0.3s ease-out';
+                
+                // Apply inertia for natural stopping
+                const currentPercentage = currentPosition / totalScrollWidth;
+                let targetPercentage = currentPercentage + (touchVelocity * 0.1);
+                targetPercentage = Math.max(0, Math.min(1, targetPercentage));
+                
+                // Smooth finish
+                updateCarousel(targetPercentage);
+                
+                // Only start auto-play if we're not at the end
+                if (currentPosition < totalScrollWidth) {
+                    // Delay autoplay restart to avoid jumps
+                    setTimeout(() => {
+                        startAutoPlay();
+                    }, 300);
+                }
+            }
+            
+            function handleResize() {
+                clearTimeout(window.carouselResizeTimeout);
+                window.carouselResizeTimeout = setTimeout(() => {
+                    try {
                         // Recalculate dimensions
                         visibleCards = calculateVisibleCards();
                         totalScrollWidth = calculateTotalScrollWidth();
                         const currentPercentage = parseFloat(sliderDot.style.left) / 100 || 0;
                         updateCarousel(currentPercentage);
                         updateSliderVisibility();
-                    }, 250);
-                });
+                    } catch (error) {
+                        console.error('Error during resize:', error);
+                    }
+                }, 250);
+            }
 
-                // Hide slider if all cards are visible
-                function updateSliderVisibility() {
+            // Add event listeners to cards with proper references
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', stopAutoPlay);
+                card.addEventListener('mouseleave', startAutoPlay);
+            });
+
+            // Mouse events for slider dot with namespaced events
+            sliderDot.addEventListener('mousedown', handleMouseDown);
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+
+            // Click event for slider
+            slider.addEventListener('click', handleSliderClick);
+
+            // Improved touch events for mobile
+            // Disable carousel touch events
+            carousel.addEventListener('touchstart', handleCarouselTouchStart, { passive: false });
+            carousel.addEventListener('touchmove', handleCarouselTouchMove, { passive: false });
+            
+            // Touch events for slider
+            sliderDot.addEventListener('touchstart', handleDotTouchStart, { passive: false });
+            slider.addEventListener('touchstart', handleSliderTouchStart, { passive: false });
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.addEventListener('touchend', handleTouchEnd);
+
+            // Handle window resize with debounce
+            window.addEventListener('resize', handleResize);
+
+            // Hide slider if all cards are visible
+            function updateSliderVisibility() {
+                if (sliderContainer) {
                     sliderContainer.style.display = totalScrollWidth > 0 ? 'block' : 'none';
                 }
-                
-                // Call initially
-                updateSliderVisibility();
+            }
+            
+            // Call initially
+            updateSliderVisibility();
 
-                // Initialize
-                updateCarousel(0); // Start at the first card (0% position)
-                
-                // Only start autoplay after a small delay to ensure everything is properly initialized
-                setTimeout(startAutoPlay, 100);
-            });
-        })();
+            // Initialize
+            updateCarousel(0); // Start at the first card (0% position)
+            
+            // Only start autoplay after a small delay to ensure everything is properly initialized
+            setTimeout(startAutoPlay, 500);
+            
+            // Return the cleanup function for future use
+            return cleanup;
+        };
+        
+        // Centralized initialization to ensure all carousels are properly initialized
+        window.SpeakersCarousel.initializeAll = function() {
+            console.log('Initializing all carousels');
+            
+            // Clear any existing carousels first
+            if (window.carouselCleanupFunctions) {
+                window.carouselCleanupFunctions.forEach(cleanup => {
+                    if (typeof cleanup === 'function') {
+                        cleanup();
+                    }
+                });
+            }
+            
+            // Create a new array to store cleanup functions
+            window.carouselCleanupFunctions = [];
+            
+            // Initialize each carousel with delay to prevent simultaneous animations
+            const carousel1 = document.querySelector('.speakers-carousel-wrapper');
+            const carousel2 = document.querySelector('.speakers-carousel-wrapper-two');
+            const carousel3 = document.querySelector('.speakers-carousel-wrapper-three');
+            
+            if (carousel1) {
+                const cleanup1 = window.SpeakersCarousel.initCarousel('.speakers-carousel-wrapper');
+                if (cleanup1) window.carouselCleanupFunctions.push(cleanup1);
+            }
+            
+            setTimeout(() => {
+                if (carousel2) {
+                    const cleanup2 = window.SpeakersCarousel.initCarousel('.speakers-carousel-wrapper-two');
+                    if (cleanup2) window.carouselCleanupFunctions.push(cleanup2);
+                }
+            }, 200);
+            
+            setTimeout(() => {
+                if (carousel3) {
+                    const cleanup3 = window.SpeakersCarousel.initCarousel('.speakers-carousel-wrapper-three');
+                    if (cleanup3) window.carouselCleanupFunctions.push(cleanup3);
+                }
+            }, 400);
+        };
+        
+        // Initialize carousels when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            window.SpeakersCarousel.initializeAll();
+        });
+        
+        // Fallback initialization if DOMContentLoaded already fired
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(function() {
+                if (!window.carouselsInitialized) {
+                    window.carouselsInitialized = true;
+                    console.log('Initializing carousels (fallback)');
+                    window.SpeakersCarousel.initializeAll();
+                }
+            }, 100);
+        }
     </script>
 </body>
 
