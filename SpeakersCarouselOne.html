@@ -685,12 +685,12 @@
 
                 function startAutoPlay() {
                     autoPlayInterval = setInterval(() => {
-                        currentPosition += 3; // Reduced from 5 to 2 for slower movement
+                        currentPosition += 2; // Reduced from 5 to 2 for slower movement
                         if (currentPosition > totalScrollWidth) {
                             currentPosition = 0;
                         }
                         updateCarousel(currentPosition / totalScrollWidth);
-                    }, 22); // Changed from 16ms to 30ms for smoother animation
+                    }, 30); // Changed from 16ms to 30ms for smoother animation
                 }
 
                 function stopAutoPlay() {
