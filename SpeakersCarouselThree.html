@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speakers Carousel</title>
+    <style>
+        .speakers-carousel-wrapper-three {
+            --primary-color: #2c3e50;
+            --hover-color: #34495e;
+            --background-color: #f5f5f5;
+            --card-width: 400px;
+            --card-height: 500px;
+            --slider-color: #05FFCA;
+
+            width: 100%;
+            margin: 2rem auto;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        .speakers-carousel-wrapper-three * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel-container-three {
+            width: 100%;
+            position: relative;
+            overflow: visible;
+            margin: 2rem 0;
+            padding: 0;
+        }
+
+        .carousel-three {
+            display: flex;
+            transition: transform 0.3s ease-out;
+            gap: 2rem;
+            padding: 0;
+            will-change: transform;
+            width: fit-content;
+            transform-style: preserve-3d;
+        }
+
+        .card-three {
+            width: var(--card-width);
+            min-width: var(--card-width);
+            height: var(--card-height);
+            perspective: 2000px;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+
+        .card-three:first-child {
+            margin-left: 0;
+        }
+
+        .card-three:last-child {
+            margin-right: 0;
+        }
+
+        .card-three:hover {
+            z-index: 5;
+        }
+
+        .card-inner-three {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .card-three:hover .card-inner-three {
+            transform: rotateY(180deg);
+        }
+
+        .card-front-three,
+        .card-back-three {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateZ(0);
+        }
+
+        .card-front-three {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateZ(0) rotateY(0deg);
+        }
+
+        .card-front-three img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transform: translateZ(0);
+        }
+
+        .card-back-three {
+            background: #7FFFD4;
+            color: black;
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .card-back-three h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            color: #000000;
+        }
+
+        .card-back-three p {
+            line-height: 1.4;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .social-link-three {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: auto;
+            padding-top: 1.5rem;
+        }
+
+        .social-link-three a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .social-link-three a:hover {
+            opacity: 0.8;
+        }
+
+        .social-link-three img {
+            width: 24px;
+            height: 24px;
+            filter: invert(1);
+        }
+
+        .social-link-three h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* Container for slider to prevent page scroll */
+        .slider-outer-container-three {
+            width: 100%;
+            overflow: hidden;
+            padding: 0 1rem;
+        }
+
+        .slider-container-three {
+            width: 100%;
+            padding: 1rem 0;
+            /* Added padding to prevent dot from being cut */
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .slider-three {
+            width: 60%;
+            max-width: 400px;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            margin: 8px 0;
+        }
+
+        .slider-progress-three {
+            position: absolute;
+            height: 100%;
+            background: var(--slider-color);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .slider-dot-three {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--slider-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /* Changed from -8px to -50% for better centering */
+            cursor: grab;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            /* Ensure dot stays above the progress bar */
+        }
+
+        .slider-dot-three:hover {
+            background: var(--slider-color);
+            transform: translate(-50%, -50%) scale(1.1);
+            /* Updated transform */
+        }
+
+        .slider-dot-three:active {
+            cursor: grabbing;
+            transform: translate(-50%, -50%) scale(0.95);
+            /* Updated transform */
+        }
+
+        @media (max-width: 768px) {
+            .speakers-carousel-wrapper-three {
+                --card-width: 280px;
+                --card-height: 350px;
+            }
+
+            .card-back-three {
+                padding: 1.5rem;
+            }
+
+            .card-back-three h3 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .card-back-three p {
+                font-size: 0.9rem;
+            }
+
+            .social-link-three h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .speakers-carousel-wrapper-three {
+                --card-width: 300px;
+            }
+        }
+
+        /* Add mask to hide overflow during flip */
+        .carousel-three::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="speakers-carousel-wrapper-three">
+        <div class="carousel-container-three">
+            <div class="carousel-three">
+                <!-- Speaker Card 1 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/002d6e05-52d1-4832-967a-e9fb5dd20c5e/ECHO+MAH+%288%29.jpg?format=1000w"
+                                alt="Speaker 1" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>BOOTOSHI</h3>
+                            <p>BOOTOSHI is a Digital Creator & teaches AI Development. </p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/KingBootoshi" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>BOOTOSHI</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 2 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/c37c49f0-375d-432c-a579-cce351561b77/ECHO+MAH+%289%29.jpg?format=1000w"
+                                alt="Speaker 2" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>BITGOD</h3>
+                            <p>Bitgod is the founder</p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/BitGod21" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>BITGOD</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/984576f7-571c-4bd2-9de9-27fdce85f62b/ECHO+MAH+%2810%29.jpg?format=1000w"
+                                alt="Speaker 2" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Nullish</h3>
+                            <p>Nullish is an artist who recognized early-on the potential to redefine the way we understand and categorize digital art on Bitcoin, focusing on the rare satoshis, a unique aspect of Ordinals which highlights the history behind an individual sats. This is my journey on Bitcoin. Featured at Sotheby's, at the Bitcoin Conference auction in 2023, in the Xverse/Gamma Ordinals Alley, in Mashable, in Nftnow, in CoinGecko, and most importantly on everyone's Bitcoin node.</p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/null_ish" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Nullish</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 4 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/29225818-ad63-45db-ba88-3a63c7283b21/ECHO+MAH+%2811%29.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Naqib Noor</h3>
+                            <p>Naqib Noor is the Co-Founder and Development Lead of Ordzaar, a permissionless Zero-Fee Bitcoin Ordinals marketplace. He has a comprehensive background spanning eight years in the cryptocurrency sector, including his time as an Operations Manager at Kyber Network. Naqib Noor is committed to empowering artists and inspiring creators within the nascent Bitcoin Ordinals ecosystem. </p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/Naqib_Noor" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Naqib Noor</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 5 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/a3d917df-6609-4eee-a72e-39d16d6e1599/ECHO+MAH+%2812%29.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Ragzy X n</h3>
+                            <p>Jessica "Ragzy" Ewud is a contemporary artist, actress, entrepreneur, and LEGO master, known for her mixed-media art, particularly her LEGO creations, and her work with corporations and events. She's also a cast member of the television series "LEGO Masters.</p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/ragzyart"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Ragzy X </h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 6 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/360a5466-9332-4cbe-b8ce-7b6b0b46bf5f/ECHO+MAH+%2813%29.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Owl </h3>
+                            <p>Founder <a href="https://x.com/InscribedPepe" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer">InscribedPepe</a></p>
+                            <div class="social-link-three">
+                                <a href=" https://x.com/0wl_btc" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Owl</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 7 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/dbe940df-25c9-422b-b633-3228f2947998/ECHO+MAH+%2814%29.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Peter Giammanco</h3>
+                            <p>Peter Giammanco is the Co-Founder and Chief Technology Officer of Liquidium. He previously worked at PNC as a Software Engineer. Peter Giammanco attended Penn State University</p>
+                            <div class="social-link-three">
+                                <a href="https://www.linkedin.com/in/petergiammanco/" target="_blank"
+                                    rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                                        alt="LinkedIn Logo">
+                                    <h3>Peter Giammanco</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 8 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/6bea6345-42cc-40c5-8685-06ce074f3a40/ECHO+MAH+%2815%29.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Amanda Terry</h3>
+                            <p>Amanda is the Co-Founder & COO OnChainMonkey, Bitcoin’s 1st 10K Ordinals Collection and  <a href="https://x.com/osura_com" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer"> @osura_com</a>  Co-Founder & GP <a href="https://x.com/ACTAIVentures" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer"> @ACTAIVentures</a></p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/amandaterry" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Amanda Terry</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 9 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/5a543f7d-ef1c-4223-8e81-2260f62260c1/42.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Donny Clutterbuck</h3>
+                            <p>Donny is the founder of Fomojis a  collection of 100 digital artifacts inscribed as Ordinals on the Bitcoin blockchain.</p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/itsdonnyok" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Donny Clutterbuck</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 10 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/8a0ed043-7447-4716-b501-408571a49197/43.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Violetta Zironi </h3>
+                            <p>Violetta Zironi, Italian singer-songwriter and actress with a decade-long career in traditional music, has birthed five studio albums and multiple world tours. In film, she has starred in three movies, including a Netflix Original production. Venturing into blockchain in 2022, she is the #1 NFT independent singer-songwriter  globally generating $2.5 million in revenue, showcasing resilience, a true entrepreneurial spirit and paving a new path for independent artists.</p>
+                            <div class="social-link-three">
+                                <a href="https://x.com/ZironiVioletta/"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Violetta Zironi</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 11 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/c4e62c9d-342d-4ae3-b6d0-5a58938ce57a/44.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Ryan Koopmans</h3>
+                            <p>Ryan Koopmans (BA, MFA), is a Canadian-Dutch artist interested in the built environment and the societies that are shaped by those environments.</p>
+                            <p>His work is focused on the relationship between architecture and nature, and how the passage of time and social-political context influences this relationship.</p>
+                            <p>His latest project is the 13-piece series The Wild Within (2021) created with my partner Swedish artist Alice Wexell, and minted/collected on SuperRare. The collectors include GBLSTS, Bharat Krymo, Jim Carrey, Art On Internet, Bitcoin Barry, Norcal Guy and more.</p>
+
+                            <div class="social-link-three">
+                                <a href="https://x.com/ryankoopmans" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Ryan Koopmans</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 12 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/323f98e1-1f22-4e8e-bfd4-3d2fea398612/45.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Max Sanchez</h3>
+                            <p>Prior to leading technical architecture on Hemi, Maxwell Sanchez was the co-founder and CTO of VeriBlock where he co-invented the Proof-of-Proof (PoP) protocol for decentralized and permissionless Bitcoin security inheritance, architecting an entirely new PoP-optimized blockchain protocol.</p>
+                            <div class="social-link-three">
+                                <a href="https://www.linkedin.com/in/maxwellsanchez/" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                                        alt="LinkedIn Logo">
+                                    <h3>Max Sanchez</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 13 -->
+                <div class="card-three">
+                    <div class="card-inner-three">
+                        <div class="card-front-three">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/3c325544-7927-4cad-9fa2-30b25667cd04/46.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back-three">
+                            <h3>Coldie</h3>
+                            <p>Coldie is a mixed-media artist whose signature stereoscopic 3D works have become synonymous with the visual language of crypto art since 2017. With a distinct fusion of historical commentary and financial critique, his acclaimed series—including Decentral Eyes and Filthy Fiat — explore the shifting power dynamics between blockchain technology and traditional financial institutions. His work stands as both an artistic statement and a historical document of this ongoing transformation.</p>
+                            <p>As a leading voice in the rare digital art space, Coldie’s influence extends beyond creation—he is a respected thought leader, collector, and curator. His work has been featured in museum exhibitions, international cryptocurrency events, and esteemed auction houses, including Christie’s (New York), Sotheby’s (New York), and Bonhams (London). With a practice that seamlessly bridges traditional and digital mediums, Coldie continues to push the boundaries of contemporary art, cementing his role at the forefront of the evolving financial and artistic landscape.</p>
+
+                            <div class="social-link-three">
+                                <a href="https://x.com/ryankoopmans" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Coldie</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slider-outer-container-three">
+            <div class="slider-container-three">
+                <div class="slider-three">
+                    <div class="slider-progress-three"></div>
+                    <div class="slider-dot-three"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // Wait for DOM to be fully loaded
+            document.addEventListener('DOMContentLoaded', function () {
+                const wrapper = document.querySelector('.speakers-carousel-wrapper-three');
+                const carousel = wrapper.querySelector('.carousel-three');
+                const cards = wrapper.querySelectorAll('.card-three');
+                const sliderProgress = wrapper.querySelector('.slider-progress-three');
+                const sliderDot = wrapper.querySelector('.slider-dot-three');
+                const slider = wrapper.querySelector('.slider-three');
+                let isDragging = false;
+                let startX = 0;
+                let scrollLeft = 0;
+
+                // Calculate total scrollable width
+                const cardWidth = cards[0].offsetWidth;
+                const gap = 32; // 2rem gap
+                const visibleCards = 3;
+                const totalCards = cards.length;
+                const containerWidth = wrapper.offsetWidth;
+                const totalScrollWidth = (cardWidth + gap) * (totalCards - visibleCards);
+
+                function updateCarousel(percentage) {
+                    // Ensure percentage is between 0 and 1
+                    percentage = Math.max(0, Math.min(1, percentage));
+
+                    // Calculate scroll position
+                    const scrollPosition = percentage * totalScrollWidth;
+
+                    // Apply transform
+                    carousel.style.transform = `translateX(-${scrollPosition}px)`;
+
+                    // Update slider UI
+                    sliderProgress.style.width = `${percentage * 100}%`;
+                    sliderDot.style.left = `${percentage * 100}%`;
+                }
+
+                function handleSliderInteraction(e) {
+                    const rect = slider.getBoundingClientRect();
+                    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+                    const percentage = x / rect.width;
+                    updateCarousel(percentage);
+                }
+
+                // Mouse events for slider dot
+                sliderDot.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    document.body.style.userSelect = 'none';
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    handleSliderInteraction(e);
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    document.body.style.userSelect = '';
+                });
+
+                // Click event for slider
+                slider.addEventListener('click', (e) => {
+                    if (e.target === sliderDot) return;
+                    handleSliderInteraction(e);
+                });
+
+                // Touch events for mobile
+                let touchStartX;
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    if (!touchStartX) return;
+
+                    const touchCurrentX = e.touches[0].clientX;
+                    const diff = touchStartX - touchCurrentX;
+                    const currentTransform = carousel.style.transform;
+                    const currentX = currentTransform ? parseInt(currentTransform.match(/-?\d+/)[0]) : 0;
+
+                    const newPosition = Math.max(0, Math.min(currentX + diff, totalScrollWidth));
+                    const percentage = newPosition / totalScrollWidth;
+
+                    updateCarousel(percentage);
+                    touchStartX = touchCurrentX;
+                });
+
+                carousel.addEventListener('touchend', () => {
+                    touchStartX = null;
+                });
+
+                // Handle window resize
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        // Recalculate dimensions
+                        const currentPercentage = parseFloat(sliderDot.style.left) / 100 || 0;
+                        updateCarousel(currentPercentage);
+                    }, 250);
+                });
+
+                // Initialize
+                updateCarousel(0);
+            });
+        })();
+    </script>
+</body>
+
+</html>
