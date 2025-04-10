@@ -19,7 +19,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             box-sizing: border-box;
             overflow-x: hidden;
-            /* Prevent horizontal scroll */
         }
 
         .speakers-carousel-wrapper-two * {
@@ -44,6 +43,19 @@
             will-change: transform;
             width: fit-content;
             transform-style: preserve-3d;
+        }
+
+        .carousel-container-two:hover .carousel-two,
+        .carousel-container-two:hover .slider-outer-container-two .slider-progress-two,
+        .carousel-container-two:hover .slider-outer-container-two .slider-dot-two,
+        .slider-outer-container-two:hover .slider-progress-two,
+        .slider-outer-container-two:hover .slider-dot-two,
+        .card-two:hover ~ .slider-outer-container-two .slider-progress-two,
+        .card-two:hover ~ .slider-outer-container-two .slider-dot-two,
+        .card-two:hover .slider-progress-two,
+        .card-two:hover .slider-dot-two,
+        .card-two:hover .carousel-two {
+            transition: none;
         }
 
         .card-two {
@@ -173,7 +185,6 @@
             color: #000000;
         }
 
-        /* Container for slider to prevent page scroll */
         .slider-outer-container-two {
             width: 100%;
             overflow: hidden;
@@ -183,7 +194,6 @@
         .slider-container-two {
             width: 100%;
             padding: 1rem 0;
-            /* Added padding to prevent dot from being cut */
             margin-top: 2rem;
             display: flex;
             justify-content: center;
@@ -217,24 +227,10 @@
             border-radius: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            /* Changed from -8px to -50% for better centering */
             cursor: grab;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: left 0.3s ease, background 0.3s ease, transform 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 2;
-            /* Ensure dot stays above the progress bar */
-        }
-
-        .slider-dot-two:hover {
-            background: var(--slider-color);
-            transform: translate(-50%, -50%) scale(1.1);
-            /* Updated transform */
-        }
-
-        .slider-dot-two:active {
-            cursor: grabbing;
-            transform: translate(-50%, -50%) scale(0.95);
-            /* Updated transform */
         }
 
         @media (max-width: 768px) {
@@ -267,7 +263,6 @@
             }
         }
 
-        /* Add mask to hide overflow during flip */
         .carousel-two::after {
             content: '';
             position: absolute;
@@ -652,9 +647,12 @@
                 const sliderProgress = wrapper.querySelector('.slider-progress-two');
                 const sliderDot = wrapper.querySelector('.slider-dot-two');
                 const slider = wrapper.querySelector('.slider-two');
+                const sliderContainer = wrapper.querySelector('.slider-outer-container-two');
                 let isDragging = false;
                 let startX = 0;
                 let scrollLeft = 0;
+                let autoPlayInterval;
+                let currentPosition = 0;
 
                 // Calculate total scrollable width
                 const cardWidth = cards[0].offsetWidth;
@@ -664,12 +662,33 @@
                 const containerWidth = wrapper.offsetWidth;
                 const totalScrollWidth = (cardWidth + gap) * (totalCards - visibleCards);
 
+                // Clone cards for infinite scroll
+                const firstCard = cards[0].cloneNode(true);
+                const lastCard = cards[cards.length - 1].cloneNode(true);
+                carousel.appendChild(firstCard);
+                carousel.insertBefore(lastCard, cards[0]);
+
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(() => {
+                        currentPosition += 3; // Reduced from 5 to 2 for slower movement
+                        if (currentPosition > totalScrollWidth) {
+                            currentPosition = 0;
+                        }
+                        updateCarousel(currentPosition / totalScrollWidth);
+                    }, 22); // Changed from 16ms to 30ms for smoother animation
+                }
+
+                function stopAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                }
+
                 function updateCarousel(percentage) {
                     // Ensure percentage is between 0 and 1
                     percentage = Math.max(0, Math.min(1, percentage));
 
                     // Calculate scroll position
                     const scrollPosition = percentage * totalScrollWidth;
+                    currentPosition = scrollPosition; // Update currentPosition when manually moving
 
                     // Apply transform
                     carousel.style.transform = `translateX(-${scrollPosition}px)`;
@@ -683,13 +702,22 @@
                     const rect = slider.getBoundingClientRect();
                     const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
                     const percentage = x / rect.width;
+                    
+                    stopAutoPlay();
                     updateCarousel(percentage);
                 }
+
+                // Add event listeners to cards
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', stopAutoPlay);
+                    card.addEventListener('mouseleave', startAutoPlay);
+                });
 
                 // Mouse events for slider dot
                 sliderDot.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     document.body.style.userSelect = 'none';
+                    stopAutoPlay();
                 });
 
                 document.addEventListener('mousemove', (e) => {
@@ -698,8 +726,13 @@
                 });
 
                 document.addEventListener('mouseup', () => {
+                    if (!isDragging) return;
                     isDragging = false;
                     document.body.style.userSelect = '';
+                    // Only start auto-play if we're not at the end
+                    if (currentPosition < totalScrollWidth) {
+                        startAutoPlay();
+                    }
                 });
 
                 // Click event for slider
@@ -712,6 +745,7 @@
                 let touchStartX;
                 carousel.addEventListener('touchstart', (e) => {
                     touchStartX = e.touches[0].clientX;
+                    stopAutoPlay();
                 });
 
                 carousel.addEventListener('touchmove', (e) => {
@@ -731,6 +765,7 @@
 
                 carousel.addEventListener('touchend', () => {
                     touchStartX = null;
+                    startAutoPlay();
                 });
 
                 // Handle window resize
@@ -746,6 +781,7 @@
 
                 // Initialize
                 updateCarousel(0);
+                startAutoPlay();
             });
         })();
     </script>

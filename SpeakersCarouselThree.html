@@ -19,7 +19,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             box-sizing: border-box;
             overflow-x: hidden;
-            /* Prevent horizontal scroll */
         }
 
         .speakers-carousel-wrapper-three * {
@@ -44,6 +43,19 @@
             will-change: transform;
             width: fit-content;
             transform-style: preserve-3d;
+        }
+
+        .carousel-container-three:hover .carousel-three,
+        .carousel-container-three:hover .slider-outer-container-three .slider-progress-three,
+        .carousel-container-three:hover .slider-outer-container-three .slider-dot-three,
+        .slider-outer-container-three:hover .slider-progress-three,
+        .slider-outer-container-three:hover .slider-dot-three,
+        .card-three:hover ~ .slider-outer-container-three .slider-progress-three,
+        .card-three:hover ~ .slider-outer-container-three .slider-dot-three,
+        .card-three:hover .slider-progress-three,
+        .card-three:hover .slider-dot-three,
+        .card-three:hover .carousel-three {
+            transition: none;
         }
 
         .card-three {
@@ -173,7 +185,6 @@
             color: #000000;
         }
 
-        /* Container for slider to prevent page scroll */
         .slider-outer-container-three {
             width: 100%;
             overflow: hidden;
@@ -183,7 +194,6 @@
         .slider-container-three {
             width: 100%;
             padding: 1rem 0;
-            /* Added padding to prevent dot from being cut */
             margin-top: 2rem;
             display: flex;
             justify-content: center;
@@ -217,24 +227,10 @@
             border-radius: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            /* Changed from -8px to -50% for better centering */
             cursor: grab;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: left 0.3s ease, background 0.3s ease, transform 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 2;
-            /* Ensure dot stays above the progress bar */
-        }
-
-        .slider-dot-three:hover {
-            background: var(--slider-color);
-            transform: translate(-50%, -50%) scale(1.1);
-            /* Updated transform */
-        }
-
-        .slider-dot-three:active {
-            cursor: grabbing;
-            transform: translate(-50%, -50%) scale(0.95);
-            /* Updated transform */
         }
 
         @media (max-width: 768px) {
@@ -267,7 +263,6 @@
             }
         }
 
-        /* Add mask to hide overflow during flip */
         .carousel-three::after {
             content: '';
             position: absolute;
@@ -282,6 +277,7 @@
 </head>
 
 <body>
+    <!-- Your HTML content remains exactly the same -->
     <div class="speakers-carousel-wrapper-three">
         <div class="carousel-container-three">
             <div class="carousel-three">
@@ -443,7 +439,7 @@
                         </div>
                         <div class="card-back-three">
                             <h3>Amanda Terry</h3>
-                            <p>Amanda is the Co-Founder & COO OnChainMonkey, Bitcoin’s 1st 10K Ordinals Collection and  <a href="https://x.com/osura_com" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer"> @osura_com</a>  Co-Founder & GP <a href="https://x.com/ACTAIVentures" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer"> @ACTAIVentures</a></p>
+                            <p>Amanda is the Co-Founder & COO OnChainMonkey, Bitcoin's 1st 10K Ordinals Collection and  <a href="https://x.com/osura_com" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer"> @osura_com</a>  Co-Founder & GP <a href="https://x.com/ACTAIVentures" style="color: #000000; text-decoration: underline;" target="_blank" rel="noopener noreferrer"> @ACTAIVentures</a></p>
                             <div class="social-link-three">
                                 <a href="https://x.com/amandaterry" target="_blank" rel="noopener noreferrer">
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
@@ -553,7 +549,7 @@
                         <div class="card-back-three">
                             <h3>Coldie</h3>
                             <p>Coldie is a mixed-media artist whose signature stereoscopic 3D works have become synonymous with the visual language of crypto art since 2017. With a distinct fusion of historical commentary and financial critique, his acclaimed series—including Decentral Eyes and Filthy Fiat — explore the shifting power dynamics between blockchain technology and traditional financial institutions. His work stands as both an artistic statement and a historical document of this ongoing transformation.</p>
-                            <p>As a leading voice in the rare digital art space, Coldie’s influence extends beyond creation—he is a respected thought leader, collector, and curator. His work has been featured in museum exhibitions, international cryptocurrency events, and esteemed auction houses, including Christie’s (New York), Sotheby’s (New York), and Bonhams (London). With a practice that seamlessly bridges traditional and digital mediums, Coldie continues to push the boundaries of contemporary art, cementing his role at the forefront of the evolving financial and artistic landscape.</p>
+                            <p>As a leading voice in the rare digital art space, Coldie's influence extends beyond creation—he is a respected thought leader, collector, and curator. His work has been featured in museum exhibitions, international cryptocurrency events, and esteemed auction houses, including Christie's (New York), Sotheby's (New York), and Bonhams (London). With a practice that seamlessly bridges traditional and digital mediums, Coldie continues to push the boundaries of contemporary art, cementing his role at the forefront of the evolving financial and artistic landscape.</p>
 
                             <div class="social-link-three">
                                 <a href="https://x.com/ryankoopmans" target="_blank" rel="noopener noreferrer">
@@ -589,9 +585,12 @@
                 const sliderProgress = wrapper.querySelector('.slider-progress-three');
                 const sliderDot = wrapper.querySelector('.slider-dot-three');
                 const slider = wrapper.querySelector('.slider-three');
+                const sliderContainer = wrapper.querySelector('.slider-outer-container-three');
                 let isDragging = false;
                 let startX = 0;
                 let scrollLeft = 0;
+                let autoPlayInterval;
+                let currentPosition = 0;
 
                 // Calculate total scrollable width
                 const cardWidth = cards[0].offsetWidth;
@@ -601,12 +600,33 @@
                 const containerWidth = wrapper.offsetWidth;
                 const totalScrollWidth = (cardWidth + gap) * (totalCards - visibleCards);
 
+                // Clone cards for infinite scroll
+                const firstCard = cards[0].cloneNode(true);
+                const lastCard = cards[cards.length - 1].cloneNode(true);
+                carousel.appendChild(firstCard);
+                carousel.insertBefore(lastCard, cards[0]);
+
+                function startAutoPlay() {
+                    autoPlayInterval = setInterval(() => {
+                        currentPosition += 3; // Reduced from 5 to 2 for slower movement
+                        if (currentPosition > totalScrollWidth) {
+                            currentPosition = 0;
+                        }
+                        updateCarousel(currentPosition / totalScrollWidth);
+                    }, 22); // Changed from 16ms to 30ms for smoother animation
+                }
+
+                function stopAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                }
+
                 function updateCarousel(percentage) {
                     // Ensure percentage is between 0 and 1
                     percentage = Math.max(0, Math.min(1, percentage));
 
                     // Calculate scroll position
                     const scrollPosition = percentage * totalScrollWidth;
+                    currentPosition = scrollPosition; // Update currentPosition when manually moving
 
                     // Apply transform
                     carousel.style.transform = `translateX(-${scrollPosition}px)`;
@@ -620,13 +640,22 @@
                     const rect = slider.getBoundingClientRect();
                     const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
                     const percentage = x / rect.width;
+                    
+                    stopAutoPlay();
                     updateCarousel(percentage);
                 }
+
+                // Add event listeners to cards
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', stopAutoPlay);
+                    card.addEventListener('mouseleave', startAutoPlay);
+                });
 
                 // Mouse events for slider dot
                 sliderDot.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     document.body.style.userSelect = 'none';
+                    stopAutoPlay();
                 });
 
                 document.addEventListener('mousemove', (e) => {
@@ -635,8 +664,13 @@
                 });
 
                 document.addEventListener('mouseup', () => {
+                    if (!isDragging) return;
                     isDragging = false;
                     document.body.style.userSelect = '';
+                    // Only start auto-play if we're not at the end
+                    if (currentPosition < totalScrollWidth) {
+                        startAutoPlay();
+                    }
                 });
 
                 // Click event for slider
@@ -649,6 +683,7 @@
                 let touchStartX;
                 carousel.addEventListener('touchstart', (e) => {
                     touchStartX = e.touches[0].clientX;
+                    stopAutoPlay();
                 });
 
                 carousel.addEventListener('touchmove', (e) => {
@@ -668,6 +703,7 @@
 
                 carousel.addEventListener('touchend', () => {
                     touchStartX = null;
+                    startAutoPlay();
                 });
 
                 // Handle window resize
@@ -683,9 +719,9 @@
 
                 // Initialize
                 updateCarousel(0);
+                startAutoPlay();
             });
         })();
     </script>
 </body>
-
 </html>
