@@ -1,0 +1,796 @@
+<div class="header-announcement-bar-wrapper">
+      
+      <a href="#page" class="header-skip-link sqs-button-element--primary">
+        Skip to Content
+      </a>
+      
+
+<style>
+    /* Sticky header styles for desktop only - pure CSS solution */
+    @media screen and (min-width: 768px) {
+        /* Make the whole header sticky */
+        .header-announcement-bar-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--headerBackgroundColor, #000);
+        }
+        
+        /* Initially show all navigation items */
+        .header-nav-item {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Hide most nav items when scrolling */
+        .header-display-desktop {
+            position: relative;
+        }
+        
+        /* Style for sticky state container */
+        .sticky-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        /* Target the logo */
+        .header-title-logo {
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+        
+        /* Target the "Let's talk" link specifically */
+        .header-nav-item:not(:last-child) {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        /* When scrolling, hide all nav items except "Let's talk" */
+        @media screen and (min-width: 768px) {
+            html:not([data-scroll='0']) .header-nav-item:not(:last-child),
+            html:not([data-scroll='0']) .header-actions,
+            html:not([data-scroll='0']) .header-burger {
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            /* Keep the logo and "Let's talk" visible */
+            html:not([data-scroll='0']) .header-title-logo,
+            html:not([data-scroll='0']) .header-nav-item:last-child {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            /* Add a compact style to the header when scrolling */
+            html:not([data-scroll='0']) .header-inner {
+                padding: 10px 20px;
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+            
+            /* Make the logo smaller when scrolling */
+            html:not([data-scroll='0']) .header-title-logo img {
+                max-height: 40px;
+                width: auto;
+            }
+            
+            /* Adjust the header layout when scrolling */
+            html:not([data-scroll='0']) .header-title-nav-wrapper {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                align-items: center;
+            }
+            
+            /* Adjust position of the "Let's talk" when scrolling */
+            html:not([data-scroll='0']) .header-nav {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+</style>
+
+<!-- Script to track scroll position but using no DOM manipulation -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Only add scroll tracking - no DOM manipulation
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            document.documentElement.setAttribute('data-scroll', scrollTop <= 50 ? '0' : '1');
+        });
+    });
+</script>
+
+<style>
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        .header-blur-background {
+            
+            
+        }
+    }
+</style>
+      <div class="header-border" data-header-style="dynamic" data-header-border="false" data-test="header-border" style="
+
+
+
+
+"></div>
+      <div class="header-dropshadow" data-header-style="dynamic" data-header-dropshadow="false" data-test="header-dropshadow" style=""></div>
+      
+      
+
+      <div class="header-inner container--fluid
+        
+        
+        
+         header-mobile-layout-logo-left-nav-right
+        
+        
+        
+        
+        
+        
+         header-layout-nav-right
+        
+        
+        
+        
+        
+        
+        
+        
+        " data-test="header-inner">
+        <!-- Background -->
+        <div class="header-background theme-bg--primary"></div>
+
+        <div class="header-display-desktop" data-content-field="site-title">
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+            
+            <!-- Social -->
+            
+              
+            
+          
+            
+            <!-- Title and nav wrapper -->
+            <div class="header-title-nav-wrapper">
+              
+
+              
+
+              
+                
+                <!-- Title -->
+                
+                  <div class="header-title preFade fadeIn" data-animation-role="header-element" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0s;">
+                    
+                      <div class="header-title-logo">
+                        <a href="/" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.00487805s;">
+                        
+<img elementtiming="nbf-header-logo-desktop" src="//images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/a4d6c249-a834-4b2d-8cd0-9a0a2bdccf21/logo_white_smaller_transp.png?format=1500w" alt="Nolcha Shows" style="display:block" fetchpriority="high" loading="eager" decoding="async" data-loader="raw">
+
+                        </a>
+                      </div>
+
+                    
+                    
+                  </div>
+                
+              
+                
+                <!-- Nav -->
+                <div class="header-nav">
+                  <div class="header-nav-wrapper">
+                    <nav class="header-nav-list">
+                      
+
+
+    <div class="header-nav-item header-nav-item--external">
+      <a href="https://inscribing.com/vegas" target="_blank" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0097561s;">BTC Vegas</a>
+    </div>
+  
+
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/swiper-with-pop-up" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0146341s;">
+        Upcoming
+      </a>
+    </div>
+  
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--folder">
+      <a class="header-nav-folder-title preFade fadeIn" href="/charity-partnerships" data-animation-role="header-element" aria-expanded="false" aria-label="folder dropdown" aria-controls="charity-partners" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0195122s;">
+      <span class="header-nav-folder-title-text">
+        Charity Partners
+      </span>
+      </a>
+      <div class="header-nav-folder-content" id="charity-partners">
+        
+          
+            <div class="header-nav-folder-item">
+              <a href="/cerebral-palsy-foundation">
+                <span class="header-nav-folder-item-content">
+                  Cerebral Palsy Foundation
+                </span>
+              </a>
+            </div>
+          
+          
+        
+          
+            <div class="header-nav-folder-item">
+              <a href="/make-a-wish">
+                <span class="header-nav-folder-item-content">
+                  Make-A-Wish
+                </span>
+              </a>
+            </div>
+          
+          
+        
+          
+            <div class="header-nav-folder-item">
+              <a href="/st-jude-childrens-hospital">
+                <span class="header-nav-folder-item-content">
+                  St. Jude Childrens Hospital
+                </span>
+              </a>
+            </div>
+          
+          
+        
+      </div>
+    </div>
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--folder">
+      <a class="header-nav-folder-title preFade fadeIn" href="/experiences-1" data-animation-role="header-element" aria-expanded="false" aria-label="folder dropdown" aria-controls="experiences" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0243902s;">
+      <span class="header-nav-folder-title-text">
+        Experiences
+      </span>
+      </a>
+      <div class="header-nav-folder-content" id="experiences">
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/jack-butcher-vv-racing">Jack Butcher</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/bitcoin-conference-2024">Bitcoin Conference</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/opening-night-consensus-ai-conference" target="_blank">Consensus + AI</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/ctrl-ordinals-launch" target="_blank">CTRL Ordinals</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/fvckrender-immersive-experience" target="_blank">Fvckrender</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/taproot-wizards-pop-up-conference" target="_blank">Taproot Wizards</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/nyfw-world-trade-center-69th-fl" target="_blank">NYFW</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/nftnyc" target="_blank">NFT NYC</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/pizzaninjas" target="_blank">Pizza Ninjas</a>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/speakers" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0292683s;">
+        Speakers
+      </a>
+    </div>
+  
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/artists" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0341463s;">
+        Artists
+      </a>
+    </div>
+  
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/press" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0390244s;">
+        Press
+      </a>
+    </div>
+  
+  
+  
+
+
+    <div class="header-nav-item header-nav-item--external">
+      <a href="https://nolcha.npclabs.xyz/" target="_blank" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0439024s;">Shop</a>
+    </div>
+  
+
+
+
+    <div class="header-nav-item header-nav-item--external">
+      <a href="https://www.nolcha.com/#contact" data-animation-role="header-element" class="preFade fadeIn" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0487805s;">Let's talk</a>
+    </div>
+  
+
+
+
+
+                    </nav>
+                  </div>
+                </div>
+              
+              
+            </div>
+          
+            
+            <!-- Actions -->
+            <div class="header-actions header-actions--right">
+              
+              
+                
+                  <div class="header-actions-action header-actions-action--social">
+                    
+                      
+                        <a class="icon icon--fill  header-icon header-icon-border-shape-none header-icon-border-style-outline" href="http://x.com/nolchashows" target="_blank" aria-label="X">
+                          <svg viewBox="23 23 64 64">
+                            <use xlink:href="#x-formerly-twitter-unauth-icon" width="110" height="110"></use>
+                          </svg>
+                        </a>
+                      
+                        <a class="icon icon--fill  header-icon header-icon-border-shape-none header-icon-border-style-outline" href="https://www.instagram.com/nolchashows/" target="_blank" aria-label="Instagram">
+                          <svg viewBox="23 23 64 64">
+                            <use xlink:href="#instagram-unauth-icon" width="110" height="110"></use>
+                          </svg>
+                        </a>
+                      
+                    
+                  </div>
+                
+              
+
+              
+
+            
+            
+
+              
+              <div class="showOnMobile">
+                
+              </div>
+
+              
+              <div class="showOnDesktop">
+                
+              </div>
+
+              
+            </div>
+          
+            
+
+
+<style>
+  .top-bun, 
+  .patty, 
+  .bottom-bun {
+    height: 1px;
+  }
+</style>
+
+<!-- Burger -->
+<div class="header-burger menu-overlay-has-visible-non-navigation-items preFade" data-animation-role="header-element" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0536585s;">
+  <button class="header-burger-btn burger" data-test="header-burger">
+    <span class="js-header-burger-open-title visually-hidden">Open Menu</span>
+    <span hidden="" class="js-header-burger-close-title visually-hidden">Close Menu</span>
+    <div class="burger-box">
+      <div class="burger-inner header-menu-icon-halfLineHamburger navRight">
+        <div class="top-bun"></div>
+        <div class="patty"></div>
+        <div class="bottom-bun"></div>
+      </div>
+    </div>
+  </button>
+</div>
+
+          
+          
+          
+          
+          
+
+        </div>
+        <div class="header-display-mobile" data-content-field="site-title">
+          
+            
+            <!-- Social -->
+            
+              
+            
+          
+            
+            <!-- Title and nav wrapper -->
+            <div class="header-title-nav-wrapper">
+              
+
+              
+
+              
+                
+                <!-- Title -->
+                
+                  <div class="header-title preFade" data-animation-role="header-element" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0585366s;">
+                    
+                      <div class="header-title-logo">
+                        <a href="/" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0634146s;">
+                        
+<img elementtiming="nbf-header-logo-desktop" src="//images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/a4d6c249-a834-4b2d-8cd0-9a0a2bdccf21/logo_white_smaller_transp.png?format=1500w" alt="Nolcha Shows" style="display:block" fetchpriority="high" loading="eager" decoding="async" data-loader="raw">
+
+                        </a>
+                      </div>
+
+                    
+                    
+                  </div>
+                
+              
+                
+                <!-- Nav -->
+                <div class="header-nav">
+                  <div class="header-nav-wrapper">
+                    <nav class="header-nav-list">
+                      
+
+
+    <div class="header-nav-item header-nav-item--external">
+      <a href="https://inscribing.com/vegas" target="_blank" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0682927s;">BTC Vegas</a>
+    </div>
+  
+
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/swiper-with-pop-up" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0731707s;">
+        Upcoming
+      </a>
+    </div>
+  
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--folder">
+      <a class="header-nav-folder-title preFade" href="/charity-partnerships" data-animation-role="header-element" aria-expanded="false" aria-label="folder dropdown" aria-controls="charity-partners" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0780488s;">
+      <span class="header-nav-folder-title-text">
+        Charity Partners
+      </span>
+      </a>
+      <div class="header-nav-folder-content" id="charity-partners">
+        
+          
+            <div class="header-nav-folder-item">
+              <a href="/cerebral-palsy-foundation">
+                <span class="header-nav-folder-item-content">
+                  Cerebral Palsy Foundation
+                </span>
+              </a>
+            </div>
+          
+          
+        
+          
+            <div class="header-nav-folder-item">
+              <a href="/make-a-wish">
+                <span class="header-nav-folder-item-content">
+                  Make-A-Wish
+                </span>
+              </a>
+            </div>
+          
+          
+        
+          
+            <div class="header-nav-folder-item">
+              <a href="/st-jude-childrens-hospital">
+                <span class="header-nav-folder-item-content">
+                  St. Jude Childrens Hospital
+                </span>
+              </a>
+            </div>
+          
+          
+        
+      </div>
+    </div>
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--folder">
+      <a class="header-nav-folder-title preFade" href="/experiences-1" data-animation-role="header-element" aria-expanded="false" aria-label="folder dropdown" aria-controls="experiences" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0829268s;">
+      <span class="header-nav-folder-title-text">
+        Experiences
+      </span>
+      </a>
+      <div class="header-nav-folder-content" id="experiences">
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/jack-butcher-vv-racing">Jack Butcher</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/bitcoin-conference-2024">Bitcoin Conference</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/opening-night-consensus-ai-conference" target="_blank">Consensus + AI</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/ctrl-ordinals-launch" target="_blank">CTRL Ordinals</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/fvckrender-immersive-experience" target="_blank">Fvckrender</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/taproot-wizards-pop-up-conference" target="_blank">Taproot Wizards</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/nyfw-world-trade-center-69th-fl" target="_blank">NYFW</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/nftnyc" target="_blank">NFT NYC</a>
+            </div>
+          
+        
+          
+          
+            <div class="header-nav-folder-item header-nav-folder-item--external">
+              <a href="/experience/pizzaninjas" target="_blank">Pizza Ninjas</a>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/speakers" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0878049s;">
+        Speakers
+      </a>
+    </div>
+  
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/artists" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.0926829s;">
+        Artists
+      </a>
+    </div>
+  
+  
+  
+
+
+  
+    <div class="header-nav-item header-nav-item--collection">
+      <a href="/press" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.097561s;">
+        Press
+      </a>
+    </div>
+  
+  
+  
+
+
+    <div class="header-nav-item header-nav-item--external">
+      <a href="https://nolcha.npclabs.xyz/" target="_blank" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.102439s;">Shop</a>
+    </div>
+  
+
+
+
+    <div class="header-nav-item header-nav-item--external">
+      <a href="https://www.nolcha.com/#contact" data-animation-role="header-element" class="preFade" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.107317s;">Let's talk</a>
+    </div>
+  
+
+
+
+
+                    </nav>
+                  </div>
+                </div>
+              
+              
+            </div>
+          
+            
+            <!-- Actions -->
+            <div class="header-actions header-actions--right">
+              
+              
+                
+                  <div class="header-actions-action header-actions-action--social">
+                    
+                      
+                        <a class="icon icon--fill  header-icon header-icon-border-shape-none header-icon-border-style-outline" href="http://x.com/nolchashows" target="_blank" aria-label="X">
+                          <svg viewBox="23 23 64 64">
+                            <use xlink:href="#x-formerly-twitter-unauth-icon" width="110" height="110"></use>
+                          </svg>
+                        </a>
+                      
+                        <a class="icon icon--fill  header-icon header-icon-border-shape-none header-icon-border-style-outline" href="https://www.instagram.com/nolchashows/" target="_blank" aria-label="Instagram">
+                          <svg viewBox="23 23 64 64">
+                            <use xlink:href="#instagram-unauth-icon" width="110" height="110"></use>
+                          </svg>
+                        </a>
+                      
+                    
+                  </div>
+                
+              
+
+              
+
+            
+            
+
+              
+              <div class="showOnMobile">
+                
+              </div>
+
+              
+              <div class="showOnDesktop">
+                
+              </div>
+
+              
+            </div>
+          
+            
+
+
+<style>
+  .top-bun, 
+  .patty, 
+  .bottom-bun {
+    height: 1px;
+  }
+</style>
+
+<!-- Burger -->
+<div class="header-burger menu-overlay-has-visible-non-navigation-items preFade" data-animation-role="header-element" style="transition-timing-function: ease; transition-duration: 0.9s; transition-delay: 0.112195s;">
+  <button class="header-burger-btn burger" data-test="header-burger">
+    <span class="js-header-burger-open-title visually-hidden">Open Menu</span>
+    <span hidden="" class="js-header-burger-close-title visually-hidden">Close Menu</span>
+    <div class="burger-box">
+      <div class="burger-inner header-menu-icon-halfLineHamburger navRight">
+        <div class="top-bun"></div>
+        <div class="patty"></div>
+        <div class="bottom-bun"></div>
+      </div>
+    </div>
+  </button>
+</div>
+
+          
+          
+          
+          
+          
+        </div>
+      </div>
+    </div>
