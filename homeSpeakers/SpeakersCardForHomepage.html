@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speakers Carousel</title>
+    <style>
+        .speakers-carousel-wrapper {
+            --primary-color: #2c3e50;
+            --hover-color: #34495e;
+            --background-color: #f5f5f5;
+            --card-width: 400px;
+            --card-height: 500px;
+            --slider-color: #E2EE5C;
+            width: 100%;
+            margin: 2rem auto;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .speakers-carousel-wrapper * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .carousel-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+            padding: 0;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.3s ease-out;
+            gap: 2rem;
+            padding: 0 1rem;
+            will-change: transform;
+            width: fit-content;
+            transform-style: preserve-3d;
+            margin-left: 0; /* Ensure first card starts at the beginning */
+        }
+
+        .carousel-container:hover .carousel,
+        .carousel-container:hover .slider-outer-container .slider-progress,
+        .carousel-container:hover .slider-outer-container .slider-dot,
+        .slider-outer-container:hover .slider-progress,
+        .slider-outer-container:hover .slider-dot,
+        .card:hover ~ .slider-outer-container .slider-progress,
+        .card:hover ~ .slider-outer-container .slider-dot,
+        .card:hover .slider-progress,
+        .card:hover .slider-dot,
+        .card:hover .carousel {
+            transition: none;
+        }
+
+        .card {
+            width: var(--card-width);
+            min-width: var(--card-width);
+            height: var(--card-height);
+            perspective: 2000px;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            transform-style: preserve-3d;
+            z-index: 1;
+        }
+
+        .card:first-child {
+            margin-left: 0;
+        }
+
+        .card:last-child {
+            margin-right: 0;
+        }
+
+        .card:hover {
+            z-index: 5;
+        }
+
+        .card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateZ(0);
+        }
+
+        .card-front {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateZ(0) rotateY(0deg);
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transform: translateZ(0);
+        }
+
+        .card-back {
+            background: #7FFFD4;
+            color: black;
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .card-back h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            color: #000000;
+        }
+
+        .card-back-three p,
+        .card-back-two p,
+        .card-back p {
+            line-height: 1.4;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            margin: 0 !important;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: auto;
+            padding-top: 1.5rem;
+        }
+
+        .social-link a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .social-link a:hover {
+            opacity: 0.8;
+        }
+
+        .social-link img {
+            width: 24px;
+            height: 24px;
+            filter: invert(1);
+        }
+
+        .social-link h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .slider-outer-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 0 1rem;
+        }
+
+        .slider-container {
+            width: 100%;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .slider {
+            width: 60%;
+            max-width: 400px;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+            margin: 8px 0;
+        }
+
+        .slider-progress {
+            position: absolute;
+            height: 100%;
+            background: var(--slider-color);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .slider-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--slider-color);
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
+            transition: left 0.3s ease, background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .carousel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .speakers-carousel-wrapper {
+                --card-width: 280px;
+                --card-height: 350px;
+            }
+
+            .card-back {
+                padding: 1.5rem;
+            }
+
+            .card-back h3 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .card-back p {
+                font-size: 0.85rem;
+            }
+
+            .social-link h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .speakers-carousel-wrapper {
+                --card-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="speakers-carousel-wrapper">
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Speaker Card 1 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/d89744e6-8b13-439a-92d5-42f4bf412e1a/trevor.jpg?format=1000w"
+                                alt="Speaker 1" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Trevor Owens</h3>
+                            <p>Trevor Owens is the managing partner of Bitcoin Frontier Fund and co-founder and CEO of
+                                Ninjalerts. He graduated from the Stern School of Business at New York University.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/TO" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Trevor Owens</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 2 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/b7f12e2a-75d2-4fdb-a736-f05d3c14baaa/Vincent.jpg?format=1000w"
+                                alt="Speaker 2" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Vincent D'Onofrio</h3>
+                            <p>Vincent Philip D'Onofriois an American actor and filmmaker.</p>
+                            <p>His roles include Private Leonard "Gomer Pyle" Lawrence in Full Metal Jacket (1987),
+                                Robert E. Howard in The Whole Wide World (1996), Edgar the Bug in Men in Black (1997)
+                                and Men in Black: The Series (1997–2001), Carl Stargher in The Cell (2000), New York
+                                City Police Detective Robert Goren in Law & Order: Criminal Intent (2001–11), Victor
+                                "Vic" Hoskins in Jurassic World (2015), and Wilson Fisk / Kingpin in the Marvel
+                                Cinematic Universe television series Daredevil (2015–2018), Hawkeye (2021), Echo (2024),
+                                and Daredevil: Born Again (2025–present).</p>
+                            <div class="social-link">
+                                <a href="https://x.com/vincentdonofrio" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Vincent D'Onofrio</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/f37c8b5a-05bd-4dd5-ba67-a562494769f8/casey.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Casey Rodarmor</h3>
+                            <p>Casey Rodarmor is a prominent Bitcoin developer, creator of Ordinals and, most recently,
+                                Runes Protocol. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/rodarmor" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Casey Rodarmor</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 4 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/1c2e76fc-9ad3-4342-b5ae-bba7a0789b2e/4.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Kevin Foxe</h3>
+                            <p>Kevin J. Foxe is a director, producer, writer, and storyteller, most known for the
+                                successful independent film <a
+                                    href="https://en.wikipedia.org/wiki/The_Blair_Witch_Project"
+                                    style="color: #000000; text-decoration: underline" target="_blank"
+                                    rel="noopener noreferrer">The Blair Witch Project</a>. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/kevinfoxe?lang=en" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Kevin Foxe</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 5 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/7a4dd377-9bcd-4a87-8ab0-ebb96415edc9/5.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jan Smejkal</h3>
+                            <p>Born in a small town in Czech Republic, moved to China 7 years ago, Jan Smejkal is the
+                                Chief Strategy Officer at Xverse, where Jan is working on building the best
+                                infrastructure for Bitcoin web3 and Ordinals. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/nonfungible_jan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jan Smejkal</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 6 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/9ac02c08-c817-460e-beea-0f9359106b4c/6.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jack Butcher</h3>
+                            <p>Jack Butcher is a pioneering digital artist and entrepreneur at the forefront of the NFT
+                                revolution. As the founder of Visualize Value, Butcher has established himself as a
+                                master of minimalist design, translating complex philosophical and economic concepts
+                                into striking visual metaphors.</p>
+                            <p>With a background in advertising, Butcher transitioned to independent artistic practice,
+                                quickly gaining recognition for his ability to distill intricate ideas into powerful,
+                                simplified graphics. His work challenges viewers to reconsider conventional notions of
+                                value, ownership, and scarcity in the digital age.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/jackbutcher" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jack Butcher</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 7 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/2e2295dc-01bb-4ffa-b9a6-e2abfcf45c35/elizabeth-olson.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Elizabeth Olson</h3>
+                            <p>Elizabeth Olson is Head of Marketing at Magic Eden Wallet and was previously Head of Growth at Xverse.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/elizabethols0n?lang=en" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Elizabeth Olson</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 8 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/d23e14b2-33dc-46e8-988a-9699415f99d4/jeremy.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Jeremy Rubin</h3>
+                            <p>Jeremy Rubin is the founder of Judica, a Bitcoin R&D Lab. He has been a Bitcoin contributor since 2016, but has worked in the community since 2013. Previously, Jeremy co-founded Scaling Bitcoin and the MIT Digital Currency Initiative.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/JeremyRubin" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Jeremy Rubin</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 9 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/ae6d0292-6018-4e20-b514-e5a9f2963b02/ben+charbit.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Benjamin Charbit</h3>
+                            <p>Benjamin Charbit is Co-founder & CEO at Darewise (Animoca Brands). Combining AAA Gaming, Web3 and Metaverse. Entrepreneur and Start-up Passionate. Preparing a new movement on Bitcoin with Sparks, and building Life Beyond Studios, AAA UE5 MMO.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/Ben_Charbit" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Benjamin Charbit</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 10 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/a67c254d-964a-43d7-b97d-b9689676a03c/ADAM+MCBRIDE.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Adam Mcbride</h3>
+                            <p>The Adam McBride Show is a podcast hosted by Adam McBride, who identifies as an "NFT Archaeologist," exploring the past, present, and future of NFTs and blockchain technology</p>
+                            <div class="social-link">
+                                <a href="https://x.com/adamamcbride?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Adam Mcbride</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 11 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/fcc7918d-8693-4cab-b714-4b35655d752f/billy+restey.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Billy Restey</h3>
+                            <p>Billy is an abstract digital artist specializing in 3D, generative, and AI art. With a focus on expressing beauty in nature's randomness, his works combine cutting-edge technologies to create stunning pieces.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/billyrestey" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Billy Restey</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 12 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/fab75eca-b801-46e0-bbc2-aeb895acf924/nick+sainato.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Nick Sainato</h3>
+                            <p>Nick is the Co-founder of Gamma.io, a  Bitcoin NFT marketplace, powered by Stacks, which enables smart contracts that settle onto Bitcoin</p>
+                            <div class="social-link">
+                                <a href="https://x.com/nicksainato" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Nick Sainato</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 13 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/843c090d-87cf-4c01-8c7e-79c104555e6b/RAPH.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Raph Japh</h3>
+                            <p>Raph is lead Maintainer for the Ordinals Protocol.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/raphjaph?lang=en" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Raph Japh</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 14 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/a0d02cd9-8bdb-41e5-9772-a5100f6abd3d/ERIN+REDWING.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Erin Redwing</h3>
+                            <p>Erin is the president of the Open Ordinals Institute, founder of Inscribing Atlantis and co-host of the Hell Money Podcast. </p>
+                            <div class="social-link">
+                                <a href="https://x.com/realizingerin" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3> Erin Redwing</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 15 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/ca90d228-cb3c-4868-a837-bc79eed064aa/UDI+WERTHEIMER.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Udi Wertheimer</h3>
+                            <p>Udi is a long-time bitcoiner on a mission to make bitcoin magical again, by resurfacing the early culture of fun bitcoin memes and art. He is also the founder of Taproot Wizards.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/udiWertheimer?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Udi Wertheimer</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 16 -->
+                <div class="card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/ff8032a8-a1b0-4865-afc8-1dc7c238f22b/PARKER+DAY.jpg?format=1000w"
+                                alt="Speaker 3" loading="lazy">
+                        </div>
+                        <div class="card-back">
+                            <h3>Parker Day</h3>
+                            <p>Parker Day is a Los Angeles-based photographer whose work deals with identity, the formation of our personas, and what lies beneath them.</p>
+                            <div class="social-link">
+                                <a href="https://x.com/heyparkerday" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
+                                        alt="X (Twitter) Logo">
+                                    <h3>Parker Day</h3>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.carousel');
+        const cards = document.querySelectorAll('.card');
+        const leftArrow = document.querySelector('.swiper-twitters-left-arrow');
+        const rightArrow = document.querySelector('.swiper-twitters-right-arrow');
+        
+        let currentPosition = 0;
+        let animationFrame;
+        
+        // Calculate dimensions
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 32; // 2rem gap
+        
+        function calculateVisibleCards() {
+            const containerWidth = document.querySelector('.speakers-carousel-wrapper').offsetWidth;
+            return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
+        }
+        
+        let visibleCards = calculateVisibleCards();
+        const totalCards = cards.length;
+        
+        function calculateTotalScrollWidth() {
+            return Math.max(0, (cardWidth + gap) * (totalCards - visibleCards));
+        }
+        
+        let totalScrollWidth = calculateTotalScrollWidth();
+        
+        function startAutoPlay() {
+            stopAutoPlay();
+            
+            let lastTimestamp = 0;
+            const animate = (timestamp) => {
+                if (!lastTimestamp) lastTimestamp = timestamp;
+                const elapsed = timestamp - lastTimestamp;
+                
+                if (elapsed > 30) {
+                    currentPosition += 1;
+                    if (currentPosition > totalScrollWidth) {
+                        currentPosition = 0;
+                    }
+                    updateCarousel(currentPosition);
+                    lastTimestamp = timestamp;
+                }
+                
+                animationFrame = requestAnimationFrame(animate);
+            };
+            
+            animationFrame = requestAnimationFrame(animate);
+        }
+        
+        function stopAutoPlay() {
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
+        }
+        
+        function updateCarousel(position) {
+            // Ensure position is within bounds
+            position = Math.max(0, Math.min(position, totalScrollWidth));
+            currentPosition = position;
+            
+            // Update carousel position
+            carousel.style.transform = `translate3d(-${position}px, 0, 0)`;
+            
+            // Update arrow states
+            updateArrowStates();
+        }
+        
+        function updateArrowStates() {
+            // Left arrow disabled if at the beginning
+            if (currentPosition <= 0) {
+                leftArrow.classList.add('swiper-button-disabled');
+            } else {
+                leftArrow.classList.remove('swiper-button-disabled');
+            }
+            
+            // Right arrow disabled if at the end
+            if (currentPosition >= totalScrollWidth) {
+                rightArrow.classList.add('swiper-button-disabled');
+            } else {
+                rightArrow.classList.remove('swiper-button-disabled');
+            }
+        }
+        
+        // Move carousel to the left
+        leftArrow.addEventListener('click', function() {
+            stopAutoPlay();
+            const moveAmount = cardWidth + gap;
+            updateCarousel(currentPosition - moveAmount);
+        });
+        
+        // Move carousel to the right
+        rightArrow.addEventListener('click', function() {
+            stopAutoPlay();
+            const moveAmount = cardWidth + gap;
+            updateCarousel(currentPosition + moveAmount);
+        });
+        
+        // Handle hover on cards
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', stopAutoPlay);
+            card.addEventListener('mouseleave', startAutoPlay);
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            clearTimeout(window.carouselResizeTimeout);
+            window.carouselResizeTimeout = setTimeout(() => {
+                visibleCards = calculateVisibleCards();
+                totalScrollWidth = calculateTotalScrollWidth();
+                updateCarousel(currentPosition);
+                
+                // Hide arrows if all cards are visible
+                const arrowsContainer = document.querySelector('.swiper-twitters-arrows');
+                if (arrowsContainer) {
+                    arrowsContainer.style.display = totalScrollWidth > 0 ? 'flex' : 'none';
+                }
+            }, 250);
+        });
+        
+        // Initialize
+        updateCarousel(0);
+        setTimeout(startAutoPlay, 500);
+    });
+</script>
+
+</html>
+
+
+

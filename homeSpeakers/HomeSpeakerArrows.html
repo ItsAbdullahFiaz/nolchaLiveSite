@@ -1,0 +1,120 @@
+<!-- Speakers Carousel Navigation Arrows -->
+<div class="swiper-twitters-arrows">
+  <div class="swiper-twitters-left-arrow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+      <path
+        d="M21.559,12.062 L15.618,17.984 L21.5221,23.944 C22.105,24.533 22.1021,25.482 21.5131,26.065 C21.2211,26.355 20.8391,26.4999987 20.4571,26.4999987 C20.0711,26.4999987 19.6851,26.352 19.3921,26.056 L12.4351,19.034 C11.8531,18.446 11.8551,17.4999987 12.4411,16.916 L19.4411,9.938 C20.0261,9.353 20.9781,9.354 21.5621,9.941 C22.1471,10.528 22.1451,11.478 21.5591,12.062 L21.559,12.062 Z"
+      ></path>
+    </svg>
+  </div>
+
+  <div class="swiper-twitters-right-arrow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
+      <path
+        d="M23.5587,16.916 C24.1447,17.4999987 24.1467,18.446 23.5647,19.034 L16.6077,26.056 C16.3147,26.352 15.9287,26.4999987 15.5427,26.4999987 C15.1607,26.4999987 14.7787,26.355 14.4867,26.065 C13.8977,25.482 13.8947,24.533 14.4777,23.944 L20.3818,17.984 L14.4408,12.062 C13.8548,11.478 13.8528,10.5279 14.4378,9.941 C15.0218,9.354 15.9738,9.353 16.5588,9.938 L23.5588,16.916 L23.5587,16.916 Z"
+      ></path>
+    </svg>
+  </div>
+</div>
+
+<style>
+  /* Arrow Navigation Styles */
+  .swiper-twitters-arrows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.81rem;
+    margin-top: 2rem;
+  }
+
+  .swiper-twitters-left-arrow, 
+  .swiper-twitters-right-arrow {
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.89063rem;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid #befd6f;
+    background: linear-gradient(69deg, #befd6f 0%, #0b0b0a 100%), #000;
+    fill: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .swiper-twitters-left-arrow:hover, 
+  .swiper-twitters-right-arrow:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+
+  .swiper-button-disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  
+  /* Tablet & Mobile View */
+  @media (max-width: 768px) {
+    .swiper-twitters-arrows {
+      gap: 0.5rem;
+    }
+    
+    .swiper-twitters-left-arrow, 
+    .swiper-twitters-right-arrow {
+      width: 3.5rem;
+      height: 3.5rem;
+      padding: 0.9rem;
+    }
+  }
+
+  /* Small Mobile Screens */
+  @media (max-width: 480px) {
+    .swiper-twitters-arrows {
+      gap: 0.3rem;
+    }
+    
+    .swiper-twitters-left-arrow, 
+    .swiper-twitters-right-arrow {
+      width: 3rem;
+      height: 3rem;
+      padding: 0.8rem;
+    }
+  }
+</style>
+
+<script>
+  // This script ensures the arrows are properly connected to the carousel
+  document.addEventListener('DOMContentLoaded', function() {
+    // Wait for carousel script to initialize
+    setTimeout(() => {
+      // We now have the arrows in a separate widget, make sure they're properly connected
+      const leftArrow = document.querySelector('.swiper-twitters-left-arrow');
+      const rightArrow = document.querySelector('.swiper-twitters-right-arrow');
+      
+      // Check if the carousel is present
+      const carousel = document.querySelector('.carousel');
+      if (!carousel) return;
+      
+      // Fade in arrows once loaded
+      if (leftArrow && rightArrow) {
+        leftArrow.style.opacity = "1";
+        rightArrow.style.opacity = "1";
+      }
+      
+      // Ensure arrow state is updated initially
+      const arrowsContainer = document.querySelector('.swiper-twitters-arrows');
+      if (arrowsContainer) {
+        // Get carousel visibility state
+        const carouselWrapper = document.querySelector('.speakers-carousel-wrapper');
+        if (carouselWrapper) {
+          // If the carousel is visible, make sure arrow visibility is properly updated
+          setTimeout(() => {
+            const event = new Event('resize');
+            window.dispatchEvent(event);
+          }, 500);
+        }
+      }
+    }, 500);
+  });
+</script>
