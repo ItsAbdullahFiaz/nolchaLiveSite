@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Card with Partnership Section</title>
+    <style>
+        /* Import the 'Tomorrow' font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        /* Set font family for all elements with importance */
+        * {
+            font-family: 'Tomorrow', Arial, sans-serif !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #222; /* Dark background as in the image */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .twitter-card {
+            width: 48%;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .glassmorphism-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08); /* Slightly darker glass effect */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .twitter-tweet {
+            margin: 0 !important;
+        }
+
+        .partnership-section {
+            width: 48%;
+            color: #f0f0f0; /* Light text color */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically center the content */
+            align-items: flex-start; /* Align text to the left */
+        }
+
+        .partnership-section h1 {
+            font-size: 2.5rem; /* Slightly smaller heading */
+            margin-bottom: 1.5rem;
+            font-weight: 700; /* Bold heading */
+            color: #c1ff72; /* Vibrant green color */
+            line-height: 1.2;
+        }
+
+        .partner-logos {
+            display: grid;
+            grid-template-columns: repeat(2, auto); /* Two columns for logos */
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .partner-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px; /* Adjust size as needed */
+            height: auto;
+        }
+
+        .partner-logo {
+            max-width: 100%;
+            height: auto;
+            filter: brightness(0) invert(1); /* White logos */
+            transition: opacity 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .twitter-card, .partnership-section {
+                width: 100%;
+            }
+            .partnership-section h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+            .partner-logos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .partner-logo-container {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="twitter-card">
+            <div class="glassmorphism-container">
+                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The <a href="https://twitter.com/NolchaShows?ref_src=twsrc%5Etfw">@NolchaShows</a> Opening Party set the tone for an unforgettable week— good vibes, great people, and next-level energy.<br><br>Watch the recap and relive the night! <a href="https://t.co/ZjS1q6FwqQ">pic.twitter.com/ZjS1q6FwqQ</a></p>&mdash; ETHDenver 🏔🦬🦄 (@EthereumDenver) <a href="https://twitter.com/EthereumDenver/status/1906140157717213341?ref_src=twsrc%5Etfw">March 30, 2025</a></blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+
+        <div class="partnership-section">
+            <h1>In partnership with the leading WEB3 and crypto Conferences</h1>
+            <div class="partner-logos">
+                <div class="partner-logo-container">
+                    <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/ed1e25f8-1877-4fd7-b5de-69198918ffdc/width800.png?format=2500w" alt="Bitcoin 2025" class="partner-logo">
+                </div>
+                <div class="partner-logo-container">
+                    <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/4484d620-85bc-4516-9d2a-544f1ca743ba/width800+%281%29.png?format=1000w" alt="ETHDenver" class="partner-logo">
+                </div>
+                <div class="partner-logo-container">
+                    <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/e82bcec9-64bf-491b-8add-7334fecdb782/width800+%282%29.png?format=2500w" alt="Consensus 2025" class="partner-logo">
+                </div>
+                <div class="partner-logo-container">
+                    <img src="https://images.squarespace-cdn.com/content/v1/6543e07afbb3360bba3e0b3b/790e1609-f3a9-41ff-b64b-4ebb31fc35fa/width800+%283%29.png?format=1000w" alt="CoinDesk" class="partner-logo">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (window.twttr && window.twttr.widgets) {
+            twttr.widgets.load();
+        }
+    </script>
+</body>
+</html>
