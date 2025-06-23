@@ -683,11 +683,30 @@ if (typeof(swiperPopUpsection) !== 'undefined' && swiperPopUpsection !== null) {
     loop: false,
     spaceBetween: twitMobileGap,
     slidesPerView: 1,
-    grabCursor: false,
-      slidesOffsetBefore: 0,
-      slidesOffsetAfter: 0,
+    grabCursor: true,
+    slidesOffsetBefore: 0,
+    slidesOffsetAfter: 0,
+    speed: 800,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.5,
+    freeModeMomentumVelocityRatio: 0.5,
+    freeModeMomentumBounce: true,
+    freeModeMomentumBounceRatio: 0.5,
+    touchRatio: 1,
+    touchAngle: 45,
+    touchMoveStopPropagation: false,
+    touchStartPreventDefault: false,
+    touchStartForcePreventDefault: false,
+    touchReleaseOnEdges: true,
+    resistance: true,
+    resistanceRatio: 0.85,
+    followFinger: true,
+    threshold: 5,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
     
-      breakpoints: {
+    breakpoints: {
         560: {
           slidesPerView: 'auto',
           spaceBetween: twitTabletGap,
@@ -700,12 +719,30 @@ if (typeof(swiperPopUpsection) !== 'undefined' && swiperPopUpsection !== null) {
           slidesOffsetBefore: 10,
           slidesOffsetAfter: 10,
         }
-      },
+    },
     
     navigation: {
       nextEl: '.swiper-twitters-right-arrow',
       prevEl: '.swiper-twitters-left-arrow',
     },
+  });
+
+  // Add smooth scroll behavior
+  swiperTwit.on('touchStart', function() {
+    swiperTwit.params.speed = 300;
+  });
+
+  swiperTwit.on('touchEnd', function() {
+    swiperTwit.params.speed = 800;
+  });
+
+  // Add momentum scrolling
+  swiperTwit.on('touchMove', function() {
+    if (swiperTwit.touches.diff > 0) {
+      swiperTwit.params.freeModeMomentumRatio = 0.5;
+    } else {
+      swiperTwit.params.freeModeMomentumRatio = 0.5;
+    }
   });
 
   window.addEventListener('load', () => {
@@ -715,3 +752,116 @@ if (typeof(swiperPopUpsection) !== 'undefined' && swiperPopUpsection !== null) {
   });
   }
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Create the two-column container
+    const container = document.createElement('div');
+    container.className = 'two-column-scroll-container';
+    container.style.cssText = `
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 100px;
+    `;
+
+    // Create left column
+    const leftColumn = document.createElement('div');
+    leftColumn.className = 'scroll-column left-column';
+    leftColumn.style.cssText = `
+        width: 45%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    `;
+
+    // Create right column
+    const rightColumn = document.createElement('div');
+    rightColumn.className = 'scroll-column right-column';
+    rightColumn.style.cssText = `
+        width: 45%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    `;
+
+    // Add columns to container
+    container.appendChild(leftColumn);
+    container.appendChild(rightColumn);
+
+    // Find the Case study section and insert our container before it
+    const caseStudySection = document.querySelector('.case-study-section');
+    if (caseStudySection) {
+        caseStudySection.parentNode.insertBefore(container, caseStudySection);
+    }
+
+    // Animation for the columns
+    gsap.to(leftColumn, {
+        y: "-100%",
+        duration: 20,
+        repeat: -1,
+        ease: "none",
+        yoyo: true
+    });
+
+    gsap.to(rightColumn, {
+        y: "100%",
+        duration: 20,
+        repeat: -1,
+        ease: "none",
+        yoyo: true
+    });
+
+    // Add scroll trigger to control animation
+    ScrollTrigger.create({
+        trigger: container,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        animation: gsap.timeline()
+            .to(leftColumn, { y: "-100%" })
+            .to(rightColumn, { y: "100%" }, 0)
+    });
+});
+</script>
+
+<style>
+.two-column-scroll-container {
+    background: transparent;
+}
+
+.scroll-column {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.left-column {
+    transform: translateY(0);
+}
+
+.right-column {
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .two-column-scroll-container {
+        flex-direction: column;
+        height: 150vh;
+    }
+
+    .scroll-column {
+        width: 90% !important;
+        height: 45% !important;
+    }
+}
+</style>
