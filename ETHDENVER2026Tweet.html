@@ -23,3 +23,46 @@
         </div>
     </div>
 </div>
+
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+//Twitters Slider
+    const twittersSwiper = document.querySelector('.swiper-twitters')
+  if(twittersSwiper){
+    const swiperTwit = new Swiper('.swiper-twitters', {
+    loop: false,
+    spaceBetween: twitMobileGap,
+    slidesPerView: 1,
+    grabCursor: false,
+      slidesOffsetBefore: 0,
+      slidesOffsetAfter: 0,
+    
+      breakpoints: {
+        560: {
+          slidesPerView: 'auto',
+          spaceBetween: twitTabletGap,
+          slidesOffsetBefore: 10,
+          slidesOffsetAfter: 10,
+        },
+        1440: {
+          slidesPerView: 'auto',
+          spaceBetween: twitDesctopGap,
+          slidesOffsetBefore: 10,
+          slidesOffsetAfter: 10,
+        }
+      },
+    
+    navigation: {
+      nextEl: '.swiper-twitters-right-arrow',
+      prevEl: '.swiper-twitters-left-arrow',
+    },
+  });
+
+  window.addEventListener('load', () => {
+    if (typeof twttr !== "undefined") {
+      twttr.widgets.load();
+    }
+  });
+  }
+</script>
